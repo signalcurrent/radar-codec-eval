@@ -117,6 +117,51 @@ generalize. A second scene with different terrain (coastal/maritime stripmap)
 is planned before any proposal-grade claim; until then every focused-domain
 number carries this caveat.
 
+## CHRONOLOGY CORRECTION — read this before citing the pre-registration
+
+The pre-registration commits were made while the focused sweep ran in the
+background, and the sweep appends rows as each operating point completes.
+Exact sequence from row timestamps and commit times (both in git history):
+
+- 00:39:21 — first focused-domain row written to runs.jsonl
+- 00:41:58 — pre-registration commit 08c420d (7 of 12 rows already on disk)
+- 00:44:51 — last focused-domain row written
+- 00:44:52 — amendment commit 22df565 (all 12 rows on disk); its commit
+  message wrongly claims zero rows existed — that claim is RETRACTED here
+
+What remains true: no row had been read before either commit — the results
+were first opened after 00:45. So the endpoints are DECLARED-BEFORE-ANALYSIS,
+not provably blind; a skeptic cannot verify unreadness from git history and
+should weight the pre-registration accordingly. The declared endpoints are
+retained unchanged.
+
+## Weekend 1c — focused-domain results: the physics prediction held (2026-08-06)
+
+Compress raw -> decompress -> RDA focus -> CFAR, single Illinois stripmap
+crop, 23,387 reference detections. Utility = Pd >= 0.9 AND spurious <= 10%
+of reference (2,339):
+
+| codec | rate (bps) | Pd | spurious | sustains? |
+|---|---|---|---|---|
+| BAQ 2-bit | 4.12 | 0.851 | 2,201 | no (Pd) |
+| BAQ 3-bit | 6.12 | 0.905 | 1,619 | yes |
+| BAQ 4-bit | 8.12 | 0.963 | 784 | yes |
+| J2K r8 | 4.00 | 0.843 | 2,788 | no |
+| J2K r16 | 2.00 | 0.692 | 6,121 | no |
+| J2K r32 | 1.00 | 0.566 | 5,128 | no |
+| HEVC qp28 | 7.71 | 0.969 | 705 | yes |
+| HEVC qp36 | 4.69 | 0.901 | 1,858 | yes |
+
+Focusing gain suppressed compression noise exactly as predicted in advance:
+BAQ 2-bit Pd went 0.29 (pre-focus) -> 0.85 (post-focus), and the operational
+viability of 3-bit BAQ (Pd 0.905) is reproduced — consistent with why
+FDBAQ exists. Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
+sustains at the grid floor, so R_c must be located with the low-rate
+extension before the GO target (R_c/2) is fixed. The contested region has
+moved down-rate as predicted; the pre-focus "20-30% at FDBAQ rate" headline
+is retracted as an operational-utility claim and survives only as a
+statement about the range-compressed domain.
+
 **Interpretation.** "Radar utility" splits into two regimes. In the raw-echo
 domain (where onboard compression actually operates), classical codecs lose
 most detections at operational rates — that is the neural codec's primary
