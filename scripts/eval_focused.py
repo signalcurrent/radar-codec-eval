@@ -11,6 +11,7 @@ ground truth.
 
 import argparse
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -75,7 +76,12 @@ def main():
 
     for codec_cfg in cfg["codecs"]:
         for name, params in operating_points(codec_cfg):
+            # wall time for encode+decode combined — crude (Python vs native
+            # varies by orders of magnitude) but answers "why not just HEVC?"
+            # with the onboard-compute argument Phase II will demand properly
+            t0 = time.perf_counter()
             raw_hat, rate = CODECS[name](raw, **params)
+            codec_s = time.perf_counter() - t0
             img_hat = focus_stripmap(raw_hat, meta)
             del raw_hat
             det = detection_agreement(interior(ref), interior(img_hat), **cfar_cfg)
@@ -84,9 +90,11 @@ def main():
                 "codec": name, "params": params, "domain": "s1_focused",
                 "rate_bps": float(rate), "cfar_pd": det["pd"],
                 "cfar_false": det["n_false"], "n_ref_detections": det["n_ref"],
+                "codec_seconds": round(codec_s, 2),
+                "msamples_per_s": round(raw.size / codec_s / 1e6, 2),
             })
             print(f"{name} {params}: rate={rate:.2f} bps  pd={det['pd']:.3f}  "
-                  f"false={det['n_false']}  n_ref={det['n_ref']}")
+                  f"false={det['n_false']}  codec_s={codec_s:.1f}")
 
 
 if __name__ == "__main__":

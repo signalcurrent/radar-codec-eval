@@ -20,15 +20,17 @@ for line in open("experiments/runs.jsonl"):
     runs[(r.get("domain", "s1"), r["codec"], round(r["rate_bps"], 2))] = r
 
 Path("reports").mkdir(exist_ok=True)
-for metric, label, fname in [
-    ("cfar_pd", "CFAR detection agreement (Pd)", "rate_vs_pd.png"),
-    ("mse", "MSE (raw I/Q)", "rate_vs_mse.png"),
-    ("phase_rmse", "Phase RMSE (rad)", "rate_vs_phase.png"),
-    ("atr_acc", "Frozen-ATR accuracy (MSTAR 15 deg)", "rate_vs_atr.png"),
-]:
+PLOTS = [
+    # (metric, required domain, label, filename)
+    ("cfar_pd", "s1_focused", "Post-focus CFAR detection agreement (Pd)", "rate_vs_pd.png"),
+    ("mse", "s1", "MSE (raw I/Q)", "rate_vs_mse.png"),
+    ("phase_rmse", "s1", "Phase RMSE (rad)", "rate_vs_phase.png"),
+    ("atr_acc", "mstar", "Frozen-ATR accuracy (MSTAR 15 deg)", "rate_vs_atr.png"),
+]
+for metric, domain, label, fname in PLOTS:
     by_codec = {}
     for r in runs.values():
-        if metric in r and r[metric] == r[metric]:  # present and not NaN
+        if r.get("domain", "s1") == domain and metric in r and r[metric] == r[metric]:
             by_codec.setdefault(r["codec"], []).append(r)
     if not by_codec:
         continue
@@ -37,12 +39,13 @@ for metric, label, fname in [
         rows = sorted(rows, key=lambda r: r["rate_bps"])
         style = "o-" if codec != "uncompressed" else "k*"
         ax.plot([r["rate_bps"] for r in rows], [r[metric] for r in rows], style, label=codec)
-    ax.set_xlabel("rate (bits per complex sample)")
+    ax.set_xlabel("rate (bits per COMPLEX sample, I+Q combined)")
     ax.set_ylabel(label)
     if metric == "mse":
         ax.set_yscale("log")
-    ax.axvline(3.4, ls="--", lw=1, color="gray")
-    ax.text(3.45, ax.get_ylim()[1], " FDBAQ IW avg", va="top", fontsize=8, color="gray")
+    # ESA quotes FDBAQ per real component (~3.4); on this axis that is ~6.8
+    ax.axvline(6.8, ls="--", lw=1, color="gray")
+    ax.text(6.85, ax.get_ylim()[1], " FDBAQ IW avg (~3.4 b/component)", va="top", fontsize=8, color="gray")
     ax.legend()
     ax.grid(alpha=0.3)
     fig.tight_layout()

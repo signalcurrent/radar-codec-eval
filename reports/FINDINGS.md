@@ -3,6 +3,12 @@
 Running notes toward the 1–2 page feasibility summary. Newest at the bottom.
 Numbers regenerable from `experiments/runs.jsonl` via `scripts/plot_curves.py`.
 
+**RATE UNIT CONVENTION (applies to every number in this file and every plot):
+bits per COMPLEX sample, I and Q combined.** ESA quotes FDBAQ per real
+component (~2.6–3.6 bits/component in IW); on our axis that is ~5–7, nominal
+**~6.8 bits/complex-sample**. Our BAQ n-bit points sit at 2n + 16/block bps.
+Any comparison to published per-component figures must double them first.
+
 ## Weekend 1 — classical baselines on real data (2026-08-06)
 
 **Setup.** 1,268 train / 223 val complex 256×256 patches from 4 echo chunks of
@@ -15,8 +21,10 @@ after range compression; small CNN ATR trained once on uncompressed chips
 **Headline.** Classical codecs collapse on radar-utility metrics well above
 the rates where they look acceptable on MSE:
 
-- At FDBAQ's ~3.4 bits/complex-sample operating point, the best classical
-  codec preserves only ~20–30% of CFAR detections.
+- At ~4 bits/complex-sample (below FDBAQ's ~6.8; unit correction applied
+  2026-08-06, see convention above), the best classical codec preserves only
+  ~20–30% of CFAR detections. [Section retracted as operational claim — see
+  Weekend 1c; pre-focus scoring.]
 - No classical codec exceeds Pd 0.8 below ~8–12 bits/sample.
 - JPEG2000 beats BAQ per bit at moderate rates (transform coding exploits
   spatial correlation BAQ ignores) but degrades phase fastest — phase RMSE
@@ -151,6 +159,17 @@ of reference (2,339):
 | J2K r32 | 1.00 | 0.566 | 5,128 | no |
 | HEVC qp28 | 7.71 | 0.969 | 705 | yes |
 | HEVC qp36 | 4.69 | 0.901 | 1,858 | yes |
+
+**R_c determination (low-rate extension, same pipeline):** BAQ 1-bit
+(2.12 bps) Pd 0.660; HEVC qp40 (3.18 bps) Pd 0.825 with 2,578 spurious
+(fails both criteria); HEVC qp44 (1.82 bps) Pd 0.717; JPEG2000 r64/r128
+(0.50/0.25 bps) Pd 0.438/0.323. No classical codec sustains utility below
+4.69 bps. **R_c = 4.69 bits/complex-sample (~2.3 bits/component) ->
+pre-registered GO target: sustain utility at <= 2.35 bits/complex-sample
+(~1.2 bits/component), i.e. ~3x below the FDBAQ-class operating point.** That target sits below BAQ's physical
+floor (~2.1 bps is already failing) and in the regime where transform codecs
+have lost 20-30 points of Pd — a genuine, quantified gap for the learned
+codec, narrower but far more defensible than the retracted pre-focus version.
 
 Focusing gain suppressed compression noise exactly as predicted in advance:
 BAQ 2-bit Pd went 0.29 (pre-focus) -> 0.85 (post-focus), and the operational
