@@ -27,11 +27,12 @@ FFMPEG = _find_ffmpeg()
 
 def hevc_codec(iq, qp=20, **_):
     """Returns (iq_hat, rate_bits_per_complex_sample)."""
+    from radarcodec.baselines.planemap import plane_to_u16, u16_to_plane
+
     h, w = iq.shape
-    planes = np.stack([iq.real, iq.imag]).astype(np.float64)
-    lo, hi = planes.min(), planes.max()
-    scale = (hi - lo) + 1e-12
-    u16 = np.round((planes - lo) / scale * 65535).astype("<u2")
+    u16_i, c_i = plane_to_u16(iq.real.astype(np.float64))
+    u16_q, c_q = plane_to_u16(iq.imag.astype(np.float64))
+    u16 = np.ascontiguousarray(np.stack([u16_i, u16_q]).astype("<u2"))
 
     with tempfile.TemporaryDirectory() as td:
         raw, enc, dec = Path(td) / "in.raw", Path(td) / "out.hevc", Path(td) / "dec.raw"
@@ -48,7 +49,6 @@ def hevc_codec(iq, qp=20, **_):
             check=True)
         out = np.frombuffer(dec.read_bytes(), dtype="<u2").reshape(2, h, w)
 
-    rec = out.astype(np.float64) / 65535 * scale + lo
-    iq_hat = (rec[0] + 1j * rec[1]).astype(np.complex64)
+    iq_hat = (u16_to_plane(out[0], c_i) + 1j * u16_to_plane(out[1], c_q)).astype(np.complex64)
     rate = 8.0 * nbytes / iq.size
     return iq_hat, rate

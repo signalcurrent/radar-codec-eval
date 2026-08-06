@@ -93,6 +93,7 @@ def main():
                 "cfar_false": det["n_false"], "n_ref_detections": det["n_ref"],
                 "codec_seconds": round(codec_s, 2),
                 "msamples_per_s": round(raw.size / codec_s / 1e6, 2),
+                "mapping": "v2-pctclip99.99",
             })
             print(f"{name} {params}: rate={rate:.2f} bps  pd={det['pd']:.3f}  "
                   f"false={det['n_false']}  codec_s={codec_s:.1f}")

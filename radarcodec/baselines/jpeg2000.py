@@ -1,5 +1,7 @@
 """JPEG2000 baseline applied per I/Q plane (16-bit scaled), via Pillow/OpenJPEG.
 
+Plane scaling uses the shared mapping v2 (percentile clip, planemap.py) so
+every plane-based codec sees the identical effective distortion measure.
 Rate is measured from actual encoded bytes of both planes.
 """
 
@@ -8,20 +10,19 @@ import io
 import numpy as np
 from PIL import Image
 
+from radarcodec.baselines.planemap import plane_to_u16, u16_to_plane
+
 
 def _encode_plane(plane, ratio):
-    lo, hi = plane.min(), plane.max()
-    scale = (hi - lo) + 1e-12
-    u16 = np.round((plane - lo) / scale * 65535).astype(np.uint16)
+    u16, c = plane_to_u16(plane)
     buf = io.BytesIO()
     Image.fromarray(u16, mode="I;16").save(
         buf, format="JPEG2000", quality_mode="rates", quality_layers=[ratio], irreversible=True
     )
     nbytes = buf.tell()
     buf.seek(0)
-    dec = np.asarray(Image.open(buf), dtype=np.float64)
-    rec = dec / 65535 * scale + lo
-    return rec, nbytes
+    dec = np.asarray(Image.open(buf), dtype=np.uint16)
+    return u16_to_plane(dec, c), nbytes
 
 
 def jpeg2000_codec(iq, ratio=8, **_):
