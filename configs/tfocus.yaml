@@ -1,0 +1,30 @@
+# Registered transform baseline + compute ablation (FINDINGS.md Amendment 3).
+# 'none' arm = classical codecs on raw, already logged. Round-trip acceptance
+# test passed (7e-7 relative) before this config ran.
+seed: 1337
+patches: data/patches/train.npz
+out: experiments/runs.jsonl
+
+codecs:
+  - name: tfocus
+    base: jpeg2000
+    mode: full
+    ratio: [8, 16, 32, 64]     # ~4 / 2 / 1 / 0.5 bps — brackets the 2.35 GO target
+  - name: tfocus
+    base: hevc
+    mode: full
+    qp: [36, 40, 44]
+  - name: tfocus
+    base: jpeg2000
+    mode: dechirp
+    ratio: [8, 16, 32, 64]
+  - name: tfocus
+    base: hevc
+    mode: dechirp
+    qp: [36, 40, 44]
+
+tasks:
+  cfar:
+    pfa: 1.0e-4
+    guard: 2
+    train: 8

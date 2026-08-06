@@ -79,8 +79,9 @@ def main():
             # wall time for encode+decode combined — crude (Python vs native
             # varies by orders of magnitude) but answers "why not just HEVC?"
             # with the onboard-compute argument Phase II will demand properly
+            extra = {"meta": meta} if name == "tfocus" else {}  # chirp/timing side info, not a swept param
             t0 = time.perf_counter()
-            raw_hat, rate = CODECS[name](raw, **params)
+            raw_hat, rate = CODECS[name](raw, **params, **extra)
             codec_s = time.perf_counter() - t0
             img_hat = focus_stripmap(raw_hat, meta)
             del raw_hat
