@@ -57,6 +57,44 @@ frozen classifier (uncompressed ceiling on this subsample: 86.0%):
   for raw echo statistics, is the WORST performer on focused imagery, the
   mirror image of the raw-domain result.
 
+## Frozen-classifier robustness check (2026-08-06)
+
+The v1 ATR ceiling (86%) invited the objection that a stronger classifier
+would be more robust to compression artifacts, shrinking the effect. Tested
+directly: classifier strengthened (shift augmentation, 60 epochs, cosine LR)
+to 90.4% test accuracy, sweep rerun against the frozen v2. Result: the curve
+keeps its shape. Low-rate collapse is unchanged (HEVC 1.38 bps: 47.7% → 48.0%;
+J2K 0.98 bps: 55.3% → 57.7%), and mid-rate points track the higher ceiling.
+The degradation effect is a property of the codecs, not of classifier
+weakness. Objection answered with data.
+
+## PRE-REGISTRATION — corrected go/no-go, recorded BEFORE focused results (2026-08-06)
+
+The original bar ("neural Pd >= 0.9 at <= 4 bps, where no classical codec
+reaches") was set against pre-focus CFAR scoring, which measured detection on
+range-compressed but azimuth-unfocused data. That measurement is now known to
+be flawed as a proxy for operational utility, so the bar derived from it is
+void and is re-registered here before `eval_focused.py` results exist.
+
+**Physics prediction, stated in advance:** focusing is coherent integration
+with large processing gain; approximately-white quantization noise integrates
+incoherently while signal integrates coherently, so focusing should suppress
+compression noise substantially. Classical codecs are therefore expected to
+look much better post-focus — this is exactly why BAQ/FDBAQ at 2–4 bits are
+operationally viable — and the contested territory should move below ~2 bps.
+
+**Re-registered primary endpoint (rate-relative, so it does not depend on
+where classical lands):** let R_c = the lowest rate at which the best
+classical codec sustains focused-domain Pd >= 0.9. GO requires the learned
+codec to sustain Pd >= 0.9 at <= R_c/2 (a >= 2x rate advantage at matched
+utility). Secondary endpoint (unaffected by the focusing correction, since
+MSTAR chips were always focused imagery): learned codec must beat the best
+classical accuracy-vs-rate curve below 2 bps on the frozen-ATR eval.
+Anything less on both endpoints is NO-GO, reported as a negative result:
+"classical codecs are near-utility-lossless at operational rates; the frontier
+is below 2 bps, and here is what would have to be true for learned coding to
+beat it."
+
 **Interpretation.** "Radar utility" splits into two regimes. In the raw-echo
 domain (where onboard compression actually operates), classical codecs lose
 most detections at operational rates — that is the neural codec's primary
