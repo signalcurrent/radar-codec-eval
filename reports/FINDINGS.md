@@ -219,7 +219,62 @@ target, that is a major finding about WHERE the win comes from (the
 transform, not the learning) and the learned codec must then beat it, not
 just BAQ. Proposal narrative in one line: classical onboard codecs treat raw
 radar as memoryless noise; any codec — learned or not — wins only by
-exploiting the chirp and aperture coherence they discard. Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
+exploiting the chirp and aperture coherence they discard.
+
+## AMENDMENT 3 (blind: transform baseline has NOT run) — theory, invertibility
+## test, compute ablation, and pre-registered readings (2026-08-06)
+
+**Theory, stated properly (for the paper):** a phase-only focus is unitary and
+preserves total entropy — it buys nothing on pure information-theoretic
+accounting. What it changes is the distribution of variance across
+coefficients, which is where transform coding gain lives: gain = ratio of
+arithmetic to geometric mean of coefficient variances. Raw echoes spread
+variance nearly uniformly (ratio ~1, gain ~0), so entropy-coded scalar
+quantization — BAQ/FDBAQ — is near-optimal there. Focused data concentrates
+energy into sparse scatterers over dark clutter (huge variance disparity,
+large gain). This one argument explains the regime split, explains why FDBAQ
+is the right raw-domain answer, and explains why any better codec — learned
+or classical — needs the transform to have structure to exploit.
+
+**Invertibility must be verified numerically before anything builds on it.**
+Known threats: (1) amplitude windowing (we use none); (2) RCMC by sinc
+interpolation (ours is a linear-phase ramp — safe); (3) the real one: our
+matched filter is conj(FFT(replica)), whose magnitude collapses out of the
+chirp band — NOT invertible as implemented. The transform codec must use the
+PHASE-ONLY filter H/|H| and circular (unpadded) convolution so every step is
+exactly unitary. Acceptance test, registered in advance: forward transform ->
+inverse transform on uncompressed data must round-trip at machine precision
+(relative error ~1e-6 for complex64). If it fails, stop and fix before any
+baseline or model runs.
+
+**Compute ablation, registered in advance:** full onboard focusing moves the
+expensive operation to the platform — which is why raw downlink exists, and
+revives "why not HEVC" as a compute question. Ablation arms: (none /
+range-dechirp-only / full focus) x (classical codec). Range dechirp is one
+complex multiply per sample plus an FFT and collapses the ~2,400-sample chirp
+to a peak per scatterer; azimuth is the expensive half. If dechirp-only
+captures most of the gain, that is the embeddable Phase II story. If only
+full focus works, that constraint gets proposed against explicitly.
+
+**Pre-registered readings of the transform baseline (both written before the
+number exists):**
+- Outcome A — tfocus+classical sustains utility at <= 2.35 bps: headline
+  becomes "the domain transform matters more than the learning"; the cheap
+  win for the government is a preprocessing change, not a neural network.
+  The learned codec's competition is then tfocus+classical (continuous
+  outcome vs. ITS curve), and the proposal thesis shifts accordingly. This
+  outcome is a success of the study, not a failure of the idea.
+- Outcome B — tfocus+classical improves on raw-domain classical but fails
+  the GO rate: a genuine gap remains that only learned coding might close;
+  the learned codec is judged against tfocus+classical as the strongest
+  classical baseline, not against BAQ.
+- Outcome C — tfocus+classical is no better than raw-domain classical:
+  the concentration argument fails in the presence of quantization noise
+  (e.g., compressed-domain errors unfocus destructively); the architectural
+  premise for the learned codec is weakened and that gets reported honestly.
+
+Execution order, fixed: round-trip test -> tfocus+JPEG2000/HEVC -> ablation
+arms -> only then the learned model. Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
 sustains at the grid floor, so R_c must be located with the low-rate
 extension before the GO target (R_c/2) is fixed. The contested region has
 moved down-rate as predicted; the pre-focus "20-30% at FDBAQ rate" headline
