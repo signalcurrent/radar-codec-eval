@@ -44,3 +44,24 @@ FDBAQ-rate would be a publishable, proposable result.
 **Caveats.** Single scene, single polarization, 64-patch eval subsets; CFAR
 agreement tolerance 3 px; ATR is 3-class with modest (86%) frozen ceiling.
 Good enough to rank codecs; not publication statistics yet.
+
+## Weekend 1b — ATR-vs-rate on MSTAR (2026-08-06)
+
+300 held-out 15° chips through every codec operating point, scored by the
+frozen classifier (uncompressed ceiling on this subsample: 86.0%):
+
+- ATR is far more compression-tolerant than raw-echo detection: JPEG2000 at
+  3.9 bps holds 85.3% (statistically at ceiling); HEVC at 3.5 bps holds 81%.
+- Collapse only begins below ~2 bps (HEVC 1.4 bps → 47.7%; J2K 1.0 bps → 55.3%).
+- BAQ at 4 bps loses 27 points (59.0%) — block-adaptive quantization, built
+  for raw echo statistics, is the WORST performer on focused imagery, the
+  mirror image of the raw-domain result.
+
+**Interpretation.** "Radar utility" splits into two regimes. In the raw-echo
+domain (where onboard compression actually operates), classical codecs lose
+most detections at operational rates — that is the neural codec's primary
+target and the topic's stated Phase I focus. In the focused image domain,
+classical transform codecs are already near-utility-lossless at 4 bps, so a
+learned codec must win below ~2 bps to matter there. This regime split is
+itself a proposal-grade insight: it says compress-then-focus, not
+focus-then-compress, is where the money is.

@@ -12,6 +12,10 @@ Runs in the torch env:  .venv312/Scripts/python.exe scripts/eval_atr.py
 
 import argparse
 import itertools
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import numpy as np
 import yaml
