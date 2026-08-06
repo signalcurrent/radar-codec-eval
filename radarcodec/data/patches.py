@@ -38,11 +38,12 @@ def main():
     ap.add_argument("--stride", type=int, default=256)
     ap.add_argument("--val-frac", type=float, default=0.15)
     ap.add_argument("--seed", type=int, default=1337)
+    ap.add_argument("--max-chunks", type=int, default=4, help="echo chunks per product; keeps laptop runtime sane")
     args = ap.parse_args()
 
     all_patches = []
     for safe in sorted(Path(args.l0_dir).glob("*.SAFE")):
-        for burst_id, iq in read_l0_bursts(safe):
+        for burst_id, iq in read_l0_bursts(safe, max_chunks=args.max_chunks):
             p = extract_patches(iq, args.size, args.stride)
             print(f"{safe.name} burst {burst_id}: {len(p)} patches")
             all_patches.append(p)
