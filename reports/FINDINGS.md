@@ -358,6 +358,46 @@ explicitly: every codec here compresses I and Q (or transformed Re/Im)
 symmetrically — no codec skips phase freight; rates are comparable on that
 axis by construction.
 
+## Transform baseline verdict (v1 mapping, provisional) + methodological note
+## (2026-08-06)
+
+**Outcome A EXCLUDED:** none of the 14 transform-baseline points sustains the
+two-sided criterion at any rate. Full-focus JPEG2000 holds Pd 0.88–0.91 to
+0.5 bps while minting phantoms at 2–60x the limit (the registered ringing
+mechanism, confirmed in form). Dechirp-only fails mixed (Pd 0.86->0.50 plus
+milder false-alarm excess — partial concentration, partial ringing). HEVC
+transformed-domain rows were degenerate under mapping v1; B-vs-C is declared
+undecidable until the v2 rerun.
+
+**Methodological note — Amendment 4's equivalence test was inapplicable as
+registered.** The rule compared dechirp vs full-focus RATE at matched
+sustained utility; neither arm sustains utility at any rate, so the test
+cannot be evaluated as written. Surrogate used (a judgment call, recorded as
+such): compare Pd at matched rates. Full focus beats dechirp at every matched
+rate (0.908 vs 0.859 @ 4 bps; 0.901 vs 0.731 @ 2 bps), far outside the ~10%
+spirit of the registered band, so the conclusion "cheap transform is
+insufficient" HELD under the surrogate. The registered rule's inapplicability
+and the substitution are both part of the record.
+
+**Feasibility argument as it now stands (drafted before the model runs, for
+the proposal):** no classical approach sustains two-sided detection utility
+below ~4.7 bits/complex-sample — not scalar quantization in the raw domain
+(no transform coding gain: flat variance), not wavelet coding in the
+concentrated domain (gain exists but the distortion is structured as ringing,
+which detection is maximally sensitive to), not the cheap partial transform
+(insufficient concentration). Each failure has a named, generalizing
+mechanism. That negative space is the research opportunity, stated
+falsifiably.
+
+**The paragraph needed if P2 confirms (drafted in advance):** if the learned
+codec blurs — Pd eroding while spurious stays controlled — then wavelet
+coding and MSE-trained neural coding fail in COMPLEMENTARY directions, and
+neither sustains two-sided utility below R_c, because both optimize a
+distortion measure that is blind to detection. The open problem is then the
+TRAINING OBJECTIVE, not the architecture: a detection-aware loss (e.g., CFAR
+consistency or matched-filter-domain penalties) is precisely what Phase I
+funds. The weekend produces the diagnosis; the proposal funds the treatment.
+
 **Stopping rule (adopted 2026-08-06):** the experimental phase ends when the
 transform baseline AND one trained autoencoder have both been scored against
 the pre-registered continuous criterion. After that, the next artifact is
