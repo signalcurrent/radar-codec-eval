@@ -433,6 +433,32 @@ rescoring is still running; a model whose training started before the final
 classical numbers existed cannot have been tuned against them. This is
 blindness by construction, not assertion.
 
+## FINAL CLASSICAL VERDICT — mapping v2, all 31 points (2026-08-06)
+
+**R_c recomputed under v2: 4.86 bits/complex-sample** (raw-domain HEVC qp36:
+Pd 0.908, spurious 1,742). Nothing sustains below it (HEVC 3.33 bps: 0.836
+with excess spurious). **GO target: 2.43 bits/complex-sample** via the
+registered R_c/2 rule.
+
+**Outcome C on the frontier.** With the fairness mapping fixing the HEVC
+degeneracy, the transform arms sustain the two-sided criterion NOWHERE, and
+at every matched rate the utility frontier is set by RAW-domain HEVC. Per the
+pre-registered Outcome C reading: the concentration argument fails in the
+presence of quantization noise, and the architectural premise for the learned
+codec is weakened accordingly — reported as registered. The mechanism nuance
+(recorded because it defines the learned codec's remaining opening): the
+transform DOES buy Pd at matched rate (full-focus J2K 0.912/0.888/0.861 at
+4/2/1 bps vs raw J2K 0.845/0.691/0.574) — concentration works exactly as
+theory says — but pays for it in ringing phantoms (5.8k/18k/38k spurious).
+The opening for learning is therefore precisely: exploit concentration
+WITHOUT ringing. Whether an MSE-trained codec can (P2 predicts its artifact
+is blur, the opposite pole) is what the model run decides.
+
+**Fourth cell under v2:** equivalence test again inapplicable as registered
+(no transform arm sustains); under the documented surrogate (Pd at matched
+rate), full focus > dechirp everywhere (e.g., 0.888 vs 0.729 at 2 bps) —
+"cheap transform insufficient" HOLDS, consistent with v1.
+
 **Stopping rule (adopted 2026-08-06):** the experimental phase ends when the
 transform baseline AND one trained autoencoder have both been scored against
 the pre-registered continuous criterion. After that, the next artifact is

@@ -30,8 +30,15 @@ PLOTS = [
 for metric, domain, label, fname in PLOTS:
     by_codec = {}
     for r in runs.values():
-        if r.get("domain", "s1") == domain and metric in r and r[metric] == r[metric]:
-            by_codec.setdefault(r["codec"], []).append(r)
+        if r.get("domain", "s1") != domain or metric not in r or r[metric] != r[metric]:
+            continue
+        # focused-domain rows: only the mapping-v2 vintage (Amendment 5 supersession)
+        if domain == "s1_focused" and r.get("mapping") != "v2-pctclip99.99":
+            continue
+        key = r["codec"]
+        if key == "tfocus":
+            key = f"tfocus-{r['params'].get('mode', '?')}-{r['params'].get('base', '?')}"
+        by_codec.setdefault(key, []).append(r)
     if not by_codec:
         continue
     fig, ax = plt.subplots(figsize=(7, 5))
