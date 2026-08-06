@@ -174,7 +174,52 @@ codec, narrower but far more defensible than the retracted pre-focus version.
 Focusing gain suppressed compression noise exactly as predicted in advance:
 BAQ 2-bit Pd went 0.29 (pre-focus) -> 0.85 (post-focus), and the operational
 viability of 3-bit BAQ (Pd 0.905) is reproduced — consistent with why
-FDBAQ exists. Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
+FDBAQ exists.
+
+**Harness validation:** after the unit correction, 3-bit BAQ sustaining
+utility at 6.1 bits/complex-sample is our pipeline independently reproducing
+the operating point of a fielded system (FDBAQ-class, ~6.8). The evaluation
+measures something real; this is the strongest single piece of evidence for
+the harness and should lead any methods discussion.
+
+## AMENDMENT 2 (blind: no learned-codec results exist, nothing trained) —
+## continuous primary outcome + architectural constraint (2026-08-06)
+
+**Primary outcome is now continuous:** the lowest rate at which the learned
+codec sustains utility (Pd >= 0.9, spurious <= 10% of reference, identical
+CFAR config). The 2.35 bits/complex-sample threshold remains as a SECONDARY
+binary GO/NO-GO. Rationale, recorded before any model exists: a learned codec
+sustaining utility at e.g. 3.2 bps would be a NO-GO by the binary alone while
+beating the fielded FDBAQ-class point by >2x and unconstrained HEVC by 1.5x —
+an operationally excellent result that a binary-only report would headline as
+failure. The threshold is not moved; a continuous readout is added.
+
+**Architectural constraint, computed before training:** the transmitted chirp
+spans ~2,400 range samples (stripmap: 51.1 us x 46.92 MHz; IW: ~2,900) and
+target returns cohere across hundreds of azimuth pulses. Raw echo samples are
+near-memoryless complex Gaussian PER SAMPLE — for such a source, entropy-coded
+scalar quantization sits within ~0.25 bits of the rate-distortion bound,
+which is exactly why BAQ/FDBAQ work. A learned codec beats classical ONLY by
+exploiting the cross-sample structure BAQ discards: chirp correlation in
+range, aperture coherence in azimuth. Our 256x256 patches with a conv
+receptive field of ~70 px cannot see either scale — the vanilla
+CompressAI-on-raw-patches plan is declared architecturally void HERE, before
+producing a null. Design consequence: wrap the learned codec in the
+INVERTIBLE all-pass dechirp/focus transform already implemented in
+focus_rda.py (matched-filter phase, RCMC linear phase, azimuth filter phase
+are each phase-only, hence exactly invertible), concentrating deterministic
+structure inside the receptive field; compress in that domain; invert to
+recover raw samples.
+
+**New required baseline, registered before it runs:** invertible-focus +
+classical transform codec (JPEG2000/HEVC in the transformed domain, inverse
+transform on decode). This is a raw-data codec by construction and our own
+regime-split data predicts it may be strong. If it alone approaches the GO
+target, that is a major finding about WHERE the win comes from (the
+transform, not the learning) and the learned codec must then beat it, not
+just BAQ. Proposal narrative in one line: classical onboard codecs treat raw
+radar as memoryless noise; any codec — learned or not — wins only by
+exploiting the chirp and aperture coherence they discard. Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
 sustains at the grid floor, so R_c must be located with the low-rate
 extension before the GO target (R_c/2) is fixed. The contested region has
 moved down-rate as predicted; the pre-focus "20-30% at FDBAQ rate" headline
