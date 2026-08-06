@@ -313,6 +313,51 @@ sequential); unitary dechirp ~O(log n) butterflies/sample (FFT-dominated);
 learned codec ~10^3–10^4 MACs/sample (conv stacks; parallel). The ranking
 survives; the point is we name the confound first.
 
+## AMENDMENT 5 — ringing mechanism, registered prediction for the learned
+## codec, and the domain-mapping fairness rule (2026-08-06; 12/14 tfocus rows
+## on disk; NO learned-codec code or results exist)
+
+**Mechanism for the false-alarm minting (turns an observation into a claim):**
+focused SAR is bright point scatterers over dark speckle — exactly the
+high-contrast structure that makes wavelet coding ring. At low rates JPEG2000
+produces Gibbs-type oscillations around every strong scatterer: a corona of
+bright sidelobes that CFAR reads as detections. Real targets survive (Pd
+holds 0.88–0.91) while each one spawns phantoms, with counts scaling
+inversely with rate — our 4,482 -> 16,014 -> 138,131 progression at
+4 -> 2 -> 0.5 bps. General form of the claim: concentrating energy makes
+compression distortion STRUCTURED in exactly the way detection is sensitive
+to. The two-sided criterion (Amendment 1) is what catches it; Pd alone would
+have declared a spectacular false GO at 0.5 bps.
+
+**REGISTERED PREDICTION P2, before any training (window verifiably clean —
+no model code exists):** MSE-trained neural codecs characteristically BLUR
+rather than ring; the squared-error optimum smooths detail instead of
+oscillating around it. Predicted failure mode of the learned codec is
+therefore the OPPOSITE of JPEG2000's: spurious counts stay controlled while
+Pd degrades as weak scatterers smooth into clutter. Two mechanisms called in
+advance from first principles; either confirmation or refutation is
+informative about the architecture.
+
+**Domain-mapping fairness rule (decided once, applied to every codec):** the
+HEVC degenerate rows (rate ~0.00, near-black frames) come from min/max uint16
+mapping on heavy-tailed focused data. The fix — robust percentile-clip
+scaling — is NOT a neutral repair: it shifts the effective distortion toward
+uniform RELATIVE error, which matches how CFAR thresholds work, and may
+materially strengthen HEVC. Therefore: (1) one mapping — symmetric clip at
+the 99.99th percentile of |value| per plane, clip bounds stored as side info,
+then uint16 — applied to ALL plane-based codecs in ALL domains (JPEG2000,
+HEVC, raw and transformed); (2) the learned codec is granted the identical
+mapping and no more; (3) BAQ operates natively on floats (no mapping — it is
+the fielded reference and takes no benefit); (4) all previously logged
+plane-based rows are superseded by mapping-v2 reruns, old rows retained in
+the log; (5) R_c is RECOMPUTED under v2 — because the GO criterion was
+registered rate-RELATIVE (R_c/2), it self-updates mechanically; the threshold
+rule does not move, its input does, and that distinction is the point of
+having registered a relative rule. Complex-to-plane accounting, stated
+explicitly: every codec here compresses I and Q (or transformed Re/Im)
+symmetrically — no codec skips phase freight; rates are comparable on that
+axis by construction.
+
 **Stopping rule (adopted 2026-08-06):** the experimental phase ends when the
 transform baseline AND one trained autoencoder have both been scored against
 the pre-registered continuous criterion. After that, the next artifact is
