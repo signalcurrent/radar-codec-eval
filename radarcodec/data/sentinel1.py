@@ -25,9 +25,17 @@ def read_l0_bursts(safe_dir, pol="vv", min_echoes=256, max_chunks=None):
         f = s1d.Level0File(str(dat))
         pm = f.packet_metadata
         sig = pm.groupby(level=0)["Signal Type"].agg(["first", "count"])
-        echo_chunks = sig[(sig["first"] == "Echo") & (sig["count"] >= min_echoes)].index
+        is_echo = sig["first"] == s1d.SignalType.ECHO  # values are enum members, not strings
+        echo_chunks = sig[is_echo & (sig["count"] >= min_echoes)].index
         if max_chunks is not None:
             echo_chunks = echo_chunks[:max_chunks]
         for chunk in echo_chunks:
             iq = np.asarray(f.get_acquisition_chunk_data(chunk), dtype=np.complex64)
-            yield int(chunk), iq
+            row = pm.loc[chunk].iloc[0]
+            chirp = {
+                "fs": s1d.utilities.range_dec_to_sample_rate(row["Range Decimation"]),
+                "txprr": float(row["Tx Ramp Rate"]),
+                "txpsf": float(row["Tx Pulse Start Frequency"]),
+                "txpl": float(row["Tx Pulse Length"]),
+            }
+            yield int(chunk), iq, chirp

@@ -8,9 +8,9 @@ codecs:
     bits: [2, 3, 4, 6]        # 8:2 / 8:3 / 8:4 BAQ family + a generous 6-bit point
     block: 128
   - name: jpeg2000
-    ratios: [4, 8, 16, 32]    # applied per I/Q plane
+    ratio: [4, 8, 16, 32]     # applied per I/Q plane
   - name: hevc
-    qps: [12, 20, 28, 36]     # x265 lossless-ish -> aggressive
+    qp: [12, 20, 28, 36]      # x265 lossless-ish -> aggressive
 
 metrics: [rate_bps, mse, phase_rmse, irw, pslr]
 tasks:

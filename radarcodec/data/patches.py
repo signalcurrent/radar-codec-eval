@@ -41,21 +41,24 @@ def main():
     ap.add_argument("--max-chunks", type=int, default=4, help="echo chunks per product; keeps laptop runtime sane")
     args = ap.parse_args()
 
-    all_patches = []
+    all_patches, all_chirps = [], []
     for safe in sorted(Path(args.l0_dir).glob("*.SAFE")):
-        for burst_id, iq in read_l0_bursts(safe, max_chunks=args.max_chunks):
+        for burst_id, iq, chirp in read_l0_bursts(safe, max_chunks=args.max_chunks):
             p = extract_patches(iq, args.size, args.stride)
             print(f"{safe.name} burst {burst_id}: {len(p)} patches")
             all_patches.append(p)
+            row = [chirp["fs"], chirp["txprr"], chirp["txpsf"], chirp["txpl"]]
+            all_chirps.append(np.repeat([row], len(p), axis=0))
     patches = np.concatenate(all_patches)
+    chirps = np.concatenate(all_chirps)  # (N, 4): fs, txprr, txpsf, txpl per patch
 
     rng = np.random.default_rng(args.seed)
     idx = rng.permutation(len(patches))
     n_val = int(len(patches) * args.val_frac)
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(out / "train.npz", iq=patches[idx[n_val:]])
-    np.savez_compressed(out / "val.npz", iq=patches[idx[:n_val]])
+    np.savez_compressed(out / "train.npz", iq=patches[idx[n_val:]], chirp=chirps[idx[n_val:]])
+    np.savez_compressed(out / "val.npz", iq=patches[idx[:n_val]], chirp=chirps[idx[:n_val]])
     print(f"wrote {len(patches) - n_val} train / {n_val} val patches to {out}")
 
 
