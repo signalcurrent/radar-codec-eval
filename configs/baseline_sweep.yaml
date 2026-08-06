@@ -1,0 +1,22 @@
+# Weekend-1 target: rate-vs-utility curves for classical codecs alone.
+seed: 1337
+patches: data/patches/train.npz
+out: experiments/runs.jsonl
+
+codecs:
+  - name: baq
+    bits: [2, 3, 4, 6]        # 8:2 / 8:3 / 8:4 BAQ family + a generous 6-bit point
+    block: 128
+  - name: jpeg2000
+    ratios: [4, 8, 16, 32]    # applied per I/Q plane
+  - name: hevc
+    qps: [12, 20, 28, 36]     # x265 lossless-ish -> aggressive
+
+metrics: [rate_bps, mse, phase_rmse, irw, pslr]
+tasks:
+  cfar:
+    pfa: 1.0e-4
+    guard: 2
+    train: 8
+  atr:
+    checkpoint: experiments/checkpoints/atr_frozen.pt   # trained once on uncompressed MSTAR, then frozen

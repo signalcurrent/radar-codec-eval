@@ -1,0 +1,22 @@
+# data is multi-GB and never committed (root data/ only; radarcodec/data is code)
+/data/*
+!/data/README.md
+
+# experiment artifacts: results jsonl IS committed, checkpoints are not
+experiments/checkpoints/
+*.pt
+*.pth
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# notebooks: exploration only, keep outputs out of diffs
+notebooks/.ipynb_checkpoints/
+
+# os / editor
+.DS_Store
+Thumbs.db

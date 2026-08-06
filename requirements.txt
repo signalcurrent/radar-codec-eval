@@ -1,0 +1,12 @@
+# harness environment — pure-numeric, runs on Python 3.14
+numpy
+scipy
+matplotlib
+pyyaml
+
+# Sentinel-1 Level-0 decoding + data discovery/download
+sentinel1decoder
+asf_search
+
+# JPEG2000 baseline (OpenJPEG bindings)
+glymur
