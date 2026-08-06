@@ -1,0 +1,24 @@
+# Low-rate extension so the pre-registered R_c/2 criterion stays evaluable
+# even if focusing gain pushes classical utility below the original grid floor.
+# Committed during the blind window, before any focused-domain results existed.
+seed: 1337
+patches: data/patches/train.npz
+out: experiments/runs.jsonl
+
+codecs:
+  - name: baq
+    bits: [1]                 # BAQ's floor: ~2.1 bps with sigma overhead
+    block: 128
+  - name: jpeg2000
+    ratio: [64, 128]          # ~0.5 and ~0.25 bps
+  - name: hevc
+    qp: [40, 44]
+
+metrics: [rate_bps, mse, phase_rmse]
+tasks:
+  cfar:
+    pfa: 1.0e-4
+    guard: 2
+    train: 8
+  atr:
+    checkpoint: experiments/checkpoints/atr_frozen_v2.pt

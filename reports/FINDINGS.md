@@ -84,16 +84,38 @@ look much better post-focus — this is exactly why BAQ/FDBAQ at 2–4 bits are
 operationally viable — and the contested territory should move below ~2 bps.
 
 **Re-registered primary endpoint (rate-relative, so it does not depend on
-where classical lands):** let R_c = the lowest rate at which the best
-classical codec sustains focused-domain Pd >= 0.9. GO requires the learned
-codec to sustain Pd >= 0.9 at <= R_c/2 (a >= 2x rate advantage at matched
-utility). Secondary endpoint (unaffected by the focusing correction, since
-MSTAR chips were always focused imagery): learned codec must beat the best
-classical accuracy-vs-rate curve below 2 bps on the frozen-ATR eval.
-Anything less on both endpoints is NO-GO, reported as a negative result:
-"classical codecs are near-utility-lossless at operational rates; the frontier
-is below 2 bps, and here is what would have to be true for learned coding to
-beat it."
+where classical lands):** "sustains utility" at a rate means BOTH
+(a) focused-domain Pd >= 0.9 against detections on the focused uncompressed
+reference, AND (b) spurious detections (reconstruction detections unmatched
+within tolerance to any reference detection) <= 10% of reference detections —
+Pd alone is gameable by a codec that floods the detector. Both sides are
+scored at the identical CFAR configuration (Pfa 1e-4, guard 2, train 8,
+tolerance 3 px). Let R_c = the lowest rate at which the best classical codec
+sustains utility so defined. GO requires the learned codec to sustain utility
+at <= R_c/2 (a >= 2x rate advantage). Secondary endpoint (unaffected by the
+focusing correction, since MSTAR chips were always focused imagery): learned
+codec must beat the best classical accuracy-vs-rate curve below 2 bps on the
+frozen-ATR eval. Anything less on both endpoints is NO-GO, reported as a
+negative result: "classical codecs are near-utility-lossless at operational
+rates; the frontier is below 2 bps, and here is what would have to be true
+for learned coding to beat it."
+
+**Grid evaluability (recorded in the same blind window):** if focusing gain is
+as strong as predicted, R_c may sit at or below the current sweep floor,
+making R_c/2 unmeasurable on the present grid. A low-rate extension config
+(`configs/lowrate_ext.yaml`: BAQ 1-bit, JPEG2000 ratios 64/128, HEVC QP
+40/44, reaching ~0.5 bps) is committed alongside this amendment and will be
+run with the identical pipeline so the criterion is evaluable wherever R_c
+lands. BAQ cannot go below ~2.1 bps (1 bit/component + sigma overhead) —
+below that, only transform codecs and the learned codec compete, which is
+itself part of the finding.
+
+**Known limitation, stated in advance:** the focused-domain eval is currently
+a single 4096x8192 crop of a single (agricultural/urban, Illinois) scene.
+Clutter statistics differ sharply across terrain; detection results may not
+generalize. A second scene with different terrain (coastal/maritime stripmap)
+is planned before any proposal-grade claim; until then every focused-domain
+number carries this caveat.
 
 **Interpretation.** "Radar utility" splits into two regimes. In the raw-echo
 domain (where onboard compression actually operates), classical codecs lose
