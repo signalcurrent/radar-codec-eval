@@ -42,8 +42,11 @@ def main():
     ap.add_argument("--config", default="configs/baseline_sweep.yaml")
     ap.add_argument("--chips", default="data/mstar_npz/test.npz")
     ap.add_argument("--max-chips", type=int, default=300)
+    ap.add_argument("--checkpoint", default=None, help="override config's frozen ATR checkpoint")
     args = ap.parse_args()
     cfg = yaml.safe_load(open(args.config))
+    if args.checkpoint:
+        cfg["tasks"]["atr"]["checkpoint"] = args.checkpoint
 
     data = np.load(args.chips)
     rng = np.random.default_rng(cfg["seed"])

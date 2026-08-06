@@ -35,3 +35,12 @@
 {"ts": "2026-08-06T00:15:07", "config_hash": "b3bc5320f7b0", "seed": 1337, "codec": "hevc", "params": {"qp": 20}, "domain": "mstar", "rate_bps": 3.5281412760416666, "atr_acc": 0.81, "n_chips": 300}
 {"ts": "2026-08-06T00:15:56", "config_hash": "b3bc5320f7b0", "seed": 1337, "codec": "hevc", "params": {"qp": 28}, "domain": "mstar", "rate_bps": 2.0946744791666667, "atr_acc": 0.71, "n_chips": 300}
 {"ts": "2026-08-06T00:16:33", "config_hash": "b3bc5320f7b0", "seed": 1337, "codec": "hevc", "params": {"qp": 36}, "domain": "mstar", "rate_bps": 1.38283203125, "atr_acc": 0.4766666666666667, "n_chips": 300}
+{"ts": "2026-08-06T00:37:46", "config_hash": "34c86ee25e45", "seed": 1337, "codec": "uncompressed", "params": {}, "domain": "mstar", "rate_bps": 64.0, "atr_acc": 0.8933333333333333, "n_chips": 300}
+{"ts": "2026-08-06T00:37:47", "config_hash": "34c86ee25e45", "seed": 1337, "codec": "baq", "params": {"block": 128, "bits": 2}, "domain": "mstar", "rate_bps": 4.125, "atr_acc": 0.5833333333333334, "n_chips": 300}
+{"ts": "2026-08-06T00:37:47", "config_hash": "34c86ee25e45", "seed": 1337, "codec": "baq", "params": {"block": 128, "bits": 3}, "domain": "mstar", "rate_bps": 6.125, "atr_acc": 0.8266666666666667, "n_chips": 300}
+{"ts": "2026-08-06T00:37:48", "config_hash": "34c86ee25e45", "seed": 1337, "codec": "baq", "params": {"block": 128, "bits": 4}, "domain": "mstar", "rate_bps": 8.125, "atr_acc": 0.8533333333333334, "n_chips": 300}
+{"ts": "2026-08-06T00:37:49", "config_hash": "34c86ee25e45", "seed": 1337, "codec": "baq", "params": {"block": 128, "bits": 6}, "domain": "mstar", "rate_bps": 12.125, "atr_acc": 0.8766666666666667, "n_chips": 300}
+{"ts": "2026-08-06T00:37:54", "config_hash": "34c86ee25e45", "seed": 1337, "codec": "jpeg2000", "params": {"ratio": 4}, "domain": "mstar", "rate_bps": 7.900968424479166, "atr_acc": 0.8933333333333333, "n_chips": 300}
+{"ts": "2026-08-06T00:37:58", "config_hash": "34c86ee25e45", "seed": 1337, "codec": "jpeg2000", "params": {"ratio": 8}, "domain": "mstar", "rate_bps": 3.888616536458333, "atr_acc": 0.8966666666666666, "n_chips": 300}
+{"ts": "2026-08-06T00:38:02", "config_hash": "34c86ee25e45", "seed": 1337, "codec": "jpeg2000", "params": {"ratio": 16}, "domain": "mstar", "rate_bps": 1.9470475260416666, "atr_acc": 0.82, "n_chips": 300}
+{"ts": "2026-08-06T00:38:07", "config_hash": "34c86ee25e45", "seed": 1337, "codec": "jpeg2000", "params": {"ratio": 32}, "domain": "mstar", "rate_bps": 0.9791845703125, "atr_acc": 0.5766666666666667, "n_chips": 300}

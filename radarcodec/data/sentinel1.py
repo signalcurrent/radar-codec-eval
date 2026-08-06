@@ -32,10 +32,19 @@ def read_l0_bursts(safe_dir, pol="vv", min_echoes=256, max_chunks=None):
         for chunk in echo_chunks:
             iq = np.asarray(f.get_acquisition_chunk_data(chunk), dtype=np.complex64)
             row = pm.loc[chunk].iloc[0]
-            chirp = {
+            meta = {
                 "fs": s1d.utilities.range_dec_to_sample_rate(row["Range Decimation"]),
                 "txprr": float(row["Tx Ramp Rate"]),
                 "txpsf": float(row["Tx Pulse Start Frequency"]),
                 "txpl": float(row["Tx Pulse Length"]),
+                "pri": float(row["PRI"]),
+                "swst": float(row["SWST"]),
+                "rank": int(row["Rank"]),
             }
-            yield int(chunk), iq, chirp
+            try:
+                from radarcodec.metrics.focus_rda import effective_velocity
+
+                meta["vr"] = effective_velocity(f.ephemeris)
+            except Exception:
+                meta["vr"] = 7100.0  # typical S1 effective velocity fallback
+            yield int(chunk), iq, meta
