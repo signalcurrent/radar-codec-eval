@@ -483,6 +483,58 @@ rate at sustained two-sided utility, (2) its position against 6.1 and 4.86,
 (3) its ops-per-sample class (parallel MACs). Rate alone under-tells the
 claim.
 
+## MODEL READOUT (2026-08-06) — inconclusive under the registered rules;
+## STOPPING RULE FIRED
+
+Scored through the identical pipeline as every baseline:
+
+| model | conv. slope | rate (bps) | Pd | spurious (limit 2,339) |
+|---|---|---|---|---|
+| lam=50 | -0.00% (flat) | 0.01 | 0.002 | 3,214 |
+| lam=300 | -1.09% (descending) | 0.89 | 0.397 | 25,886 |
+
+**Reading, mechanically applied:**
+- lam=50 converged but to a DEGENERATE operating point: rate collapse
+  (0.01 bps) means lambda was set 1-2 orders too low for this normalized
+  data — a calibration error, not a finding.
+- lam=300 fails the Amendment 6 sanity gate (worse than classical at
+  matched rate: raw J2K at 1.0 bps scores 0.574/5,566 vs neural
+  0.397/25,886) AND its loss was still descending (-1.09%). Per the
+  registered rules this is reported as a CONVERGENCE/CALIBRATION FAILURE and
+  a LOWER BOUND on learned-codec performance — not evidence for P2, not a
+  NO-GO on the architecture.
+- **P2 verdict: NEITHER confirmed nor refuted.** The observed signature (low
+  Pd AND massive spurious) matches neither predicted pole (blur nor pure
+  ringing). Candidate mechanism, unverified: independent per-tile compression
+  with per-tile RMS normalization creates seam discontinuities on the 128-px
+  grid that focusing amplifies into phantom detections. Verifying seam
+  alignment of the false alarms is the first proposed diagnostic.
+- **Three-number headline, as registered:** (1) achieved rate at sustained
+  two-sided utility: NONE in this run; (2) position vs 6.1 / 4.86:
+  not applicable; (3) ops class: parallel conv MACs, measured 0.6-1.3
+  Msamples/s single-threaded CPU (vs BAQ 16-19 in-process) — the
+  parallelism argument is unaffected by this run's quality failure.
+
+**Continuous primary outcome:** no sustaining rate achieved. **Binary
+secondary:** NO-GO on this run — reported with the mandatory qualifier that
+Amendment 6's confound rule applies in full: this run bounds a compact
+CPU-budget model below, and says nothing about the architecture class.
+
+**STOPPING RULE FIRED.** Transform baseline and one trained autoencoder have
+both been scored against the pre-registered criterion. The experimental phase
+is closed. What the record establishes: (1) the classical feasibility spine
+stands in full — no classical approach sustains two-sided utility below 4.86
+bits/complex-sample, each failure mechanistically named; (2) the concentrated
+domain is exploitable in principle (coding-gain prediction confirmed) and the
+open problem is capturing that gain without a detection-hostile artifact
+signature; (3) the learned-codec question is OPEN, with the failure diagnosed
+as budget/calibration/tiling engineering, not principle. Items for Phase I
+proposal scope, converted from the ideas list per the stopping rule:
+GPU-scale training with calibrated lambda schedules, seam-aware tiling
+(overlap or global normalization), detection-aware training objectives,
+cross-scene generalization, second-scene clutter, ANS productionization of
+the entropy coder, embedded trade study.
+
 **Stopping rule (adopted 2026-08-06):** the experimental phase ends when the
 transform baseline AND one trained autoencoder have both been scored against
 the pre-registered continuous criterion. After that, the next artifact is
