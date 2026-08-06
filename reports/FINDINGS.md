@@ -274,7 +274,51 @@ number exists):**
   premise for the learned codec is weakened and that gets reported honestly.
 
 Execution order, fixed: round-trip test -> tfocus+JPEG2000/HEVC -> ablation
-arms -> only then the learned model. Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
+arms -> only then the learned model.
+
+## AMENDMENT 4 — fourth outcome cell, entropy-model constraint, timing
+## caveat, stopping rule (2026-08-06; tfocus row count at commit time is
+## stated in the commit message — see git log)
+
+**Fourth outcome cell (the ablation is a separate axis from A/B/C):** the
+awkward cross-product is "full focus wins, dechirp-only does not" — a real
+compression gain that requires a full azimuth focuser onboard, expensive
+enough to reopen every compute objection. Reading rule, written before the
+number: if only full-focus arms sustain utility at low rate, the result is
+reported as CONDITIONAL — the gain exists but is contingent on onboard
+focusing compute, and the Phase I conclusion must present the compute cost of
+azimuth processing as the binding constraint, not bury it. Dechirp-only
+sustaining within ~10% of the full-focus rate counts as "cheap transform
+suffices" (the embeddable story); otherwise the conditional framing applies.
+
+**Entropy model constraint for the learned codec, fixed before training:**
+convolutional transforms map cleanly to FPGA/ASIC dataflow; the deployment
+killer is the entropy coder. Fully autoregressive context models are
+inherently sequential and cannot reach radar-rate throughput in realistic
+silicon. The model will therefore use a FACTORIZED or checkerboard/parallel-
+context entropy model only, accepting a known rate penalty to preserve
+parallelism — because the operational constraint is throughput, not benchmark
+BD-rate. Autoregressive results, if ever reported, are labeled non-deployable
+reference points.
+
+**Timing table caveat (named before a reviewer names it):** BAQ's wall-clock
+advantage in our table is partly harness artifact — BAQ is vectorized NumPy
+in-process; JPEG2000/HEVC go through external binaries with process-spawn and
+file I/O overhead. Wall-clock is reported as measured, with this confound
+stated. Implementation-independent order-of-magnitude operations per sample
+(what actually transfers to Phase II hardware costing): BAQ ~10 (normalize +
+~b comparisons + scale); JPEG2000 ~10^2–10^3 (wavelet cascade + EBCOT
+bitplane coding); HEVC ~10^2–10^3+ (prediction search + transforms + CABAC,
+sequential); unitary dechirp ~O(log n) butterflies/sample (FFT-dominated);
+learned codec ~10^3–10^4 MACs/sample (conv stacks; parallel). The ranking
+survives; the point is we name the confound first.
+
+**Stopping rule (adopted 2026-08-06):** the experimental phase ends when the
+transform baseline AND one trained autoencoder have both been scored against
+the pre-registered continuous criterion. After that, the next artifact is
+prose: FINDINGS.md -> preprint draft + Phase I proposal skeleton. Every
+further experiment idea becomes PROPOSED Phase I work, not unfunded evening
+work — which is itself the argument that makes Phase I fundable. Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
 sustains at the grid floor, so R_c must be located with the low-rate
 extension before the GO target (R_c/2) is fixed. The contested region has
 moved down-rate as predicted; the pre-focus "20-30% at FDBAQ rate" headline
