@@ -398,6 +398,41 @@ TRAINING OBJECTIVE, not the architecture: a detection-aware loss (e.g., CFAR
 consistency or matched-filter-domain penalties) is precisely what Phase I
 funds. The weekend produces the diagnosis; the proposal funds the treatment.
 
+## AMENDMENT 6 — convergence interpretation rule, registered BEFORE training
+## launches (2026-08-06; no training has started, no checkpoints exist)
+
+**The confound this guards against:** an undertrained autoencoder produces
+exactly the failure signature P2 predicts (over-smoothing, weak scatterers
+lost, Pd eroding with spurious controlled). Without this rule, a
+P2-confirming result could not be distinguished from a non-converged run.
+
+**Rules, fixed in advance:**
+1. The training loss trajectory is reported alongside any result (it is
+   saved inside every checkpoint, not asserted afterward). If loss is still
+   materially decreasing at the final step (final-decile slope worse than
+   -1%), the outcome is reported as a LOWER BOUND on learned-codec
+   performance — not as evidence for P2 and not as a NO-GO on the
+   architecture.
+2. Sanity gate: if the trained codec cannot beat BAQ at matched rate on the
+   two-sided criterion inputs (Pd and spurious), that is reported as a
+   convergence failure, not a finding — a converged learned codec should
+   clear scalar quantization comfortably in the concentrated domain.
+3. Model sized to converge, not to impress: ~0.5M params / 5,000 steps
+   rather than 2.1M / 1,500. A small model trained to convergence is
+   informative; a large one at step 1,500 mostly measures the optimizer.
+
+**Generalization scope, stated precisely:** the train/eval split is by
+acquisition chunk WITHIN the Chicago stripmap scene — a clean held-out set
+that measures WITHIN-SCENE generalization only. Cross-scene/cross-clutter
+generalization (the topic's "regions not explicitly represented in
+training") is untested here and is proposed Phase I work, alongside the
+second-scene limitation already on record.
+
+**Structural blindness note:** training begins while the mapping-v2 baseline
+rescoring is still running; a model whose training started before the final
+classical numbers existed cannot have been tuned against them. This is
+blindness by construction, not assertion.
+
 **Stopping rule (adopted 2026-08-06):** the experimental phase ends when the
 transform baseline AND one trained autoencoder have both been scored against
 the pre-registered continuous criterion. After that, the next artifact is
