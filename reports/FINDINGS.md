@@ -459,6 +459,30 @@ is blur, the opposite pole) is what the model run decides.
 rate), full focus > dechirp everywhere (e.g., 0.888 vs 0.729 at 2 bps) —
 "cheap transform insufficient" HOLDS, consistent with v1.
 
+**FRAMING CORRECTION (before this reaches prose):** "concentration premise
+weakened" understates the data. The coding-gain theory predicted that
+concentrating energy improves detection at matched rate, and it DID — 0.888
+vs 0.691 Pd at 2 bps is the prediction CONFIRMED. What failed is the
+instrument: wavelet coding rings, and ringing is the one artifact class CFAR
+is maximally sensitive to. Precise statement: the concentrated domain is
+exploitable in principle; JPEG2000 is the wrong tool for exploiting it.
+Outcome C stands exactly as registered — it is the verdict on the
+configurations tested — but the mechanism rides alongside it. Thesis sentence
+of the study: a codec must capture the coding gain concentration provides
+WITHOUT inheriting the artifact signature that destroys detection.
+
+**Joint readout requirement for the model (and for all prose):** rate-utility
+and ops-per-sample must be read together. The classical frontier holder (raw
+HEVC, 4.86 bps) is also the least deployable codec in the study — serial
+CABAC, no more silicon helps — while the fielded, deployable codec (BAQ/FDBAQ
+class) sits at ~6.1. Therefore a learned codec sustaining utility anywhere
+meaningfully below 4.86 with parallel-friendly compute beats the deployable
+baseline on rate AND the undeployable one on implementability, even without
+reaching 2.43. The model readout headline carries THREE numbers: (1) achieved
+rate at sustained two-sided utility, (2) its position against 6.1 and 4.86,
+(3) its ops-per-sample class (parallel MACs). Rate alone under-tells the
+claim.
+
 **Stopping rule (adopted 2026-08-06):** the experimental phase ends when the
 transform baseline AND one trained autoencoder have both been scored against
 the pre-registered continuous criterion. After that, the next artifact is
