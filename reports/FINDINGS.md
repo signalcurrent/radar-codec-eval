@@ -886,3 +886,51 @@ agricultural) — a materially stronger claim than a single-scene finding.
 **Preprint Section 5.8 rewritten** to report the corrected R_c, the
 transform-domain results, Figures 5-6 regenerated with the new series and
 corrected R_c annotation (7.99, was 7.35).
+
+## GOTCHA LEARNED CODEC — interpretation rules declared BEFORE training
+## (2026-08-08; no training run yet, no checkpoints exist)
+
+At Eric's direction, extending to the learned codec on Gotcha data. This
+is exploratory extension work, not a reopening of the closed,
+pre-registered Illinois study -- but the same discipline applies by
+choice, not obligation: rules fixed before the run exists.
+
+**Data:** 13,920 focused-domain (range-Doppler) patches, 64x64 complex,
+extracted from 80 non-overlapping 1864-pulse windows tiling the full
+154,180-pulse `mis2` file, with any window overlapping the eval crop
+(pulses 5585-7449) dropped entirely -- full held-out separation, not mere
+adjacency. 11,832 train / 2,088 val split (`scripts/extract_gotcha_patches.py`).
+Patch size is 64px, not Illinois's 128px: the encoder's four stride-2
+layers give 16x downsampling, and 32px (this scene's naive first choice,
+given the 384px range axis) leaves a degenerate 1x1 latent; 64px gives a
+4x4 latent (Illinois's 128px gave 8x8) -- smaller but not degenerate,
+sized to what this scene's dimensions actually allow.
+
+**Architecture and lambdas: reused unchanged from Illinois
+(`configs/ae_gotcha.yaml` mirrors `configs/ae_small.yaml`), not retuned.**
+Same compact learned codec, same lambda bracket
+[50, 300], same 5,000 steps, same batch=8, same lr=1e-4. Deliberate
+choice: retuning lambdas for this dataset before seeing results would be
+cherry-picking hyperparameters to force a better outcome. If [50,300]
+reproduces the same failure pattern as Illinois (50 collapses to
+near-zero rate, 300 undertrained/miscalibrated), that itself is an
+informative parallel finding, not a wasted run.
+
+**Interpretation rules, fixed now:**
+1. Loss trajectory ships with the checkpoint (unchanged practice). If
+   loss is still materially decreasing at the final step (final-decile
+   slope worse than -1%), the run is a LOWER BOUND, not evidence for or
+   against the architecture -- same as Amendment 6's rule.
+2. Sanity gate: the trained codec must beat the best classical
+   Gotcha baseline (raw or `tfocus`, whichever is stronger at the
+   matched rate) on both Pd and spurious count to count as a finding
+   rather than a convergence failure.
+3. Evaluation is on the SAME held-out crop used for every other Gotcha
+   result (`chan1`/`mis2`, pulses 5585-7449) -- never seen during
+   training, by construction (the patch extraction dropped it entirely,
+   not just left it unsampled).
+4. Three-number headline on report, same as Illinois: (1) achieved rate
+   at sustained two-sided utility, if any; (2) position vs. this scene's
+   R_c (7.99 bps) and the raw-domain baseline; (3) ops-per-sample class
+   (unchanged from Illinois -- same architecture, same parallel-MAC
+   accounting applies).
