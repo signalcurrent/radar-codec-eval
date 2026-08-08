@@ -700,3 +700,69 @@ rate)` at the dedup stage, matching the grouping key already used
 downstream. All five figures regenerated after the fix; `tfocus-full-jpeg2000`
 now appears correctly as the highest-Pd / highest-spurious-count series at
 low rates in both `rate_vs_pd.png` and the newly added `rate_vs_spurious.png`.
+
+## GOTCHA GMTI EVALUATION — first genuinely unencoded result (2026-08-08)
+
+Post-stopping-rule, at Eric's explicit direction, prioritizing [redacted]-topic
+alignment over academic-precedent-matching (Houston/São Paulo set aside as
+lower priority). Ran `scripts/eval_gotcha.py`: the identical, unmodified
+protocol from Section 3 of the preprint (same CA-CFAR config, same BAQ/
+JPEG2000/HEVC grid from `configs/baseline_sweep.yaml`) applied to AFRL's
+Gotcha GMTI phase history (`chan1`/`mis2`, pulses 5585-7448, AFRL's own
+worked example — the exact configuration already ingest-verified). No
+threshold or codec setting was chosen or adjusted after seeing this data;
+everything was already fixed by the Illinois pre-registration. This is
+extension to new data under a frozen protocol, not reopening the
+exploratory phase.
+
+**Result:** 369 reference detections (vs. 23,387 on Illinois — a much
+smaller, sparser scene, single dominant scatterer plus urban clutter).
+Under the identical two-sided criterion (budget = 36.9 = 10% of 369):
+
+| codec | params | rate (bps) | Pd | false | sustains? |
+|---|---|---|---|---|---|
+| baq | 2-bit | 4.12 | 0.659 | 62 | no |
+| baq | 3-bit | 6.12 | 0.778 | 52 | no |
+| baq | 4-bit | 8.12 | 0.862 | 38 | no |
+| baq | 6-bit | 12.12 | 0.959 | 23 | yes |
+| jpeg2000 | r4 | 8.00 | 0.905 | 30 | yes |
+| jpeg2000 | r8 | 4.00 | 0.799 | 47 | no |
+| jpeg2000 | r16 | 2.00 | 0.656 | 95 | no |
+| jpeg2000 | r32 | 0.99 | 0.442 | 158 | no |
+| hevc | qp12 | 10.49 | 0.973 | 18 | yes |
+| hevc | qp20 | 7.35 | 0.900 | 23 | yes |
+| hevc | qp28 | 4.54 | 0.780 | 48 | no |
+| hevc | qp36 | 2.28 | 0.675 | 70 | no |
+
+**R_c (Gotcha) = 7.35 bps** (HEVC qp20, Pd exactly at the 0.9 floor).
+Higher than Illinois's 4.86 bps. Every codec's curve is monotonic and
+sane — no wiring bugs, no artifacts. The gap between 7.35 and 4.86 is
+**not** claimed as "unencoded data needs more bits" — the two scenes
+differ in sensor (X-band airborne vs. C-band spaceborne), geometry
+(circular-mode GMTI vs. stripmap), resolution, and detection-sample size
+(369 vs. 23,387, meaning this R_c estimate carries far more sampling
+noise). What's clean: this is the first result in the whole study with
+zero re-compression caveat, and the qualitative pattern (a real,
+nonzero, sub-fidelity-metric-implied frontier exists) replicates
+independently under a frozen protocol.
+
+**Data provenance, verified from primary source (not assumed):** paper
+carries "Public Release # 88 ABW-09-1031"; the data package itself
+carries its own "Public Release # 88 ABW-09-0967" (found in
+`SAR-Based_GMTI_CP/Public Release Numbers.txt`, bundled with the
+downloaded data). Both confirm public research use, including publication
+of derived results, is the explicitly intended use — not a gray area.
+
+**Also confirmed in hand and not yet used:** `durangoChallenge_GPStruth.mat`
+contains real timestamped position, speed, and heading for the Durango
+vehicle (~100+ samples, a genuine move-stop-move profile, speeds 0-22
+m/s) — a real tracking-fidelity metric (position error after compression,
+not just detect/no-detect) is buildable against this and remains the
+highest-value next step on the AFRL data (Tier 2 of the game plan; not
+attempted this pass).
+
+**Preprint updated:** new Section 5.8, Figures 5-6 (`rate_vs_pd_gotcha.png`,
+`rate_vs_spurious_gotcha.png`), abstract finding (4), Limitations,
+Conclusion future-work reprioritized (AFRL extensions now lead; Houston/
+São Paulo demoted per Eric's direction), reference [17] added (Scarborough
+et al., Proc. SPIE 7337, 73370G, 2009).

@@ -28,14 +28,23 @@ for line in open("experiments/runs.jsonl"):
 
 Path("reports").mkdir(exist_ok=True)
 PLOTS = [
-    # (metric, required domain, label, filename)
-    ("cfar_pd", "s1_focused", "Post-focus CFAR detection agreement (Pd)", "rate_vs_pd.png"),
-    ("cfar_false", "s1_focused", "Spurious detections (count, log scale)", "rate_vs_spurious.png"),
-    ("mse", "s1", "MSE (raw I/Q)", "rate_vs_mse.png"),
-    ("phase_rmse", "s1", "Phase RMSE (rad)", "rate_vs_phase.png"),
-    ("atr_acc", "mstar", "Frozen-ATR accuracy (MSTAR 15 deg)", "rate_vs_atr.png"),
+    # (metric, required domain, label, filename, r_c_bps, fdbaq_line)
+    ("cfar_pd", "s1_focused", "Post-focus CFAR detection agreement (Pd)",
+     "rate_vs_pd.png", 4.86, 6.8),
+    ("cfar_false", "s1_focused", "Spurious detections (count, log scale)",
+     "rate_vs_spurious.png", None, 6.8),
+    ("mse", "s1", "MSE (raw I/Q)", "rate_vs_mse.png", None, 6.8),
+    ("phase_rmse", "s1", "Phase RMSE (rad)", "rate_vs_phase.png", None, 6.8),
+    ("atr_acc", "mstar", "Frozen-ATR accuracy (MSTAR 15 deg)",
+     "rate_vs_atr.png", None, 6.8),
+    # Gotcha GMTI (unencoded, airborne, government-provided): its own R_c,
+    # no FDBAQ line (spaceborne-specific, not meaningful here).
+    ("cfar_pd", "gotcha_gmti", "Post-focus CFAR detection agreement (Pd)",
+     "rate_vs_pd_gotcha.png", 7.35, None),
+    ("cfar_false", "gotcha_gmti", "Spurious detections (count, log scale)",
+     "rate_vs_spurious_gotcha.png", None, None),
 ]
-for metric, domain, label, fname in PLOTS:
+for metric, domain, label, fname, r_c, fdbaq_line in PLOTS:
     by_codec = {}
     n_ref = None
     for r in runs.values():
@@ -65,18 +74,23 @@ for metric, domain, label, fname in PLOTS:
         ax.axhline(0.9, ls=":", lw=1, color="crimson")
         ax.text(ax.get_xlim()[1] if ax.get_xlim()[1] else 14, 0.9, " Pd floor (0.9)",
                 va="bottom", ha="right", fontsize=8, color="crimson")
-        # R_c = 4.86 bps, raw-domain HEVC qp36 (FINAL CLASSICAL VERDICT, mapping v2)
-        ax.axvline(4.86, ls=":", lw=1, color="crimson")
-        ax.text(4.9, 0.05, " R_c = 4.86 bps", fontsize=8, color="crimson")
+        if r_c is not None:
+            ax.axvline(r_c, ls=":", lw=1, color="crimson")
+            ylo, yhi = ax.get_ylim()
+            ax.text(r_c + 0.05, ylo + 0.05 * (yhi - ylo), f" R_c = {r_c} bps",
+                    fontsize=8, color="crimson")
     if metric == "cfar_false" and n_ref:
         budget = 0.10 * n_ref
         ax.axhline(budget, ls=":", lw=1, color="crimson")
         ax.text(ax.get_xlim()[1] if ax.get_xlim()[1] else 14, budget,
                 f" spurious budget (10% of {n_ref:,} ref.)", va="bottom", ha="right",
                 fontsize=8, color="crimson")
-    # ESA quotes FDBAQ per real component (~3.4); on this axis that is ~6.8
-    ax.axvline(6.8, ls="--", lw=1, color="gray")
-    ax.text(6.85, ax.get_ylim()[1], " FDBAQ IW avg (~3.4 b/component)", va="top", fontsize=8, color="gray")
+    if fdbaq_line is not None:
+        # ESA quotes FDBAQ per real component (~3.4); on this axis that is ~6.8.
+        # Spaceborne-specific -- only drawn for Sentinel-1 domains.
+        ax.axvline(fdbaq_line, ls="--", lw=1, color="gray")
+        ax.text(fdbaq_line + 0.05, ax.get_ylim()[1], " FDBAQ IW avg (~3.4 b/component)",
+                va="top", fontsize=8, color="gray")
     ax.legend(fontsize=8)
     ax.grid(alpha=0.3)
     fig.tight_layout()
