@@ -1,5 +1,8 @@
 # radar-codec
 
+> **Topic of record: [`TOPIC.md`](TOPIC.md)** — read it before any work on
+> this project. Session conventions in [`CLAUDE.md`](CLAUDE.md).
+
 Feasibility prototype: neural compression of raw radar (SAR) data that preserves
 **radar utility** — detection and recognition performance — rather than pixel
 fidelity. Target: [redacted] [redacted] topic [redacted] (Phase I deliverable =
