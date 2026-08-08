@@ -422,7 +422,11 @@ P2-confirming result could not be distinguished from a non-converged run.
    informative; a large one at step 1,500 mostly measures the optimizer.
 
 **Generalization scope, stated precisely:** the train/eval split is by
-acquisition chunk WITHIN the Chicago stripmap scene — a clean held-out set
+acquisition chunk WITHIN the north-central-Illinois stripmap scene
+(mislabeled "Chicago" until 2026-08-08 — corrected below and everywhere
+else in this file; the scene's frame extends east to within a few km of
+Chicago's western suburbs but the evaluated crop is agricultural terrain,
+confirmed against the SAFE manifest footprint) — a clean held-out set
 that measures WITHIN-SCENE generalization only. Cross-scene/cross-clutter
 generalization (the topic's "regions not explicitly represented in
 training") is untested here and is proposed Phase I work, alongside the
@@ -546,7 +550,8 @@ strongest credibility claim ("3-bit BAQ sustains utility at 6.12
 bits/complex-sample, independently reproducing the fielded FDBAQ operating
 point") depends on exactly that configuration.
 
-**Precondition confirmed present in our data.** The Chicago stripmap crop
+**Precondition confirmed present in our data.** The north-central-Illinois
+stripmap crop
 carries a visible FDBAQ lattice: **48 distinct I values across 1,048,576
 samples; 32 distinct values in a 64x64 block** (estimated step 1.1471).
 For contrast, AFRL Gotcha airborne phase history shows 153,443 distinct
@@ -603,6 +608,29 @@ classical transform codecs are already near-utility-lossless at 4 bps, so a
 learned codec must win below ~2 bps to matter there. This regime split is
 itself a proposal-grade insight: it says compress-then-focus, not
 focus-then-compress, is where the money is.
+
+## SCENE LOCATION CORRECTION — "Chicago" was wrong (2026-08-08)
+
+Every document in this repo (this file, the preprint, `prior_art.md`'s
+Asiyabi analysis) described the evaluation scene as "the Chicago stripmap
+scene/crop." Caught by inspection: Eric looked at the rendered Figure 0
+quicklook and said "that doesn't look like Chicago" — no lakeshore, no
+dense urban core, just farmland. Checked against the primary source (the
+SAFE product's `manifest.safe`, `<gml:coordinates>` under `footPrint`):
+`42.3705,-88.6264 40.7168,-88.9679 40.6390,-88.0440 42.2926,-87.6782`
+(lat,lon corners) — the frame spans roughly 40.64°–42.37°N,
+88.97°–87.68°W. Chicago itself (41.88°N, 87.63°W) sits at or just past the
+frame's *eastern* edge, meaning the acquisition frame is centered well
+**west** of the city, and the evaluated 4096×8192 crop (drawn from the
+frame's interior per `load_crop()` in `eval_focused.py`) is agricultural/
+exurban north-central Illinois, not Chicago proper. Corrected to
+"north-central Illinois stripmap scene" everywhere this appears. No
+numeric result is affected — this was a location label, not a data or
+analysis error — but it's exactly the kind of easily-checkable factual
+claim that should never have gone uncorrected into a document meant for a
+government reviewer or an arXiv reader. Root cause: the label was carried
+forward from an early, unverified assumption and never checked against
+the SAFE manifest until asked.
 
 ## PLOTTING BUG FOUND AND FIXED — tfocus-full-jpeg2000 missing from every
 ## figure (2026-08-08)
