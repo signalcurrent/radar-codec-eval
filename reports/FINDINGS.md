@@ -603,3 +603,30 @@ classical transform codecs are already near-utility-lossless at 4 bps, so a
 learned codec must win below ~2 bps to matter there. This regime split is
 itself a proposal-grade insight: it says compress-then-focus, not
 focus-then-compress, is where the money is.
+
+## PLOTTING BUG FOUND AND FIXED — tfocus-full-jpeg2000 missing from every
+## figure (2026-08-08)
+
+While generating preprint figures, found that `scripts/plot_curves.py`'s
+top-level dedup key was `(domain, codec, round(rate_bps, 2))`. Every
+`tfocus` row shares the literal codec string `"tfocus"` regardless of
+(mode, base) — and the JPEG2000 full-focus and dechirp-only arms land on
+identical nominal rates (both parameterized by the same `ratio`), so they
+collided on this key and one silently overwrote the other before the
+downstream per-series grouping (which does distinguish mode/base) ever ran.
+Net effect: `tfocus-full-jpeg2000` — the series carrying the paper's
+central concentration-vs-ringing claim — was absent from every regenerated
+plot, including the ones already committed to the repo before this pass.
+
+**No numeric claim in FINDINGS.md, the preprint, or the proposal drafts was
+affected.** Every number in the written record was pulled directly from
+`runs.jsonl` rows (via `eval_focused.py` output or direct queries), never
+read off a chart. This was a visualization completeness bug, not a data or
+analysis bug — but it matters for the record because a reader comparing the
+prose to the figures before this fix would have seen the strongest
+evidence for the ringing mechanism in the text with no corresponding line
+on the chart. Fixed by keying tfocus rows on `(domain, "tfocus-{mode}-{base}",
+rate)` at the dedup stage, matching the grouping key already used
+downstream. All five figures regenerated after the fix; `tfocus-full-jpeg2000`
+now appears correctly as the highest-Pd / highest-spurious-count series at
+low rates in both `rate_vs_pd.png` and the newly added `rate_vs_spurious.png`.
