@@ -19,6 +19,13 @@ def main():
     ap.add_argument("--max", type=int, default=1)
     ap.add_argument("--out", default="data")
     ap.add_argument("--levels", nargs="+", default=["RAW"], choices=["RAW", "SLC"])
+    ap.add_argument("--beam-mode", default="IW",
+                     choices=["IW", "S1", "S2", "S3", "S4", "S5", "S6"],
+                     help="IW is Sentinel-1's default systematic land mode; S1-S6 are "
+                          "StripMap, only tasked for specific sites -- most AOIs have NO "
+                          "StripMap coverage. This pipeline's focuser (focus_rda.py) needs "
+                          "StripMap; IW's TOPS burst geometry is a different, unimplemented "
+                          "focusing problem (see TOPIC.md Known Alignment Gaps).")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -29,7 +36,7 @@ def main():
         results = asf.search(
             platform=asf.PLATFORM.SENTINEL1,
             processingLevel=level,
-            beamMode="IW",
+            beamMode=args.beam_mode,
             intersectsWith=args.aoi,
             maxResults=args.max,
         )

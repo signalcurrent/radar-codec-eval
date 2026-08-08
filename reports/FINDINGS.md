@@ -632,6 +632,48 @@ government reviewer or an arXiv reader. Root cause: the label was carried
 forward from an early, unverified assumption and never checked against
 the SAFE manifest until asked.
 
+## SECOND/THIRD-SCENE DATA ACQUIRED — Houston, São Paulo (2026-08-08)
+
+Direct follow-on from the Chicago correction above: Asiyabi et al.'s own
+training set is Chicago, Houston, and São Paulo (verbatim from their paper,
+`reports/refs/asiyabi_text.txt` line 198: "three Sentinel-1 scenes acquired
+over Chicago and Houston in the United States, and São Paulo in Brazil").
+Checked ASF for genuine StripMap coverage (this pipeline needs StripMap,
+not IW — see `TOPIC.md` Known Alignment Gaps) over all three via
+`scripts/download_s1.py --beam-mode S1..S6`:
+
+- **Chicago: no StripMap coverage found** (S1 through S6, zero results).
+  StripMap is only tasked for specific sites; IW is Sentinel-1's default
+  systematic land mode. This is *why* the original scene ended up over
+  farmland west of the city rather than the city itself — Chicago-proper
+  StripMap doesn't exist in the archive to acquire.
+- **Houston: available (S1, S3, S6).** Pulled S6 (`S1C_S6_RAW__0SDH_
+  20260807T002551_...`, 1.23 GB). Footprint verified against
+  `manifest.safe` BEFORE use this time: 28.66°–30.40°N, -95.66° to
+  -94.53°W — Houston (29.76°N, -95.37°W) sits well inside it. Confirmed
+  by the focused quicklook: Galveston Bay, industrial shoreline
+  structures, a large bright rectangular target and circular/triangular
+  jetty or platform structures in the water — unambiguously real coastal
+  Houston.
+- **São Paulo: available (S3, S6).** Pulled S6 (`S1C_S6_RAW__0SDV_
+  20260731T214258_...`, 1.20 GB; first download attempt was interrupted
+  mid-transfer and the retry's "file already exists" check skipped a
+  truncated 1.08 GB file — caught via unzip failure, deleted, re-pulled
+  clean). Footprint verified: -24.74° to -22.97°N, -46.92° to -45.68°W —
+  São Paulo (-23.55°N, -46.63°W) sits inside it. Confirmed by the focused
+  quicklook: Serra do Mar coastal range terrain (radar layover/
+  foreshortening striping typical of rugged relief) with a winding river
+  valley and dense urban texture along it.
+
+Both raw crops cached (`data/s1_houston/chunk_crop.npz`,
+`data/s1_saopaulo/chunk_crop.npz`, same 4096×8192 convention as the
+existing scene) with focused quicklooks in `reports/`. **No quantitative
+evaluation run on either — that stays proposed Phase I scope (cross-scene
+generalization), per the stopping rule.** This is data acquisition only:
+two named, verified, real-city candidate second/third scenes now in hand,
+directly matching Asiyabi et al.'s own precedent set, ready for that work
+when it's funded.
+
 ## PLOTTING BUG FOUND AND FIXED — tfocus-full-jpeg2000 missing from every
 ## figure (2026-08-08)
 
