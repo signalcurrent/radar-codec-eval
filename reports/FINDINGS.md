@@ -766,3 +766,77 @@ attempted this pass).
 Conclusion future-work reprioritized (AFRL extensions now lead; Houston/
 São Paulo demoted per Eric's direction), reference [17] added (Scarborough
 et al., Proc. SPIE 7337, 73370G, 2009).
+
+## TIER 2 ATTEMPT — single-channel GMTI change detection, honest negative
+## result, self-corrected false positive (2026-08-08)
+
+At Eric's direction, attempted the compression-impact-on-tracking metric
+(the highest-value item flagged when Section 5.8 was written): use AFRL's
+GPS ground truth to score moving-target-detection fidelity after
+compression, per Phase II's own language ("impact to target... tracks
+after decompression"). Followed AFRL's own published method (Scarborough
+et al. [17], Section 4): coherent + non-coherent change detection between
+the `mis2` (mission, target present) and `ref4` (reference) passes.
+
+**Calibration, real and useful regardless of outcome below:** cross-
+referenced each pass's `GPSTODfirstPulse` (from the bundled
+`*_auxSaveData.mat` files — mis2: 63589.839, ref4: 60924.541 GPS
+seconds-of-day) against the GPS truth file's timestamp range
+(63575-63676). mis2's pulse count (154,180) / PRF (2171.55 Hz) = 71.0
+seconds, exactly matching the paper's stated "71-second scenario" — an
+independent internal-consistency check that passed cleanly.
+
+**Attempt 1 — whole-scene coherent/non-coherent change, same relative
+pulse window (5585:7449) in both passes (coincident-geometry repeat
+passes per AFRL's own description).** FFT phase-correlation check found
+zero global misregistration between passes (shift = 0,0) — ruling out
+gross misalignment as an explanation. But mean coherent correlation
+across the whole scene was low (0.238) and essentially uniform: strong
+deterministic scatterers (buildings) correlated well, diffuse clutter
+did not, regardless of motion. This is expected repeat-pass speckle
+decorrelation, not a processing bug, but it means whole-scene search is
+swamped by clutter decorrelation — consistent with AFRL's own paper
+admitting the same failure mode ("moving Durango is not evident in either
+[change detection] image due to the competing cultural clutter," their
+Figure 9), where they fall back to multi-phase-center STAP.
+
+**Attempt 2 — targeted AOI at the documented signature.** Found a point
+matching the ingest-verification docstring almost exactly (29.6 dB
+contrast over scene median vs. the documented 29.3 dB) at row 323, col
+834. Visually, the coherent-correlation map showed what looked like a
+distinct dark (decorrelated) blocky patch at that exact location against
+a lighter background — a plausible motion signature.
+
+**Self-correction (caught before it went in the preprint):** quantified
+it rather than trusting the visual impression. Mean coherence in a 7x7
+patch centered on the candidate point: 0.204. Mean coherence in the
+surrounding background ring: 0.206. **Statistically indistinguishable.**
+The "blocky dark patch" was a perceptual artifact of the 5x5 smoothing
+window's block structure, not a real decorrelation anomaly; the very low
+min value (0.005) that looked promising is an ordinary speckle null, the
+kind any correlation map has scattered through it by chance. Checked the
+non-coherent map at the same location too — no clear signature there
+either.
+
+**Conclusion, reported honestly per this project's stopping-rule/negative-
+result discipline (same treatment as Section 5.7's learned-codec run):**
+single-channel change detection, as naively applied here, does not
+cleanly separate this candidate target from background decorrelation.
+This is not evidence the target is undetectable — it is evidence that
+the simple method AFRL itself describes as sometimes-insufficient is, in
+fact, insufficient here too, exactly where their own paper says it can
+be. The documented next step (multi-phase-center STAP, using channels 2
+and 3, needs antenna baseline/platform-velocity parameters not yet
+extracted) is a genuinely bigger build — real signal-processing R&D, not
+an extension of this attempt — and stays proposed, funded Phase I scope
+rather than something to keep pushing on unfunded tonight. Eric's call,
+made explicitly after an honest cost/benefit conversation: stop here,
+report both attempts plainly, move to other open items.
+
+**Net effect on the proposal:** stronger, not weaker. A vague "we propose
+to try multi-phase-center STAP" line is now backed by a genuine,
+documented attempt at the simpler method, a specific, correctly-diagnosed
+failure mode, and a precise account of what the harder method needs that
+this one didn't have — exactly the kind of hands-on technical credibility
+a Phase I qualifications evaluation rewards, without overclaiming a
+result that doesn't hold up under its own scrutiny.
