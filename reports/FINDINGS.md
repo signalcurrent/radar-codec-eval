@@ -523,8 +523,9 @@ CPU-budget model below, and says nothing about the architecture class.
 **STOPPING RULE FIRED.** Transform baseline and one trained autoencoder have
 both been scored against the pre-registered criterion. The experimental phase
 is closed. What the record establishes: (1) the classical feasibility spine
-stands in full — no classical approach sustains two-sided utility below 4.86
-bits/complex-sample, each failure mechanistically named; (2) the concentrated
+stands in full — on the evaluated scene, no classical approach sustains
+two-sided utility below 4.86 bits/complex-sample, each failure
+mechanistically named; (2) the concentrated
 domain is exploitable in principle (coding-gain prediction confirmed) and the
 open problem is capturing that gain without a detection-hostile artifact
 signature; (3) the learned-codec question is OPEN, with the failure diagnosed
