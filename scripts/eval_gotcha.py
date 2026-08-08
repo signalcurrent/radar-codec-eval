@@ -20,12 +20,21 @@ import numpy as np
 import yaml
 
 from radarcodec.baselines import CODECS
-from radarcodec.data.gotcha import form_image, read_phase_history
+from radarcodec.data.gotcha import form_image, read_phase_history, tfocus_gotcha_codec
 from radarcodec.experiments import log_run
 from radarcodec.tasks.cfar import detection_agreement
 
 PH_PATH = "data/gotcha_gmti/durangoChallenge_chan1_mis2_PH"
 START_PULSE, N_PULSES = 5585, 1864  # AFRL's own worked example, ingest-verified 2026-08-08
+
+# Transform-domain arm: same base codecs/grids as the Illinois tfocus study
+# (raw-domain BAQ is the classical raw-echo baseline; JPEG2000/HEVC are run
+# both raw and in the focused domain, matching configs/baseline_sweep.yaml's
+# ratio/QP grid for direct comparability)
+TFOCUS_CODECS = [
+    {"name": "jpeg2000", "ratio": [4, 8, 16, 32]},
+    {"name": "hevc", "qp": [12, 20, 28, 36]},
+]
 
 
 def operating_points(codec_cfg):
@@ -51,6 +60,7 @@ def main():
     print(f"phase history {ph.shape}, forming reference image...")
     ref = form_image(ph)
 
+    print("\n--- raw phase-history domain (Tier 1, already run) ---")
     for codec_cfg in cfg["codecs"]:
         for name, params in operating_points(codec_cfg):
             t0 = time.perf_counter()
@@ -69,6 +79,28 @@ def main():
                 "data_public_release": "88 ABW-09-0967",
             })
             print(f"{name} {params}: rate={rate:.2f} bps  pd={det['pd']:.3f}  "
+                  f"false={det['n_false']}  n_ref={det['n_ref']}  codec_s={codec_s:.1f}")
+
+    print("\n--- focused (range-Doppler) domain, transform arm ---")
+    for codec_cfg in TFOCUS_CODECS:
+        for base_name, base_params in operating_points(codec_cfg):
+            t0 = time.perf_counter()
+            ph_hat, rate = tfocus_gotcha_codec(ph, base=base_name, **base_params)
+            codec_s = time.perf_counter() - t0
+            img_hat = form_image(ph_hat)
+            det = detection_agreement(ref, img_hat, **cfar_cfg)
+            params = {"base": base_name, "mode": "focused", **base_params}
+            row = log_run(cfg["out"], cfg, {
+                "codec": "tfocus", "params": params, "domain": "gotcha_gmti",
+                "scene": "durango_chan1_mis2",
+                "rate_bps": float(rate), "cfar_pd": det["pd"],
+                "cfar_false": det["n_false"], "n_ref_detections": det["n_ref"],
+                "codec_seconds": round(codec_s, 2),
+                "msamples_per_s": round(ph.size / codec_s / 1e6, 2),
+                "mapping": "v2-pctclip99.99",
+                "data_public_release": "88 ABW-09-0967",
+            })
+            print(f"tfocus-{base_name} {base_params}: rate={rate:.2f} bps  pd={det['pd']:.3f}  "
                   f"false={det['n_false']}  n_ref={det['n_ref']}  codec_s={codec_s:.1f}")
 
 

@@ -40,7 +40,7 @@ PLOTS = [
     # Gotcha GMTI (unencoded, airborne, government-provided): its own R_c,
     # no FDBAQ line (spaceborne-specific, not meaningful here).
     ("cfar_pd", "gotcha_gmti", "Post-focus CFAR detection agreement (Pd)",
-     "rate_vs_pd_gotcha.png", 7.35, None),
+     "rate_vs_pd_gotcha.png", 7.99, None),
     ("cfar_false", "gotcha_gmti", "Spurious detections (count, log scale)",
      "rate_vs_spurious_gotcha.png", None, None),
 ]

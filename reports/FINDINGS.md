@@ -840,3 +840,49 @@ failure mode, and a precise account of what the harder method needs that
 this one didn't have — exactly the kind of hands-on technical credibility
 a Phase I qualifications evaluation rewards, without overclaiming a
 result that doesn't hold up under its own scrutiny.
+
+## GOTCHA TRANSFORM-DOMAIN ARM — the ringing mechanism replicates
+## independently, plus a rounding-artifact correction to R_c (2026-08-08)
+
+At Eric's direction, extended the Gotcha evaluation to the focused
+(range-Doppler) domain, direct analog of the Illinois `tfocus` study.
+Gotcha's phase history is already motion-compensated, so its "focus"
+step is a plain 2-D DFT pair (`form_image`/new `inverse_image` in
+`radarcodec/data/gotcha.py`) — no dechirp/RCMC/azimuth chain needed,
+unlike Sentinel-1. Verified exactly invertible before use (mean relative
+error 4.4e-7, float32 precision) per the same discipline applied to the
+Sentinel-1 transform. New `tfocus_gotcha_codec` wraps JPEG2000/HEVC in
+this domain; `scripts/eval_gotcha.py` extended to sweep it.
+
+**CORRECTION to the R_c figure reported in the previous entry.** That
+entry stated "HEVC qp20: Pd = 0.900 exactly at the registered floor" —
+this was a rounding artifact from reading a 3-decimal print statement.
+The actual stored value is **0.8997289972899729** — just under the 0.9
+floor. HEVC qp20 does **not** sustain the two-sided criterion; it never
+did. Caught while computing R_c programmatically off the raw `runs.jsonl`
+values (not off a printed/rounded number) for the expanded sweep — same
+lesson as the "60x" abstract correction earlier: never read numbers off
+rounded print output when the exact value is available in the log.
+
+**Corrected, expanded result.** With the transform-domain arm included,
+the lowest-rate sustaining point is `tfocus`-JPEG2000 at ratio=4: **R_c =
+7.99 bits/complex-sample** (Pd 0.943, 26 spurious against the 36.9
+budget) — narrowly ahead of raw-domain JPEG2000 at the same nominal rate
+(8.00 bps, Pd 0.905, 30 spurious). No point below ~8 bps sustains in
+either domain.
+
+**The mechanism replicates cleanly, independently of the R_c value.**
+At matched low rates, the focused-domain codecs win decisively on Pd —
+e.g. at ~1 bps, `tfocus`-JPEG2000 holds Pd 0.805 vs. raw JPEG2000's
+0.442 — but pay for it in spurious detections an order of magnitude or
+more above the raw-domain codecs at the same rates (2,000-3,000+ vs.
+100-160 for JPEG2000; 600-1,000 vs. 20-70 for HEVC). This is the exact
+concentration-buys-Pd-but-floods-false-alarms pattern from Section 5.3 of
+the preprint, now observed on a completely independent sensor (X-band
+airborne vs. C-band spaceborne), geometry (motion-compensated
+range-Doppler vs. stripmap), and scene (small urban vs. large
+agricultural) — a materially stronger claim than a single-scene finding.
+
+**Preprint Section 5.8 rewritten** to report the corrected R_c, the
+transform-domain results, Figures 5-6 regenerated with the new series and
+corrected R_c annotation (7.99, was 7.35).
