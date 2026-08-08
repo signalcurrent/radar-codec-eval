@@ -535,6 +535,53 @@ GPU-scale training with calibrated lambda schedules, seam-aware tiling
 cross-scene generalization, second-scene clutter, ANS productionization of
 the entropy coder, embedded trade study.
 
+## VALIDITY CHECK — FDBAQ lattice-alignment artifact (2026-08-08)
+
+**Threat.** Asiyabi et al. (IEEE JSTSP 2025 — the [redacted] topic's own cited
+reference) report that on FDBAQ-decoded Sentinel-1 raw data, BAQ at 3 bits
+scored anomalously WELL — better than 4-bit BAQ — because the FDBAQ
+reconstruction lattice coincidentally aligned with the 3-bit BAQ step. Our
+strongest credibility claim ("3-bit BAQ sustains utility at 6.12
+bits/complex-sample, independently reproducing the fielded FDBAQ operating
+point") depends on exactly that configuration.
+
+**Precondition confirmed present in our data.** The Chicago stripmap crop
+carries a visible FDBAQ lattice: **48 distinct I values across 1,048,576
+samples; 32 distinct values in a 64x64 block** (estimated step 1.1471).
+For contrast, AFRL Gotcha airborne phase history shows 153,443 distinct
+values in 153,600 samples — effectively continuous.
+
+**Test.** Re-ran the BAQ sweep on the same crop with and without the Asiyabi
+adaptation procedure (uniform noise of one lattice step filling the gaps;
+`radarcodec/data/adaptation.py`, after their IGARSS 2024 method). Adaptation
+verified effective: 32 -> 4096 distinct values in a 64x64 block.
+
+| BAQ bits | rate (bps) | Pd orig | false orig | Pd adapted | false adapted |
+|---|---|---|---|---|---|
+| 2 | 4.12 | 0.851 | 2,201 | 0.850 | 2,247 |
+| 3 | 6.12 | 0.905 | 1,619 | 0.909 | 1,621 |
+| 4 | 8.12 | 0.963 | 784 | 0.965 | 815 |
+| 6 | 12.12 | 0.987 | 277 | 0.988 | 312 |
+
+**Result: the artifact does NOT affect our results.** Max |dPd| = 0.004,
+false-alarm counts shift by <5%, and — the decisive point — **monotonicity
+is preserved in both conditions** (2 < 3 < 4 < 6 bits). We never observed
+the inversion (3-bit beating 4-bit) that is the artifact's signature.
+
+**Why we escaped it, most likely:** (a) our utility metric is post-focus
+CFAR detection agreement, not SQNR; coherent integration suppresses
+quantization-lattice effects that a direct signal-fidelity metric registers
+immediately; (b) our BAQ is Lloyd-Max (Gaussian-optimal, non-uniform), so
+its levels do not align with a uniform FDBAQ step the way a uniform
+quantizer's would.
+
+**Net: the harness-validation claim stands, and now stands tested.** State
+it that way — "we tested for the lattice-alignment artifact reported by
+Asiyabi et al. and confirmed our results are unaffected" is stronger than
+the untested version. Adaptation is retained in the codebase as an option;
+the preferred long-term answer remains evaluating on genuinely unencoded
+data (AFRL Gotcha).
+
 **Stopping rule (adopted 2026-08-06):** the experimental phase ends when the
 transform baseline AND one trained autoencoder have both been scored against
 the pre-registered continuous criterion. After that, the next artifact is
