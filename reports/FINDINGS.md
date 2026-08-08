@@ -934,3 +934,55 @@ informative parallel finding, not a wasted run.
    R_c (7.99 bps) and the raw-domain baseline; (3) ops-per-sample class
    (unchanged from Illinois -- same architecture, same parallel-MAC
    accounting applies).
+
+## GOTCHA LEARNED CODEC — READOUT (2026-08-08): both lambdas converge to
+## the transmit-nothing solution; reported per the rules above
+
+Scored through the identical pipeline (`scripts/eval_gotcha_neural.py`),
+same held-out crop as every other Gotcha result:
+
+| model | conv. slope | rate (bps) | Pd | spurious (budget 36.9) |
+|---|---|---|---|---|
+| lam=50 | -0.0% (flat) | 0.029 | 0.003 | 677 |
+| lam=300 | -0.0% (flat) | 0.023 | 0.003 | 265 |
+
+**Reading, mechanically applied:** both runs CONVERGED (flat final-decile
+slope — rule 1's undertrained branch does not apply) but to a DEGENERATE
+operating point: rate collapsed to ~0.02 bps within the first ~200 steps
+and MSE pinned at exactly 0.500 for the rest of training. 0.500 is the
+tell: for per-patch RMS-normalized complex data each real channel has
+variance 0.5, so MSE = 0.500 means the decoder outputs ~zero — the
+optimizer found the transmit-nothing solution and stayed there. Final
+losses (25.010, 150.010) are exactly lambda x 0.5 plus rate residue,
+confirming zero information transmitted. Both runs fail the rule-2 sanity
+gate trivially. **Three-number headline: (1) no sustaining rate; (2) not
+comparable to R_c = 7.99 or any baseline — the codec transmits nothing;
+(3) ops class unchanged (same architecture; the parallelism argument is
+untouched by this run's failure).**
+
+**The failure differs from Illinois's in an informative way.** Illinois
+lam=300 was still descending at the final step (undertrained, lower
+bound); Gotcha's lam=300 converged flat to degenerate — at these lambdas,
+on this data, transmit-nothing appears to be a genuine optimum of the
+training objective, not an unreached waypoint. Candidate mechanism,
+recorded as HYPOTHESIS not finding: per-patch RMS normalization erases
+cross-patch dynamic range — exactly where the focused domain's energy
+concentration (the AM/GM variance disparity that coding gain lives on)
+resides. Most 64px Gotcha patches are pure clutter; after normalization
+their content is approximately unit-variance complex speckle — a
+near-memoryless Gaussian source, for which spending ~0 bits and eating
+distortion 0.5 is genuinely close to rate-distortion-optimal at these
+lambda values in this small model's reachable set; and once the entropy
+bottleneck collapses (sigma small, all latents rounding to zero), no
+gradient path leads back out. If correct, this is a SECOND, independent
+indictment of per-tile normalization, converging with the Illinois
+seam-artifact hypothesis from the model readout of 2026-08-06 — two
+different failure signatures on two different datasets pointing at the
+same design element. The Phase I fix list sharpens accordingly:
+scene-level (global) normalization or normalization schemes that preserve
+cross-patch dynamic range, calibrated lambda schedules (both scenes'
+evidence says [50, 300] is 1-2 orders too low for unit-normalized data),
+and GPU-scale budgets. Deliberately NOT tried tonight: retuning lambda on
+this data until something works — that is exactly the cherry-picking the
+pre-declared config was designed to prevent, and it is proposed funded
+work, not evening work.
