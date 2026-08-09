@@ -46,8 +46,7 @@ FDBAQ-rate would be a publishable, proposable result.
    measures preservation of detector behavior, not absolute detection skill.
 3. Public L0 has already been through onboard FDBAQ once. All codecs start
    from identical decoded samples (internally fair), but the honest claim is
-   "re-compression of operationally compressed raw data." [redacted] question
-   pending on whether that surrogate is acceptable.
+   "re-compression of operationally compressed raw data." [redacted: programmatic note]
 
 **Caveats.** Single scene, single polarization, 64-patch eval subsets; CFAR
 agreement tolerance 3 px; ATR is 3-class with modest (86%) frozen ceiling.
@@ -542,8 +541,7 @@ the entropy coder, embedded trade study.
 
 ## VALIDITY CHECK — FDBAQ lattice-alignment artifact (2026-08-08)
 
-**Threat.** Asiyabi et al. (IEEE JSTSP 2025 — the [redacted] topic's own cited
-reference) report that on FDBAQ-decoded Sentinel-1 raw data, BAQ at 3 bits
+**Threat.** Asiyabi et al. (IEEE JSTSP 2025 — [redacted: programmatic context]) report that on FDBAQ-decoded Sentinel-1 raw data, BAQ at 3 bits
 scored anomalously WELL — better than 4-bit BAQ — because the FDBAQ
 reconstruction lattice coincidentally aligned with the 3-bit BAQ step. Our
 strongest credibility claim ("3-bit BAQ sustains utility at 6.12
@@ -592,8 +590,7 @@ data (AFRL Gotcha).
 transform baseline AND one trained autoencoder have both been scored against
 the pre-registered continuous criterion. After that, the next artifact is
 prose: FINDINGS.md -> preprint draft + Phase I proposal skeleton. Every
-further experiment idea becomes PROPOSED Phase I work, not unfunded evening
-work — which is itself the argument that makes Phase I fundable. Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
+further experiment idea becomes PROPOSED Phase I work, not unfunded evening work. [redacted: programmatic aside] Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
 sustains at the grid floor, so R_c must be located with the low-rate
 extension before the GO target (R_c/2) is fixed. The contested region has
 moved down-rate as predicted; the pre-focus "20-30% at FDBAQ rate" headline
@@ -703,8 +700,7 @@ low rates in both `rate_vs_pd.png` and the newly added `rate_vs_spurious.png`.
 
 ## GOTCHA GMTI EVALUATION — first genuinely unencoded result (2026-08-08)
 
-Post-stopping-rule, at Eric's explicit direction, prioritizing [redacted]-topic
-alignment over academic-precedent-matching (Houston/São Paulo set aside as
+Post-stopping-rule, at Eric's explicit direction [redacted: programmatic rationale] (Houston/São Paulo set aside as
 lower priority). Ran `scripts/eval_gotcha.py`: the identical, unmodified
 protocol from Section 3 of the preprint (same CA-CFAR config, same BAQ/
 JPEG2000/HEVC grid from `configs/baseline_sweep.yaml`) applied to AFRL's
