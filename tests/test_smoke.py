@@ -1,9 +1,14 @@
 """End-to-end smoke test on synthetic data — no downloads, no torch, no ffmpeg.
 
-Run:  python -m tests.test_smoke
+Run:  python tests/test_smoke.py   (or python -m pytest tests/)
 Validates: synthetic scenes -> BAQ codec -> radar metrics -> CFAR utility eval,
 and that BAQ behaves sanely (more bits -> less distortion, high Pd at 4 bits).
 """
+
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import numpy as np
 
