@@ -6,7 +6,8 @@ title: radar-codec-eval
 type: software
 authors:
   - family-names: Chrabot
-    given-names: Eric
+    given-names: Eric Michael
+    orcid: https://orcid.org/0009-0009-8363-7878
     affiliation: Signal Current Inc.
 repository-code: https://github.com/signalcurrent/radar-codec-eval
 license: Apache-2.0
@@ -18,7 +19,8 @@ preferred-citation:
     Target Detection, and Why
   authors:
     - family-names: Chrabot
-      given-names: Eric
+      given-names: Eric Michael
+      orcid: https://orcid.org/0009-0009-8363-7878
       affiliation: Signal Current Inc.
   year: 2026
   # arXiv identifier to be added upon posting; do not cite a placeholder.
