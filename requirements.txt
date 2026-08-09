@@ -1,12 +1,20 @@
-# harness environment — pure-numeric, runs on Python 3.14
+# Core: regenerate the paper's figures from the committed results log,
+# run the round-trip tests, and run the classical baselines and
+# CFAR/ATR evaluation. Pure-numeric; runs on Python 3.14.
 numpy
 scipy
 matplotlib
+Pillow            # JPEG2000 baseline (bundled OpenJPEG)
 pyyaml
 
-# Sentinel-1 Level-0 decoding + data discovery/download
+# Sentinel-1 Level-0 decoding + data discovery/download (only needed to
+# re-decode raw data; not needed for figure regeneration)
 sentinel1decoder
 asf_search
 
-# JPEG2000 baseline (OpenJPEG bindings)
-glymur
+# HEVC baseline additionally requires an ffmpeg binary with libx265 on
+# PATH (a system binary, not a Python package): https://ffmpeg.org
+#
+# The learned-codec training/eval scripts reference a model module that
+# is not part of the public release (see README); running them would
+# additionally require torch on Python <= 3.12.

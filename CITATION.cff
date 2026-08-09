@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: >-
+  If you use this evaluation harness or its results, please cite the
+  accompanying paper below.
+title: radar-codec-eval
+type: software
+authors:
+  - family-names: Chrabot
+    given-names: Eric
+    affiliation: Signal Current Inc.
+repository-code: https://github.com/signalcurrent/radar-codec-eval
+license: Apache-2.0
+preferred-citation:
+  type: article
+  title: >-
+    Task-Based Evaluation of Raw Radar Data Compression: A
+    Pre-Registered Study of Where Classical Codecs Fail to Preserve
+    Target Detection, and Why
+  authors:
+    - family-names: Chrabot
+      given-names: Eric
+      affiliation: Signal Current Inc.
+  year: 2026
+  # arXiv identifier to be added upon posting; do not cite a placeholder.

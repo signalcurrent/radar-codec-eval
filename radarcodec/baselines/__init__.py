@@ -11,7 +11,6 @@ from radarcodec.baselines.hevc import hevc_codec
 from radarcodec.baselines.jpeg2000 import jpeg2000_codec
 from radarcodec.baselines.transform_codec import tfocus_codec
 
-
 CODECS = {
     "baq": baq_codec,
     "jpeg2000": jpeg2000_codec,
