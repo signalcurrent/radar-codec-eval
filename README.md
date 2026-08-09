@@ -58,7 +58,11 @@ ongoing work. Consequently:
   documents were removed from all history, and **author/committer dates
   were preserved**, so the pre-registration chronology is intact.
   Programmatic (non-technical) notes in `reports/FINDINGS.md` are
-  redacted with visible markers; no technical content was altered.
+  redacted with visible markers, and a small set of programmatic
+  identifiers was replaced with `[redacted]` throughout the history's
+  file contents; no technical content was altered. Commit hashes cited
+  inside `reports/FINDINGS.md` refer to the private working repository;
+  this mirror's hashes differ (dates are preserved).
 
 ## Quickstart: regenerate the paper's figures (no data downloads)
 
