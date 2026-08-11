@@ -597,14 +597,19 @@ moved down-rate as predicted; the pre-focus "20-30% at FDBAQ rate" headline
 is retracted as an operational-utility claim and survives only as a
 statement about the range-compressed domain.
 
-**Interpretation.** "Radar utility" splits into two regimes. In the raw-echo
-domain (where onboard compression actually operates), classical codecs lose
-most detections at operational rates — that is the neural codec's primary
-target and the topic's stated Phase I focus. In the focused image domain,
-classical transform codecs are already near-utility-lossless at 4 bps, so a
-learned codec must win below ~2 bps to matter there. The regime split is
-itself a substantive result: it says compress-then-focus, not
-focus-then-compress, is where the compression opportunity lies.
+**Interpretation.** The behavior splits by task and domain, consistent with
+the coding-gain argument. In the raw-echo domain, where onboard compression
+actually operates, classical codecs lose most detections at operational
+rates; that is the neural codec's primary target and the topic's stated
+Phase I focus. In the focused domain the picture is task-dependent:
+classification (ATR) stays near ceiling down to ~2 bps, but transform coding
+still rings under detection (the tfocus result), so "focused domain is easy"
+holds only for classification, not for detection. On the two scenes evaluated
+this points to raw-domain compression as the more open opportunity for a
+learned codec, since that is both where classical leaves the largest
+detection-preserving gap and where onboard compression has to run.
+Generalizing the split beyond these scenes is proposed Phase I work, not a
+settled result.
 
 ## SCENE LOCATION CORRECTION — "Chicago" was wrong (2026-08-08)
 
