@@ -35,7 +35,7 @@ the rates where they look acceptable on MSE:
 **Implication for feasibility.** The neural codec does not need miracles: the
 target region (Pd ≥ 0.9 at ≤ 4 bps) is empty of classical competitors by a
 wide margin. Even a modest learned codec that halves the utility loss at
-FDBAQ-rate would be a publishable, proposable result.
+FDBAQ-rate would be a publishable, significant result.
 
 **Methodology decisions that mattered.**
 1. CFAR on unfocused raw echoes is meaningless (it thresholds speckle; Pd
@@ -121,7 +121,7 @@ itself part of the finding.
 a single 4096x8192 crop of a single (agricultural/urban, Illinois) scene.
 Clutter statistics differ sharply across terrain; detection results may not
 generalize. A second scene with different terrain (coastal/maritime stripmap)
-is planned before any proposal-grade claim; until then every focused-domain
+is planned before any publication-grade claim; until then every focused-domain
 number carries this caveat.
 
 ## CHRONOLOGY CORRECTION — read this before citing the pre-registration
@@ -216,7 +216,7 @@ transform on decode). This is a raw-data codec by construction and our own
 regime-split data predicts it may be strong. If it alone approaches the GO
 target, that is a major finding about WHERE the win comes from (the
 transform, not the learning) and the learned codec must then beat it, not
-just BAQ. Proposal narrative in one line: classical onboard codecs treat raw
+just BAQ. The claim in one line: classical onboard codecs treat raw
 radar as memoryless noise; any codec — learned or not — wins only by
 exploiting the chirp and aperture coherence they discard.
 
@@ -590,7 +590,7 @@ data (AFRL Gotcha).
 transform baseline AND one trained autoencoder have both been scored against
 the pre-registered continuous criterion. After that, the next artifact is
 prose: FINDINGS.md -> preprint draft + Phase I proposal skeleton. Every
-further experiment idea becomes PROPOSED Phase I work, not unfunded evening work. [redacted: programmatic aside] Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
+further experiment idea becomes PROPOSED Phase I work. Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
 sustains at the grid floor, so R_c must be located with the low-rate
 extension before the GO target (R_c/2) is fixed. The contested region has
 moved down-rate as predicted; the pre-focus "20-30% at FDBAQ rate" headline
@@ -602,16 +602,16 @@ domain (where onboard compression actually operates), classical codecs lose
 most detections at operational rates — that is the neural codec's primary
 target and the topic's stated Phase I focus. In the focused image domain,
 classical transform codecs are already near-utility-lossless at 4 bps, so a
-learned codec must win below ~2 bps to matter there. This regime split is
-itself a proposal-grade insight: it says compress-then-focus, not
-focus-then-compress, is where the money is.
+learned codec must win below ~2 bps to matter there. The regime split is
+itself a substantive result: it says compress-then-focus, not
+focus-then-compress, is where the compression opportunity lies.
 
 ## SCENE LOCATION CORRECTION — "Chicago" was wrong (2026-08-08)
 
 Every document in this repo (this file, the preprint, `prior_art.md`'s
 Asiyabi analysis) described the evaluation scene as "the Chicago stripmap
-scene/crop." Caught by inspection: Eric looked at the rendered Figure 0
-quicklook and said "that doesn't look like Chicago" — no lakeshore, no
+scene/crop." Caught by inspection of the rendered Figure 0
+quicklook, which plainly did not resemble Chicago — no lakeshore, no
 dense urban core, just farmland. Checked against the primary source (the
 SAFE product's `manifest.safe`, `<gml:coordinates>` under `footPrint`):
 `42.3705,-88.6264 40.7168,-88.9679 40.6390,-88.0440 42.2926,-87.6782`
@@ -700,8 +700,8 @@ low rates in both `rate_vs_pd.png` and the newly added `rate_vs_spurious.png`.
 
 ## GOTCHA GMTI EVALUATION — first genuinely unencoded result (2026-08-08)
 
-Post-stopping-rule, at Eric's explicit direction [redacted: programmatic rationale] (Houston/São Paulo set aside as
-lower priority). Ran `scripts/eval_gotcha.py`: the identical, unmodified
+Post-stopping-rule, with Houston/São Paulo set aside as lower priority.
+Ran `scripts/eval_gotcha.py`: the identical, unmodified
 protocol from Section 3 of the preprint (same CA-CFAR config, same BAQ/
 JPEG2000/HEVC grid from `configs/baseline_sweep.yaml`) applied to AFRL's
 Gotcha GMTI phase history (`chan1`/`mis2`, pulses 5585-7448, AFRL's own
@@ -760,13 +760,13 @@ attempted this pass).
 **Preprint updated:** new Section 5.8, Figures 5-6 (`rate_vs_pd_gotcha.png`,
 `rate_vs_spurious_gotcha.png`), abstract finding (4), Limitations,
 Conclusion future-work reprioritized (AFRL extensions now lead; Houston/
-São Paulo demoted per Eric's direction), reference [17] added (Scarborough
+São Paulo demoted to lower priority), reference [17] added (Scarborough
 et al., Proc. SPIE 7337, 73370G, 2009).
 
 ## TIER 2 ATTEMPT — single-channel GMTI change detection, honest negative
 ## result, self-corrected false positive (2026-08-08)
 
-At Eric's direction, attempted the compression-impact-on-tracking metric
+Attempted the compression-impact-on-tracking metric
 (the highest-value item flagged when Section 5.8 was written): use AFRL's
 GPS ground truth to score moving-target-detection fidelity after
 compression, per Phase II's own language ("impact to target... tracks
@@ -824,23 +824,21 @@ fact, insufficient here too, exactly where their own paper says it can
 be. The documented next step (multi-phase-center STAP, using channels 2
 and 3, needs antenna baseline/platform-velocity parameters not yet
 extracted) is a genuinely bigger build — real signal-processing R&D, not
-an extension of this attempt — and stays proposed, funded Phase I scope
-rather than something to keep pushing on unfunded tonight. Eric's call,
-made explicitly after an honest cost/benefit conversation: stop here,
-report both attempts plainly, move to other open items.
+an extension of this attempt — and stays proposed Phase I scope rather
+than something to pursue in this exploratory phase. The decision, weighing
+cost against benefit, was to stop here, report both attempts plainly, and
+move to other open items.
 
-**Net effect on the proposal:** stronger, not weaker. A vague "we propose
-to try multi-phase-center STAP" line is now backed by a genuine,
-documented attempt at the simpler method, a specific, correctly-diagnosed
-failure mode, and a precise account of what the harder method needs that
-this one didn't have — exactly the kind of hands-on technical credibility
-a Phase I qualifications evaluation rewards, without overclaiming a
-result that doesn't hold up under its own scrutiny.
+**What this leaves on the record:** a documented attempt at the simpler
+method, a specific, correctly-diagnosed failure mode, and a precise
+account of what the harder method (multi-phase-center STAP) needs that
+this attempt did not have — without overclaiming a result that does not
+hold up under its own scrutiny.
 
 ## GOTCHA TRANSFORM-DOMAIN ARM — the ringing mechanism replicates
 ## independently, plus a rounding-artifact correction to R_c (2026-08-08)
 
-At Eric's direction, extended the Gotcha evaluation to the focused
+Extended the Gotcha evaluation to the focused
 (range-Doppler) domain, direct analog of the Illinois `tfocus` study.
 Gotcha's phase history is already motion-compensated, so its "focus"
 step is a plain 2-D DFT pair (`form_image`/new `inverse_image` in
@@ -886,7 +884,7 @@ corrected R_c annotation (7.99, was 7.35).
 ## GOTCHA LEARNED CODEC — interpretation rules declared BEFORE training
 ## (2026-08-08; no training run yet, no checkpoints exist)
 
-At Eric's direction, extending to the learned codec on Gotcha data. This
+Extending to the learned codec on Gotcha data. This
 is exploratory extension work, not a reopening of the closed,
 pre-registered Illinois study -- but the same discipline applies by
 choice, not obligation: rules fixed before the run exists.
@@ -978,7 +976,7 @@ same design element. The Phase I fix list sharpens accordingly:
 scene-level (global) normalization or normalization schemes that preserve
 cross-patch dynamic range, calibrated lambda schedules (both scenes'
 evidence says [50, 300] is 1-2 orders too low for unit-normalized data),
-and GPU-scale budgets. Deliberately NOT tried tonight: retuning lambda on
+and GPU-scale budgets. Deliberately NOT tried here: retuning lambda on
 this data until something works — that is exactly the cherry-picking the
-pre-declared config was designed to prevent, and it is proposed funded
-work, not evening work.
+pre-declared config was designed to prevent, and it is proposed Phase I
+work.
