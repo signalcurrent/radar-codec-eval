@@ -3,7 +3,7 @@
 Task-based evaluation harness for raw radar data compression — the
 companion repository to:
 
-> E. Chrabot, "Task-Based Evaluation of Raw Radar Data Compression: A
+> E. M. Chrabot, "Task-Based Evaluation of Raw Radar Data Compression: A
 > Pre-Registered Study of Where Classical Codecs Fail to Preserve Target
 > Detection, and Why," preprint, 2026. *(arXiv identifier to be added on
 > posting; see `CITATION.cff`.)*
