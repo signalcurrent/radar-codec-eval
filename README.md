@@ -45,8 +45,9 @@ commit history.
 Per the paper's Reproducibility section, the learned codec's
 **architecture implementation and trained weights are withheld**. That
 component is reported in the paper only as a bounded negative result
-under pre-registered interpretation rules, and it is the object of
-ongoing work. Consequently:
+under pre-registered interpretation rules, and it is proprietary; it is
+not required to reproduce any classical result or to evaluate a new
+codec against the criterion. Consequently:
 
 - `scripts/eval_gotcha_neural.py`, `radarcodec/train.py`, and
   `configs/ae_gotcha.yaml` are released as cited in the paper but
