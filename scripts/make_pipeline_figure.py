@@ -91,7 +91,7 @@ ax.add_patch(FancyArrowPatch((9.15, yc + BH / 2), (cx + cw / 2, yc + BH / 2),
 arrow(ax, cx + cw / 2, yc + BH / 2, cx + cw / 2, cy)
 
 # verdict
-ax.text(cx + cw / 2, cy - 0.28,
+ax.text(cx + cw / 2 - 0.1, 1.02,
         r"sustains utility at $R$?" "\n" r"($P_d \geq 0.9$,  $N_\mathrm{spur} \leq 0.1\,|\mathcal{D}_\mathrm{ref}|$)",
         ha="center", va="top", fontsize=8.5)
 
