@@ -23,4 +23,8 @@ preferred-citation:
       orcid: https://orcid.org/0009-0009-8363-7878
       affiliation: Signal Current Inc.
   year: 2026
-  # arXiv identifier to be added upon posting; do not cite a placeholder.
+  identifiers:
+    - type: other
+      value: "arXiv:2608.17269"
+      description: arXiv preprint (eess.SP)
+  url: "https://arxiv.org/abs/2608.17269"

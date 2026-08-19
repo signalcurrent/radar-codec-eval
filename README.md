@@ -5,8 +5,8 @@ companion repository to:
 
 > E. M. Chrabot, "Task-Based Evaluation of Raw Radar Data Compression: A
 > Pre-Registered Study of Where Classical Codecs Fail to Preserve Target
-> Detection, and Why," preprint, 2026. *(arXiv identifier to be added on
-> posting; see `CITATION.cff`.)*
+> Detection, and Why," arXiv:2608.17269 [eess.SP], 2026.
+> https://arxiv.org/abs/2608.17269
 
 Radar codecs are usually evaluated with image-fidelity metrics (PSNR,
 SSIM, SQNR). This repository scores them instead against what radar data
