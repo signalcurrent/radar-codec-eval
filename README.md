@@ -73,6 +73,13 @@ python scripts/plot_curves.py       # rate-vs-utility figures from runs.jsonl
 python tests/test_roundtrip.py      # transform invertibility verification
 ```
 
+The harness is also installable as a package (imports as `radarcodec`):
+
+```bash
+pip install .            # core evaluation harness
+pip install .[data]      # + Sentinel-1 decoding and data-discovery extras
+```
+
 Both work from a fresh clone with no radar data present, because the
 results log and the transform tests are self-contained.
 

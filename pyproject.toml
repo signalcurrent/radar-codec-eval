@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "radar-codec-eval"
+version = "1.1.0"
+description = "Task-based evaluation harness for raw radar data compression: codecs scored after SAR focusing under a two-sided CFAR detection criterion."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Eric Michael Chrabot", email = "eric@signalcurrent.ai" }]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "Pillow",
+    "pyyaml",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering",
+]
+
+[project.optional-dependencies]
+data = ["sentinel1decoder", "asf_search"]
+
+[project.urls]
+Homepage = "https://github.com/signalcurrent/radar-codec-eval"
+Paper = "https://arxiv.org/abs/2608.17269"
+
+[tool.setuptools.packages.find]
+include = ["radarcodec*"]
