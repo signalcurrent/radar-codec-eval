@@ -17,6 +17,18 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+# Friendly guard for fresh clones: this figure requires the Sentinel-1 raw
+# crop, which is not redistributed (see README, "Reproducing the evaluations
+# from raw data"). It is not part of the data-free quickstart.
+_CROP = Path(__file__).resolve().parents[1] / "data" / "s1_sm" / "chunk_crop.npz"
+if not _CROP.exists():
+    sys.exit(
+        "make_ringing_figure.py requires Sentinel-1 raw data at data/s1_sm/ "
+        "(not redistributed; see the README section 'Reproducing the "
+        "evaluations from raw data'). The data-free quickstart figures are "
+        "produced by scripts/plot_curves.py instead."
+    )
+
 import matplotlib
 
 matplotlib.use("Agg")
