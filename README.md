@@ -50,10 +50,9 @@ not required to reproduce any classical result or to evaluate a new
 codec against the criterion. Consequently:
 
 - `scripts/eval_gotcha_neural.py`, `radarcodec/train.py`, and
-  `configs/ae_gotcha.yaml` are released as cited in the paper but
-  reference the withheld model module and will not run as published.
-  Their hyperparameters disclose nothing beyond what the paper's
-  Sections 5.7–5.8 state in prose.
+  `configs/ae_gotcha.yaml` import or configure the withheld model and are
+  withheld with it; the paper's Sections V-G and V-H state the training
+  configuration in prose.
 - This repository was produced from a private working repository with
   `git filter-repo`: the withheld model paths and internal business
   documents were removed from all history, and **author/committer dates
@@ -119,3 +118,9 @@ courtesy of AFRL/DARPA.
 
 Apache License 2.0 — see `LICENSE` and `NOTICE`.
 Copyright 2026 Signal Current Inc. (https://signalcurrent.ai)
+
+## Update 2026-10-22 (arXiv v2)
+
+- `experiments/runs.jsonl` now carries all 203 rows of the working log, including the 17 image-domain Umbra Port of Vancouver rows (2026-08-06; `scripts/eval_umbra.py`) and 26 learned-codec rows on the Gotcha data from 2026-08-13/14, which were absent from the first release. Learned-codec `params` are withheld as before.
+- `reports/FINDINGS.md` is extended with the 2026-08-13/14 notebook sections the paper's v2 reports (post-draft learned-codec runs), the Umbra evaluation record, and an in-place correction of the pre-registration chronology (six, not seven, first-sweep rows were on disk at the first commit). Notebook sections dated 2026-08-14/15 that are outside the paper's scope (GPU fidelity gates on the Gotcha image and a separate line of work) are not included; the notebook's closing note says so.
+- The paper's v2 corrects the characterization of the retention-only counterfactual and other statements; see its Version note. No new experiment was run.
