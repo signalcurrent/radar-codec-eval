@@ -35,13 +35,13 @@ Path("reports").mkdir(exist_ok=True)
 PLOTS = [
     # (metric, required domain, label, filename, r_c_bps, fdbaq_line)
     ("cfar_pd", "s1_focused", "Post-focus CFAR detection agreement (Pd)",
-     "rate_vs_pd.png", 7.62, 6.8),
+     "rate_vs_pd.png", 7.62, 5.22),
     ("cfar_false", "s1_focused", "Spurious detections (count, log scale)",
-     "rate_vs_spurious.png", None, 6.8),
-    ("mse", "s1", "MSE (raw I/Q)", "rate_vs_mse.png", None, 6.8),
-    ("phase_rmse", "s1", "Phase RMSE (rad)", "rate_vs_phase.png", None, 6.8),
+     "rate_vs_spurious.png", None, 5.22),
+    ("mse", "s1", "MSE (raw I/Q)", "rate_vs_mse.png", None, 5.22),
+    ("phase_rmse", "s1", "Phase RMSE (rad)", "rate_vs_phase.png", None, 5.22),
     ("atr_acc", "mstar", "Frozen-ATR accuracy (MSTAR 15 deg)",
-     "rate_vs_atr.png", None, 6.8),
+     "rate_vs_atr.png", None, 5.22),
     # Gotcha GMTI (unencoded, airborne, government-provided): its own R_c,
     # no FDBAQ line (spaceborne-specific, not meaningful here).
     ("cfar_pd", "gotcha_gmti", "Post-focus CFAR detection agreement (Pd)",
@@ -91,10 +91,10 @@ for metric, domain, label, fname, r_c, fdbaq_line in PLOTS:
                 f" spurious budget (10% of {n_ref:,} ref.)", va="bottom", ha="right",
                 fontsize=8, color="crimson")
     if fdbaq_line is not None:
-        # ESA quotes FDBAQ per real component (~3.4); on this axis that is ~6.8.
+        # 2026-10-29: the line is the MEASURED delivered FDBAQ bitstream of this crop over the crop (5.22 bps; reports/fdbaq_rate_crop.json).
         # Spaceborne-specific -- only drawn for Sentinel-1 domains.
         ax.axvline(fdbaq_line, ls="--", lw=1, color="gray")
-        ax.text(fdbaq_line + 0.05, ax.get_ylim()[1], " FDBAQ IW avg (~3.4 b/component)",
+        ax.text(fdbaq_line + 0.05, ax.get_ylim()[1], " FDBAQ bitstream as delivered, crop (5.22 bps)",
                 va="top", fontsize=8, color="gray")
     ax.legend(fontsize=8)
     ax.grid(alpha=0.3)

@@ -1,22 +1,24 @@
 # Claims ledger — radar-codec manuscript (TGRS-2026-08067 -> JSTARS revision)
 
-One line per quantitative claim. Status: OK / FIX / POST-HOC (new analysis for the revision). Budget = 0.1 x 23,387 = 2,338.7.
+**READ FIRST (2026-10-29):** the manuscript of record is v5c (corrected scorer, peak-v2). Rows 1-13 below and the legacy-scorer post hoc lines were computed under the pixel-count scorer with the legacy budget 0.1 x 23,387 = 2,338.7; they are SUPERSEDED by the v4 and v5 blocks at the end of this file (budget 0.1 x 13,964 = 1,396.4) and are kept only as the record of what the submitted version claimed.
+
+One line per quantitative claim. Status: OK / FIX / POST-HOC / CORRECTED / SUPERSEDED.
 
 | # | Claim (location) | Run id / config hash | Arithmetic | Status |
 |---|---|---|---|---|
-| 1 | tfocus-full JPEG2000 @ 4.00 bps: retention 0.908, spurious 4,482 (Table II / Sec V-C) | ef3f32c0b159 | 4,482/2,338.7 = 1.9x budget; certified by Pd-alone | OK (report both runs) |
-| 2 | tfocus-full JPEG2000 @ 4.00 bps: retention 0.912, spurious 5,800 (Table II / Sec V-C) | ef3f32c0b159 | 5,800/2,338.7 = 2.5x budget; certified by Pd-alone | OK (report both runs) |
-| 3 | tfocus-full JPEG2000 @ 2.00 bps: retention 0.901, spurious 16,014 (Table II / Sec V-C) | ef3f32c0b159 | 16,014/2,338.7 = 6.8x budget; certified by Pd-alone | OK (report both runs) |
-| 4 | tfocus-full JPEG2000 @ 2.00 bps: retention 0.888, spurious 17,950 (Table II / Sec V-C) | ef3f32c0b159 | 17,950/2,338.7 = 7.7x budget; NOT certified (Pd<0.9) | OK (report both runs) |
-| 5 | tfocus-full JPEG2000 @ 1.03 bps: retention 0.716, spurious 8,681 (Table II / Sec V-C) | ef3f32c0b159 | 8,681/2,338.7 = 3.7x budget; NOT certified (Pd<0.9) | OK (report both runs) |
-| 6 | tfocus-full JPEG2000 @ 1.00 bps: retention 0.880, spurious 46,214 (Table II / Sec V-C) | ef3f32c0b159 | 46,214/2,338.7 = 19.8x budget; NOT certified (Pd<0.9) | OK (report both runs) |
-| 7 | tfocus-full JPEG2000 @ 1.00 bps: retention 0.861, spurious 37,711 (Table II / Sec V-C) | ef3f32c0b159 | 37,711/2,338.7 = 16.1x budget; NOT certified (Pd<0.9) | OK (report both runs) |
-| 8 | tfocus-full JPEG2000 @ 0.50 bps: retention 0.858, spurious 123,300 (Table II / Sec V-C) | ef3f32c0b159 | 123,300/2,338.7 = 52.7x budget; NOT certified (Pd<0.9) | OK (report both runs) |
-| 9 | tfocus-full JPEG2000 @ 0.50 bps: retention 0.883, spurious 138,131 (Table II / Sec V-C) | ef3f32c0b159 | 138,131/2,338.7 = 59.1x budget; NOT certified (Pd<0.9) | OK (report both runs) |
-| 10 | 'Pd-only would certify a codec producing ~53x the budget' (abstract ~l.57; III-A ~l.315; V-C ~l.603) | rows above | the 53x row (0.5 bps) has retention 0.858 < 0.9 -> Pd-only REJECTS it; Pd-only certifies 4 bps (2.5x / 1.9x) and one 2 bps run (6.8x) | FIX: restate as 2.5x-7x; keep 53x as magnitude at the floor |
-| 11 | 'Pd holds 0.86-0.91 across tested rates' (V-C ~l.598) | rows above | min 0.858, max 0.912 across 4/2/1/0.5 bps | OK |
-| 12 | Minimum acceptable rate 4.86 bps (V-B) and 7.99 bps (V-H) | (to be linked) | reviewer asks SNR sensitivity | POST-HOC: SNR sweep |
-| 13 | Wavelet ringing causes the spurious detections (V-C) | (to be linked) | currently illustrative + counts | POST-HOC: ablation |
+| 1 | tfocus-full JPEG2000 @ 4.00 bps: retention 0.908, spurious 4,482 (Table II / Sec V-C) | ef3f32c0b159 | 4,482/2,338.7 = 1.9x budget; certified by Pd-alone | SUPERSEDED (legacy scorer): OK (report both runs) |
+| 2 | tfocus-full JPEG2000 @ 4.00 bps: retention 0.912, spurious 5,800 (Table II / Sec V-C) | ef3f32c0b159 | 5,800/2,338.7 = 2.5x budget; certified by Pd-alone | SUPERSEDED (legacy scorer): OK (report both runs) |
+| 3 | tfocus-full JPEG2000 @ 2.00 bps: retention 0.901, spurious 16,014 (Table II / Sec V-C) | ef3f32c0b159 | 16,014/2,338.7 = 6.8x budget; certified by Pd-alone | SUPERSEDED (legacy scorer): OK (report both runs) |
+| 4 | tfocus-full JPEG2000 @ 2.00 bps: retention 0.888, spurious 17,950 (Table II / Sec V-C) | ef3f32c0b159 | 17,950/2,338.7 = 7.7x budget; NOT certified (Pd<0.9) | SUPERSEDED (legacy scorer): OK (report both runs) |
+| 5 | tfocus-full JPEG2000 @ 1.03 bps: retention 0.716, spurious 8,681 (Table II / Sec V-C) | ef3f32c0b159 | 8,681/2,338.7 = 3.7x budget; NOT certified (Pd<0.9) | SUPERSEDED (legacy scorer): OK (report both runs) |
+| 6 | tfocus-full JPEG2000 @ 1.00 bps: retention 0.880, spurious 46,214 (Table II / Sec V-C) | ef3f32c0b159 | 46,214/2,338.7 = 19.8x budget; NOT certified (Pd<0.9) | SUPERSEDED (legacy scorer): OK (report both runs) |
+| 7 | tfocus-full JPEG2000 @ 1.00 bps: retention 0.861, spurious 37,711 (Table II / Sec V-C) | ef3f32c0b159 | 37,711/2,338.7 = 16.1x budget; NOT certified (Pd<0.9) | SUPERSEDED (legacy scorer): OK (report both runs) |
+| 8 | tfocus-full JPEG2000 @ 0.50 bps: retention 0.858, spurious 123,300 (Table II / Sec V-C) | ef3f32c0b159 | 123,300/2,338.7 = 52.7x budget; NOT certified (Pd<0.9) | SUPERSEDED (legacy scorer): OK (report both runs) |
+| 9 | tfocus-full JPEG2000 @ 0.50 bps: retention 0.883, spurious 138,131 (Table II / Sec V-C) | ef3f32c0b159 | 138,131/2,338.7 = 59.1x budget; NOT certified (Pd<0.9) | SUPERSEDED (legacy scorer): OK (report both runs) |
+| 10 | 'Pd-only would certify a codec producing ~53x the budget' (abstract ~l.57; III-A ~l.315; V-C ~l.603) | rows above | the 53x row (0.5 bps) has retention 0.858 < 0.9 -> Pd-only REJECTS it; Pd-only certifies 4 bps (2.5x / 1.9x) and one 2 bps run (6.8x) | SUPERSEDED (legacy scorer): FIX: restate as 2.5x-7x; keep 53x as magnitude at the floor |
+| 11 | 'Pd holds 0.86-0.91 across tested rates' (V-C ~l.598) | rows above | min 0.858, max 0.912 across 4/2/1/0.5 bps | SUPERSEDED (legacy scorer): OK |
+| 12 | Minimum acceptable rate 4.86 bps (V-B) and 7.99 bps (V-H) | (to be linked) | reviewer asks SNR sensitivity | SUPERSEDED (legacy scorer): POST-HOC: SNR sweep |
+| 13 | Wavelet ringing causes the spurious detections (V-C) | (to be linked) | currently illustrative + counts | SUPERSEDED (legacy scorer): POST-HOC: ablation |
 
 Add lines for every remaining number in the manuscript before the JSTARS resubmission.
 
@@ -121,3 +123,16 @@ See the Version note in latex/preprint.tex. BLOCKERS A1-A3 fixed; MAJORS A4-A14 
 | v4-lattice | max dPd 0.007; spurious +1.8/0.0/+4.4/+11.7%; monotone; 3-bit fails under both (Sec I, V-A) | rescore_lattice rows | adapted - plain | CORRECTED |
 | v4-learned | best Illinois 0.251 @ 0.89 bps (was 0.397); best Gotcha 0.417 @ 1.08 (was 0.593) (Sec VI) | rescore_learned rows | max cfar_pd | CORRECTED |
 | v4-fidelity | rho(SQNR, spurious) among passing: Illinois -0.94 (n=6), Gotcha -1.0 (n=3), Umbra -1.0 (n=4); discordant pairs 0/0/4 (Sec VI, Table VI) | rescore_E0 fidelity_img | spearmanr; pairs within 1 dB | CORRECTED |
+
+## v5 claims (fourth adversarial round, 2026-10-29) — manuscript v5c
+| v5-fdbaq-crop | delivered FDBAQ bitstream over the study crop 5.22 bps (5.19-5.26 across echoes); all 4096 echoes x 32 crop blocks at BRC 0 (abstract, Sec I, IV, V-A, Table I-II, Fig. 3, Limitations, version note) | reports/fdbaq_rate_crop.json (E7c, pre-declared) | block-level Huffman parse; sample-code bits + 11 side-info bits per block, apportioned by block fraction inside the crop, / 8,192; self-check parsed bytes == decoder bounds for every packet | NEW |
+| v5-fdbaq-line | full-line average 5.28 bps (5.23-5.54); header PDL+1-62 is 1 byte above the decoder bounds per packet (+0.0004 bps) (Sec IV, V-A, version note) | reports/fdbaq_rate.json (E7b, NOT pre-declared; labelled) | 8 x user bytes / (2 x quads) | NEW (secondary) |
+| v5-margins | lowest sustaining rate 5.92 is 0.70 above the crop rate; registered-grid 7.62 is 2.40 above (V-A, V-B) | v4-Rc + v5-fdbaq-crop | 5.92 - 5.22 = 0.70; 7.62 - 5.22 = 2.40 | NEW |
+| v5-ecbaq | entropy-coded BAQ (order-0 index entropy + 8 bits/block/plane): Illinois 2/3/4/6-bit 4.09/5.34/5.92/8.15; Gotcha 3.99/5.82/7.72/11.97 (V-A, V-B, VI, Table II) | reports/e9_entropy_baq.json (E9, pre-declared; 16-bit side-info convention in the declaration, 8 used, disclosed) | bound, not coder output; scores are the fixed-rate rows' | NEW |
+| v5-ecbaq-noise | Illinois 4-bit index entropy under the noisiest SNR-sweep level 7.69 bps; under lattice adaptation 5.93 (V-B, VI) | reports/e9b_entropy_offlattice.json (E9b, pre-declared) | same convention as E9 | NEW |
+| v5-hevc-qp20 | focused HEVC QP20 sustains at 6.56 (0.914, 1,219) at the registered setting, tol 5, Pfa 1e-5; fails tol 1 (0.891), tol 2 (1,412 > 1,396.4), Pfa 1e-3 (0.898) (V-B, VI, version note) | study rescore_E0x rows (E0x, NOT pre-declared; labelled) | criterion per setting | NEW |
+| v5-mapping-113 | no-codec transform-domain round trip: 184 phantoms, 113 near strong / 1 near weak / 2 near random anchors (n = 1,397 each) (V-C, VI, Limitations) | reports/e10 record (E10, pre-declared) | counts within 8 cells | NEW |
+| v5-umbra-clipfree | clip-free Umbra frontier 8.00 (JPEG2000 r4, 0.976/479); r8 0.930/3,278 and r16 0.912/42,035 fail the budget; clip-free focused HEVC collapses (VI) | study ctrl_E10 rows | criterion, budget 2,286 | NEW |
+| v5-umbra-r8 | Umbra JPEG2000 r8 0.927 / 3,815 (1.7x) passes the floor at tol 1/2/3/5; r16 0.910 / 34,916 (15x) passes at tol 3 and 5, fails the floor at tol 1 and 2 (V-I) | rescore_E0 umbra rows + sensitivity | criterion per tolerance | NEW |
+| v5-spearman | rho(SQNR, spurious) among passing Illinois configurations = -0.943 (n = 6), exact two-sided permutation p = 0.017 (scipy t-approximation 0.005, not used); no ties (VI) | rescore_E0 fidelity_img | 6! permutations | CORRECTED (p) |
+| v5-below-count | 24 Illinois classical configurations (raw and focused arms, latest row per config) sit below 5.22 bps and every one fails the floor (max retention 0.858); "below every tested codec" replaced by "below every sustaining configuration" (Table I, V-A, Limitations) | rescore_E0 s1 rows | count rows with rate < 5.22 | FIX |

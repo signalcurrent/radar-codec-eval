@@ -36,7 +36,8 @@
   ]
  ],
  "s1_lossless_bps": 10.18,
- "s1_fdbaq_bitstream_bps": 5.28,
+ "s1_fdbaq_bitstream_bps": 5.22,
+ "s1_fdbaq_line_average_bps": 5.28,
  "s1_ecbaq4_bps": 5.92,
  "s1_ecbaq3_bps": 5.34,
  "gotcha_n_ref": 259,
@@ -109,17 +110,26 @@
  "gotcha_thr_0.95_0.2": "10.93 (H12)",
  "illinois_rho": [
   -0.943,
-  6
+  6,
+  0.0167,
+  0.0048,
+  "no ties"
  ],
  "illinois_discordant": 0,
  "gotcha_rho": [
   -1.0,
-  3
+  3,
+  0.3333,
+  0.0,
+  "no ties"
  ],
  "gotcha_discordant": 0,
  "umbra_rho": [
   -1.0,
-  4
+  4,
+  0.0833,
+  0.0,
+  "no ties"
  ],
  "umbra_discordant": 4,
  "illinois_snr_R_c": [
@@ -744,15 +754,15 @@
  ],
  "learned_rescored": 30,
  "learned_best": {
-  "gotcha_gmti": [
-   1.08,
-   0.417,
-   395
-  ],
   "s1_focused": [
    0.89,
    0.251,
    9825
+  ],
+  "gotcha_gmti": [
+   1.08,
+   0.417,
+   395
   ]
  }
 }

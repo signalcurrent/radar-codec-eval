@@ -96,10 +96,12 @@ for dom, short, title in SCENES:
         body.append(f"Learned (best) & focused & {b['rate_bps']:.2f} & -- & {b['cfar_pd']:.3f} & {fmt(b['cfar_false'])} & no")
     if dom == "s1_focused":
         e7 = json.load(open(ROOT / "reports" / "e7_lossless.json"))
-        fd = json.load(open(ROOT / "reports" / "fdbaq_rate.json"))["fdbaq_bits_per_complex_sample"]["mean"]
+        # E7c: the crop's own delivered rate (block-level parse); E7b's full-line average is kept in H for the text
+        fd = json.load(open(ROOT / "reports" / "fdbaq_rate_crop.json"))["crop_bits_per_complex_sample"]["mean"]
+        fd_line = json.load(open(ROOT / "reports" / "fdbaq_rate.json"))["fdbaq_bits_per_complex_sample"]["mean"]
         e9 = json.load(open(ROOT / "reports" / "e9_entropy_baq.json"))["s1_raw"]
         body.insert(0, f"Lossless (memoryless entropy) & raw & {e7['s1_lossless_bps_complex']:.2f} & $\\infty$ & 1.000 & 0 & yes")
-        body.insert(0, f"FDBAQ bitstream (as delivered) & raw & {fd:.2f} & $\\infty$ & 1.000 & 0 & yes")
+        body.insert(0, f"FDBAQ bitstream (as delivered, crop) & raw & {fd:.2f} & $\\infty$ & 1.000 & 0 & yes")
         # entropy-coded BAQ rows: identical reconstruction to the fixed-rate rows
         for bits in (6, 4, 3):
             r = E[("baq", json.dumps({"bits": bits, "block": 128}, sort_keys=True))]
@@ -107,6 +109,7 @@ for dom, short, title in SCENES:
                         f"{r['fidelity_img']['sqnr_db']:.1f} & {r['cfar_pd']:.3f} & {fmt(r['cfar_false'])} & {'yes' if ok(r) else 'no'}")
         H["s1_lossless_bps"] = round(e7["s1_lossless_bps_complex"], 2)
         H["s1_fdbaq_bitstream_bps"] = round(fd, 2)
+        H["s1_fdbaq_line_average_bps"] = round(fd_line, 2)
         H["s1_ecbaq4_bps"] = round(e9["baq4"]["entropy_coded_rate_bps"], 2)
         H["s1_ecbaq3_bps"] = round(e9["baq3"]["entropy_coded_rate_bps"], 2)
     extra = (" Focused-domain rows are results under the study's plane mapping, whose no-codec round trip clips 5.4\\% of this "
@@ -182,8 +185,20 @@ for dom, short, title in SCENES:
     passing = [r for r in E if r["cfar_pd"] >= 0.9]
     if len(passing) >= 3:
         from scipy.stats import spearmanr
-        rho, p = spearmanr([r["fidelity_img"]["sqnr_db"] for r in passing], [r["cfar_false"] for r in passing])
-        H[f"{short}_rho"] = (round(float(rho), 3), len(passing))
+        xs = [r["fidelity_img"]["sqnr_db"] for r in passing]; ys = [r["cfar_false"] for r in passing]
+        rho, p = spearmanr(xs, ys)
+        # exact two-sided permutation p (n is tiny; scipy's p is a t approximation): share of permutations with |rho| >= observed
+        import math
+        if len(passing) <= 8:
+            obs = abs(rho); hits = 0; tot = 0
+            for perm in itertools.permutations(ys):
+                tot += 1
+                if abs(spearmanr(xs, perm)[0]) >= obs - 1e-12:
+                    hits += 1
+            p_exact = hits / tot
+        else:
+            p_exact = float(p)
+        H[f"{short}_rho"] = (round(float(rho), 3), len(passing), round(p_exact, 4), round(float(p), 4), "ties" if len(set(xs)) < len(xs) or len(set(ys)) < len(ys) else "no ties")
     disc = []
     for a, b in itertools.combinations(E, 2):
         if abs(a["fidelity_img"]["sqnr_db"] - b["fidelity_img"]["sqnr_db"]) <= 1.0 and ok(a) != ok(b):
