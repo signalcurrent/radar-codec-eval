@@ -1,0 +1,17 @@
+{
+ "s1_I": {
+  "distinct": 80,
+  "entropy_bits": 5.0836
+ },
+ "s1_Q": {
+  "distinct": 80,
+  "entropy_bits": 5.0933
+ },
+ "s1_lossless_bps_complex": 10.1769,
+ "s1_ratio_vs_adc10": 1.97,
+ "s1_ratio_vs_complex64": 6.29,
+ "umbra_pixel_type": "RE32F_IM32F",
+ "gotcha_distinct_I_sample": 76762,
+ "gotcha_dtype": "complex64",
+ "gotcha_note": "float32 phase history, no finite alphabet; no lossless row"
+}

@@ -1,0 +1,158 @@
+[
+ {
+  "study": "ctrl_E8",
+  "codec": "mapping_only",
+  "params": {
+   "domain_applied": "raw",
+   "clip_q": 99.99
+  },
+  "domain": "s1_focused",
+  "rate_bps": 32.0,
+  "cfar_pd": 0.9993554855342309,
+  "cfar_false": 1,
+  "n_ref_detections": 13964,
+  "mapping": "v2-pctclip99.99",
+  "sqnr_img_db": 65.432,
+  "clip": {
+   "frac_samples_clipped": 2.7686357498168945e-05,
+   "clipped_energy_fraction": 3.6866372042464606e-07
+  }
+ },
+ {
+  "study": "ctrl_E8",
+  "codec": "mapping_only",
+  "params": {
+   "domain_applied": "transform_full",
+   "clip_q": 99.99
+  },
+  "domain": "s1_focused",
+  "rate_bps": 32.0,
+  "cfar_pd": 0.9949871097106846,
+  "cfar_false": 184,
+  "n_ref_detections": 13964,
+  "mapping": "v2-pctclip99.99",
+  "sqnr_img_db": 20.966,
+  "clip": {
+   "frac_samples_clipped": 0.00017517805099487305,
+   "clipped_energy_fraction": 0.006800048622389865
+  }
+ },
+ {
+  "study": "ctrl_E8",
+  "codec": "tfocus",
+  "params": {
+   "base": "jpeg2000",
+   "mode": "full",
+   "ratio": 8,
+   "clip_q": 99.99
+  },
+  "domain": "s1_focused",
+  "rate_bps": 3.999849557876587,
+  "cfar_pd": 0.8584932684044686,
+  "cfar_false": 5219,
+  "n_ref_detections": 13964,
+  "mapping": "v2-pctclip99.99",
+  "sqnr_img_db": 10.393,
+  "codec_seconds": 56.1
+ },
+ {
+  "study": "ctrl_E8",
+  "codec": "tfocus",
+  "params": {
+   "base": "jpeg2000",
+   "mode": "full",
+   "ratio": 8,
+   "clip_q": 99.999
+  },
+  "domain": "s1_focused",
+  "rate_bps": 3.999868392944336,
+  "cfar_pd": 0.8577771412202807,
+  "cfar_false": 4984,
+  "n_ref_detections": 13964,
+  "mapping": "pctclip99.999",
+  "sqnr_img_db": 10.612,
+  "codec_seconds": 56.5
+ },
+ {
+  "study": "ctrl_E8",
+  "codec": "tfocus",
+  "params": {
+   "base": "jpeg2000",
+   "mode": "full",
+   "ratio": 8,
+   "clip_q": 100.0
+  },
+  "domain": "s1_focused",
+  "rate_bps": 3.9999377727508545,
+  "cfar_pd": 0.8636493841306216,
+  "cfar_false": 4944,
+  "n_ref_detections": 13964,
+  "mapping": "minmax",
+  "sqnr_img_db": 10.949,
+  "codec_seconds": 51.4
+ },
+ {
+  "study": "ctrl_E8",
+  "codec": "mapping_only",
+  "params": {
+   "domain_applied": "raw",
+   "clip_q": 99.99
+  },
+  "domain": "gotcha_gmti",
+  "scene": "durango_chan1_mis2",
+  "rate_bps": 32.0,
+  "cfar_pd": 0.9922779922779923,
+  "cfar_false": 0,
+  "n_ref_detections": 259,
+  "mapping": "v2-pctclip99.99",
+  "sqnr_img_db": 50.521,
+  "clip": {
+   "frac_samples_clipped": 0.0002011802575107296,
+   "clipped_energy_fraction": 8.867529617448304e-06
+  }
+ },
+ {
+  "study": "ctrl_E8",
+  "codec": "mapping_only",
+  "params": {
+   "domain_applied": "focused",
+   "clip_q": 99.99
+  },
+  "domain": "gotcha_gmti",
+  "scene": "durango_chan1_mis2",
+  "rate_bps": 32.0,
+  "cfar_pd": 0.9845559845559846,
+  "cfar_false": 0,
+  "n_ref_detections": 259,
+  "mapping": "v2-pctclip99.99",
+  "sqnr_img_db": 20.642,
+  "clip": {
+   "frac_samples_clipped": 0.00018441523605150216,
+   "clipped_energy_fraction": 0.008626708226905292,
+   "frac_reference_peaks_clipped": 0.05405405405405406,
+   "n_reference_peaks": 259
+  }
+ },
+ {
+  "study": "ctrl_E8",
+  "codec": "mapping_only",
+  "params": {
+   "domain_applied": "image",
+   "clip_q": 99.99
+  },
+  "domain": "umbra",
+  "scene": "umbra_vancouver_prt",
+  "rate_bps": 32.0,
+  "cfar_pd": 0.9990376202974628,
+  "cfar_false": 153,
+  "n_ref_detections": 22860,
+  "mapping": "v2-pctclip99.99",
+  "sqnr_img_db": 9.01,
+  "clip": {
+   "frac_samples_clipped": 0.00017064809799194336,
+   "clipped_energy_fraction": 0.14388174350028474,
+   "frac_reference_peaks_clipped": 0.04295713035870516,
+   "n_reference_peaks": 22860
+  }
+ }
+]

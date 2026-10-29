@@ -1,0 +1,23 @@
+\begin{table}[tb]
+\centering
+\caption{Sensitivity of the classical frontier to the criterion's thresholds, corrected scorer, computed from the logged rows (no new runs): lowest sustaining rate (bits per complex sample) and the codec that holds it (B$n$: $n$-bit BAQ; J$r$: raw JPEG2000 ratio $r$; H$q$: raw HEVC QP $q$; Jf/Hf: focused domain); $\beta$ is the spurious budget as a fraction of reference detections. Bold: the thresholds used in this paper.}
+\label{tab:thresholds}
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{2pt}
+\scriptsize
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lccc@{}}
+\toprule
+ & $\beta = 0.05$ & $\beta = 0.10$ & $\beta = 0.20$ \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{Sentinel-1}} \\ \\
+$P_d^{\min} = 0.85$ & 10.85 (H20) & 7.62 (H28) & 7.62 (H28) \\
+$P_d^{\min} = 0.90$ & 10.85 (H20) & \textbf{7.62 (H28)} & 7.62 (H28) \\
+$P_d^{\min} = 0.95$ & 10.85 (H20) & 10.85 (H20) & 10.85 (H20) \\
+\multicolumn{4}{@{}l}{\textit{AFRL Gotcha GMTI}} \\ \\
+$P_d^{\min} = 0.85$ & 10.93 (H12) & 7.95 (H20) & 7.95 (H20) \\
+$P_d^{\min} = 0.90$ & 10.93 (H12) & \textbf{10.93 (H12)} & 7.99 (Jf4) \\
+$P_d^{\min} = 0.95$ & 10.93 (H12) & 10.93 (H12) & 10.93 (H12) \\
+\bottomrule
+\end{tabular}}
+\end{table}

@@ -1,0 +1,26 @@
+\begin{table}[tb]
+\centering
+\caption{AFRL Gotcha GMTI: selected classical operating points under the corrected scorer (peak reduction) and the corrected HEVC pipeline; the full set of 20 rows is in the results log. Rate in bits per complex sample; SQNR is image-domain, dB; the spurious budget is 25.9 (10\% of 259 reference detections). ``Sust.'' = both clauses of \eqref{eq:crit} hold. Focused-domain rows are results under the study's plane mapping, whose no-codec round trip clips 5.4\% of this scene's reference peaks in that domain (Section~\ref{sec:posthoc}).}
+\label{tab:gotcha}
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{2pt}
+\footnotesize
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}llrrrrc@{}}
+\toprule
+Codec & Domain & Rate & SQNR & $P_d$ & Spur. & Sust. \\
+\midrule
+BAQ (6-bit) & raw & 12.12 & 30.2 & 0.942 & 23 & yes \\
+HEVC (QP12) & raw & 10.93 & 34.6 & 0.958 & 10 & yes \\
+BAQ (4-bit) & raw & 8.12 & 20.5 & 0.803 & 38 & no \\
+JPEG2000 (r4) & raw & 8.00 & 26.5 & 0.865 & 30 & no \\
+JPEG2000 (r4) & focused & 7.99 & 20.2 & 0.919 & 26 & no \\
+JPEG2000 (r8) & focused & 4.00 & 16.8 & 0.803 & 784 & no \\
+HEVC (QP20) & focused & 2.36 & 13.7 & 0.707 & 224 & no \\
+JPEG2000 (r16) & focused & 2.00 & 12.2 & 0.703 & 1{,}285 & no \\
+JPEG2000 (r32) & focused & 1.00 & 8.8 & 0.718 & 1{,}650 & no \\
+HEVC (QP28) & focused & 0.85 & 8.4 & 0.598 & 430 & no \\
+Learned (best) & focused & 1.08 & -- & 0.417 & 395 & no \\
+\bottomrule
+\end{tabular}}
+\end{table}

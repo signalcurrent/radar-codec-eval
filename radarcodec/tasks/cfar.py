@@ -30,9 +30,28 @@ def ca_cfar(power, pfa=1e-4, guard=2, train=8):
     return power > alpha * np.maximum(ring_mean, 1e-30)
 
 
-def _to_centroids(det):
-    """Reduce a detection map to local-maximum points to compare across images."""
-    peaks = det & (maximum_filter(det.astype(np.uint8), 3) == det)
+import os
+
+# 2026-10-29 (E0): the original reduction `det & (maximum_filter(det, 3) == det)` is a no-op (true for every
+# exceedance pixel), so every archived count before this date is an exceedance-PIXEL count. The corrected
+# reduction keeps an exceedance pixel only if it is the 3x3 local maximum of POWER. Set RADARCODEC_LEGACY=1 to
+# reproduce archived rows exactly.
+LEGACY = os.environ.get("RADARCODEC_LEGACY") == "1"
+SCORER_TAG = "legacy-pixels" if LEGACY else "peak-v2"
+
+
+def _to_centroids(det, power=None):
+    """Reduce a detection map to local-maximum points to compare across images.
+
+    power: the power image the map was thresholded on; required for the corrected (peak-v2) reduction.
+    """
+    if LEGACY or power is None:
+        if not LEGACY and power is None:
+            raise ValueError("peak-v2 reduction needs the power image; pass power=")
+        peaks = det & (maximum_filter(det.astype(np.uint8), 3) == det)
+    else:
+        power = np.asarray(power, dtype=np.float64)
+        peaks = det & (power == maximum_filter(power, 3, mode="reflect"))
     return np.argwhere(peaks)
 
 
@@ -42,8 +61,9 @@ def detection_agreement(iq_ref, iq_hat, pfa=1e-4, guard=2, train=8, tol=3):
     Returns dict with pd (fraction of reference detections recovered within
     `tol` pixels), n_false (new detections absent from reference), n_ref.
     """
-    ref_pts = _to_centroids(ca_cfar(np.abs(iq_ref) ** 2, pfa, guard, train))
-    hat_pts = _to_centroids(ca_cfar(np.abs(iq_hat) ** 2, pfa, guard, train))
+    p_ref, p_hat = np.abs(iq_ref) ** 2, np.abs(iq_hat) ** 2
+    ref_pts = _to_centroids(ca_cfar(p_ref, pfa, guard, train), p_ref)
+    hat_pts = _to_centroids(ca_cfar(p_hat, pfa, guard, train), p_hat)
     if len(ref_pts) == 0:
         return {"pd": float("nan"), "n_false": int(len(hat_pts)), "n_ref": 0}
     from scipy.spatial import cKDTree

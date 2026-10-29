@@ -13,11 +13,11 @@ from PIL import Image
 from radarcodec.baselines.planemap import plane_to_u16, u16_to_plane
 
 
-def _encode_plane(plane, ratio):
-    u16, c = plane_to_u16(plane)
+def _encode_plane(plane, ratio, reversible=False, clip_q=99.99):
+    u16, c = plane_to_u16(plane, clip_q)
     buf = io.BytesIO()
     Image.fromarray(u16, mode="I;16").save(
-        buf, format="JPEG2000", quality_mode="rates", quality_layers=[ratio], irreversible=True
+        buf, format="JPEG2000", quality_mode="rates", quality_layers=[ratio], irreversible=not reversible
     )
     nbytes = buf.tell()
     buf.seek(0)
@@ -25,10 +25,15 @@ def _encode_plane(plane, ratio):
     return u16_to_plane(dec, c), nbytes
 
 
-def jpeg2000_codec(iq, ratio=8, **_):
-    """Returns (iq_hat, rate_bits_per_complex_sample)."""
-    i_rec, i_bytes = _encode_plane(iq.real.astype(np.float64), ratio)
-    q_rec, q_bytes = _encode_plane(iq.imag.astype(np.float64), ratio)
+def jpeg2000_codec(iq, ratio=8, reversible=False, clip_q=99.99, **_):
+    """Returns (iq_hat, rate_bits_per_complex_sample).
+
+    reversible=False is the 9/7 irreversible wavelet used throughout the study; reversible=True
+    selects the 5/3 integer wavelet at the same byte budget (JSTARS revision E3 ablation,
+    2026-10-29). Every pre-existing call site leaves the default.
+    """
+    i_rec, i_bytes = _encode_plane(iq.real.astype(np.float64), ratio, reversible, clip_q)
+    q_rec, q_bytes = _encode_plane(iq.imag.astype(np.float64), ratio, reversible, clip_q)
     iq_hat = (i_rec + 1j * q_rec).astype(np.complex64)
     rate = 8.0 * (i_bytes + q_bytes) / iq.size
     return iq_hat, rate

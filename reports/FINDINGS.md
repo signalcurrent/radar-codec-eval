@@ -252,7 +252,7 @@ revives "why not HEVC" as a compute question. Ablation arms: (none /
 range-dechirp-only / full focus) x (classical codec). Range dechirp is one
 complex multiply per sample plus an FFT and collapses the ~2,400-sample chirp
 to a peak per scatterer; azimuth is the expensive half. If dechirp-only
-captures most of the gain, that is the embeddable Phase II story. If only
+captures most of the gain, that is the embeddable follow-on story. If only
 full focus works, that constraint gets proposed against explicitly.
 
 **Pre-registered readings of the transform baseline (both written before the
@@ -261,7 +261,7 @@ number exists):**
   becomes "the domain transform matters more than the learning"; the cheap
   win for the government is a preprocessing change, not a neural network.
   The learned codec's competition is then tfocus+classical (continuous
-  outcome vs. ITS curve), and the proposal thesis shifts accordingly. This
+  outcome vs. ITS curve), and the follow-on plan thesis shifts accordingly. This
   outcome is a success of the study, not a failure of the idea.
 - Outcome B — tfocus+classical improves on raw-domain classical but fails
   the GO rate: a genuine gap remains that only learned coding might close;
@@ -285,7 +285,7 @@ compression gain that requires a full azimuth focuser onboard, expensive
 enough to reopen every compute objection. Reading rule, written before the
 number: if only full-focus arms sustain utility at low rate, the result is
 reported as CONDITIONAL — the gain exists but is contingent on onboard
-focusing compute, and the Phase I conclusion must present the compute cost of
+focusing compute, and the follow-on conclusion must present the compute cost of
 azimuth processing as the binding constraint, not bury it. Dechirp-only
 sustaining within ~10% of the full-focus rate counts as "cheap transform
 suffices" (the embeddable story); otherwise the conditional framing applies.
@@ -305,7 +305,7 @@ advantage in our table is partly harness artifact — BAQ is vectorized NumPy
 in-process; JPEG2000/HEVC go through external binaries with process-spawn and
 file I/O overhead. Wall-clock is reported as measured, with this confound
 stated. Implementation-independent order-of-magnitude operations per sample
-(what actually transfers to Phase II hardware costing): BAQ ~10 (normalize +
+(what actually transfers to follow-on hardware costing): BAQ ~10 (normalize +
 ~b comparisons + scale); JPEG2000 ~10^2–10^3 (wavelet cascade + EBCOT
 bitplane coding); HEVC ~10^2–10^3+ (prediction search + transforms + CABAC,
 sequential); unitary dechirp ~O(log n) butterflies/sample (FFT-dominated);
@@ -379,7 +379,7 @@ insufficient" HELD under the surrogate. The registered rule's inapplicability
 and the substitution are both part of the record.
 
 **Feasibility argument as it now stands (drafted before the model runs, for
-the proposal):** no classical approach sustains two-sided detection utility
+the follow-on plan):** no classical approach sustains two-sided detection utility
 below ~4.7 bits/complex-sample — not scalar quantization in the raw domain
 (no transform coding gain: flat variance), not wavelet coding in the
 concentrated domain (gain exists but the distortion is structured as ringing,
@@ -394,8 +394,8 @@ coding and MSE-trained neural coding fail in COMPLEMENTARY directions, and
 neither sustains two-sided utility below R_c, because both optimize a
 distortion measure that is blind to detection. The open problem is then the
 TRAINING OBJECTIVE, not the architecture: a detection-aware loss (e.g., CFAR
-consistency or matched-filter-domain penalties) is precisely what Phase I
-funds. The weekend produces the diagnosis; the proposal funds the treatment.
+consistency or matched-filter-domain penalties) is precisely what follow-on
+funds. The weekend produces the diagnosis; the follow-on plan funds the treatment.
 
 ## AMENDMENT 6 — convergence interpretation rule, registered BEFORE training
 ## launches (2026-08-06; no training has started, no checkpoints exist)
@@ -428,7 +428,7 @@ Chicago's western suburbs but the evaluated crop is agricultural terrain,
 confirmed against the SAFE manifest footprint) — a clean held-out set
 that measures WITHIN-SCENE generalization only. Cross-scene/cross-clutter
 generalization (the topic's "regions not explicitly represented in
-training") is untested here and is proposed Phase I work, alongside the
+training") is untested here and is proposed follow-on work, alongside the
 second-scene limitation already on record.
 
 **Structural blindness note:** training begins while the mapping-v2 baseline
@@ -532,8 +532,8 @@ mechanistically named; (2) the concentrated
 domain is exploitable in principle (coding-gain prediction confirmed) and the
 open problem is capturing that gain without a detection-hostile artifact
 signature; (3) the learned-codec question is OPEN, with the failure diagnosed
-as budget/calibration/tiling engineering, not principle. Items for Phase I
-proposal scope, converted from the ideas list per the stopping rule:
+as budget/calibration/tiling engineering, not principle. Items for follow-on
+follow-on plan scope, converted from the ideas list per the stopping rule:
 GPU-scale training with calibrated lambda schedules, seam-aware tiling
 (overlap or global normalization), detection-aware training objectives,
 cross-scene generalization, second-scene clutter, ANS productionization of
@@ -589,8 +589,8 @@ data (AFRL Gotcha).
 **Stopping rule (adopted 2026-08-06):** the experimental phase ends when the
 transform baseline AND one trained autoencoder have both been scored against
 the pre-registered continuous criterion. After that, the next artifact is
-prose: FINDINGS.md -> preprint draft + Phase I proposal skeleton. Every
-further experiment idea becomes PROPOSED Phase I work. Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
+prose: FINDINGS.md -> preprint draft + follow-on follow-on plan skeleton. Every
+further experiment idea becomes PROPOSED follow-on work. Provisional R_c on this grid = 4.69 bps (HEVC qp36), but HEVC
 sustains at the grid floor, so R_c must be located with the low-rate
 extension before the GO target (R_c/2) is fixed. The contested region has
 moved down-rate as predicted; the pre-focus "20-30% at FDBAQ rate" headline
@@ -601,14 +601,14 @@ statement about the range-compressed domain.
 the coding-gain argument. In the raw-echo domain, where onboard compression
 actually operates, classical codecs lose most detections at operational
 rates; that is the neural codec's primary target and the topic's stated
-Phase I focus. In the focused domain the picture is task-dependent:
+follow-on focus. In the focused domain the picture is task-dependent:
 classification (ATR) stays near ceiling down to ~2 bps, but transform coding
 still rings under detection (the tfocus result), so "focused domain is easy"
 holds only for classification, not for detection. On the two scenes evaluated
 this points to raw-domain compression as the more open opportunity for a
 learned codec, since that is both where classical leaves the largest
 detection-preserving gap and where onboard compression has to run.
-Generalizing the split beyond these scenes is proposed Phase I work, not a
+Generalizing the split beyond these scenes is proposed follow-on work, not a
 settled result.
 
 ## SCENE LOCATION CORRECTION — "Chicago" was wrong (2026-08-08)
@@ -670,7 +670,7 @@ not IW — see `TOPIC.md` Known Alignment Gaps) over all three via
 Both raw crops cached (`data/s1_houston/chunk_crop.npz`,
 `data/s1_saopaulo/chunk_crop.npz`, same 4096×8192 convention as the
 existing scene) with focused quicklooks in `reports/`. **No quantitative
-evaluation run on either — that stays proposed Phase I scope (cross-scene
+evaluation run on either — that stays proposed proposed follow-on scope (cross-scene
 generalization), per the stopping rule.** This is data acquisition only:
 two named, verified, real-city candidate second/third scenes now in hand,
 directly matching Asiyabi et al.'s own precedent set, ready for that work
@@ -690,7 +690,7 @@ Net effect: `tfocus-full-jpeg2000` — the series carrying the paper's
 central concentration-vs-ringing claim — was absent from every regenerated
 plot, including the ones already committed to the repo before this pass.
 
-**No numeric claim in FINDINGS.md, the preprint, or the proposal drafts was
+**No numeric claim in FINDINGS.md, the preprint, or the follow-on plan drafts was
 affected.** Every number in the written record was pulled directly from
 `runs.jsonl` rows (via `eval_focused.py` output or direct queries), never
 read off a chart. This was a visualization completeness bug, not a data or
@@ -774,7 +774,7 @@ et al., Proc. SPIE 7337, 73370G, 2009).
 Attempted the compression-impact-on-tracking metric
 (the highest-value item flagged when Section 5.8 was written): use AFRL's
 GPS ground truth to score moving-target-detection fidelity after
-compression, per Phase II's own language ("impact to target... tracks
+compression, per follow-on's own language ("impact to target... tracks
 after decompression"). Followed AFRL's own published method (Scarborough
 et al. [17], Section 4): coherent + non-coherent change detection between
 the `mis2` (mission, target present) and `ref4` (reference) passes.
@@ -829,7 +829,7 @@ fact, insufficient here too, exactly where their own paper says it can
 be. The documented next step (multi-phase-center STAP, using channels 2
 and 3, needs antenna baseline/platform-velocity parameters not yet
 extracted) is a genuinely bigger build — real signal-processing R&D, not
-an extension of this attempt — and stays proposed Phase I scope rather
+an extension of this attempt — and stays proposed proposed follow-on scope rather
 than something to pursue in this exploratory phase. The decision, weighing
 cost against benefit, was to stop here, report both attempts plainly, and
 move to other open items.
@@ -977,13 +977,13 @@ gradient path leads back out. If correct, this is a SECOND, independent
 indictment of per-tile normalization, converging with the Illinois
 seam-artifact hypothesis from the model readout of 2026-08-06 — two
 different failure signatures on two different datasets pointing at the
-same design element. The Phase I fix list sharpens accordingly:
+same design element. The follow-on fix list sharpens accordingly:
 scene-level (global) normalization or normalization schemes that preserve
 cross-patch dynamic range, calibrated lambda schedules (both scenes'
 evidence says [50, 300] is 1-2 orders too low for unit-normalized data),
 and GPU-scale budgets. Deliberately NOT tried here: retuning lambda on
 this data until something works — that is exactly the cherry-picking the
-pre-declared config was designed to prevent, and it is proposed Phase I
+pre-declared config was designed to prevent, and it is proposed follow-on
 work.
 
 <!-- Ported from the private working notebook on 2026-10-22 for arXiv v2. Programmatic notes are redacted with visible markers; technical content is untouched. Sections dated 2026-08-14 to 08-15 that are outside the paper's scope are not included in this mirror. -->
@@ -1897,3 +1897,543 @@ JPEG2000 r16/r32/r64 pass the retention floor (0.951/0.939/0.906) with 40,711/56
 9.8x/13.8x/10.3x budget (retention-only certified, two-sided rejected); HEVC QP20 at 1.34 bps: 0.896 with
 22,739 spurious (5.5x); BAQ fails at every bit depth (best 0.795 at 12.1 bps). Vendor onboard handling of
 the product before delivery is not disclosed; treated as an image-domain extension, not a raw-data result.
+
+<!-- Ported from the private working notebook on 2026-10-29 for the journal revision (arXiv v3). Programmatic notes are redacted with visible markers; technical content is untouched. -->
+
+## JSTARS REVISION — HOUSE RULE 2 REOPENED UNDER THE PEER-REVIEW EXCEPTION (2026-10-29)
+
+Context. TGRS-2026-08067 was rejected 2026-10-22 with two reviews; the editor's transfer to IEEE JSTARS
+(reference f4137827-e606-4ace-9653-f717f462f209) was accepted the same day. arXiv v2 (tag
+`arxiv-v2-20261022`) answered nine of fourteen review points in text. The remaining five require data.
+This entry reopens the experimental phase for those five only (`reports/jstars_revision_plan.md`, E1-E6);
+it recloses when the revision is uploaded. Every number produced here is POST HOC with respect to the
+2026-08-06 stopping rule and will be labelled so in the manuscript. Endpoints and interpretation rules
+below are declared BEFORE any run; nothing is on disk for E1/E5 at this commit beyond the script.
+
+### E1 + E5 pre-declaration (scripts/eval_fidelity_jstars.py; rows tagged `study = jstars_E1E5`)
+
+What runs. Every classical configuration in the paper's tables, re-executed deterministically from the
+same cached inputs (S1 `data/s1_sm/chunk_crop.npz` + RDA focuser, 31 configs incl. both tfocus arms;
+Gotcha `durangoChallenge_chan1_mis2_PH` pulses 5585:7449, 20 configs incl. the focused arm; Umbra
+Vancouver 4096^2 centre crop, 17 configs). For each: the logged rate and two-sided scores are recomputed
+(determinism check: |dPd| <= 0.002 and |dFalse| <= 1% of n_ref, else the row is flagged and the
+discrepancy investigated before any use), and the following are added on the SAME reconstruction:
+- image-domain fidelity on the scored image (interior trim as in scoring): SQNR_dB =
+  10 log10(sum|x|^2 / sum|x - x_hat|^2) on the complex image; PSNR_dB on magnitude with peak = max|x_ref|;
+  complex MSE; phase RMSE (existing `radar_metrics.phase_rmse`, -20 dB floor);
+- raw-domain fidelity where a raw domain exists (S1, Gotcha): SQNR_dB, PSNR, MSE, phase RMSE on the
+  codec's own input/output;
+- E5 sensitivity on the same reconstruction: Pd and spurious count at match tolerance tol in {1, 2, 3, 5}
+  cells (CFAR fixed at the registered Pfa 1e-4, guard 2, train 8), and at Pfa in {1e-3, 1e-4, 1e-5}
+  (tol fixed at 3). The reference detections are recomputed at each Pfa (the criterion is at matched
+  threshold).
+
+E1 endpoint (R2.2: "fidelity metrics do not capture task utility" is asserted, not shown). Primary:
+within each scene, among the configurations that PASS the retention floor (Pd >= 0.9), report Spearman
+rho between image-domain SQNR and spurious count. Secondary: list every pair of configurations in the
+same scene whose image-domain SQNR differs by <= 1.0 dB and whose two-sided verdicts differ.
+Interpretation rule: the manuscript may state that image-domain fidelity does not determine the
+two-sided verdict ONLY IF at least one such discordant pair exists in at least one scene; if none exists,
+the limitation paragraph is rewritten to say fidelity ranks consistently with the task on these scenes
+and the claim is withdrawn. The two notebook Gotcha SQNR sets (lines ~1912 and ~1995) are reconciled as
+whichever set the deterministic rerun reproduces; if neither, both are retracted.
+
+E5 endpoint (R1.3 matching rule, R1.2 CFAR parameters). Report R_c (lowest rate at which any classical
+configuration sustains the two-sided criterion under the final mapping) per scene for every tol and
+Pfa. Interpretation rule: the paper's R_c values (S1 4.86, Gotcha 7.4-8.0 bracket) are called ROBUST to
+the matching rule only if, for tol in {2, 3, 5}, the sustaining set at the paper's R_c row is unchanged
+and R_c moves by no more than one grid point; tol = 1 is reported but treated as a stress case
+(sub-resolution matching). For Pfa the same rule applies between 1e-4 and 1e-5; 1e-3 is a stress case
+(the spurious budget scales with n_ref, which grows). Any failure of the rule is reported as sensitivity
+in Section V with the new R_c, not absorbed into prose.
+
+Cost. CPU only, ~2-4 h wall for the three scenes (HEVC via ffmpeg dominates). Seed 1337 throughout.
+E2 (SNR sweep), E3 (ringing ablation), E4 (ground truth), E6 (crop marker, transform impulse response)
+each get their own pre-declaration entry before they run.
+
+
+## JSTARS E1 + E5 READOUT (2026-10-29; 68 rows `study = jstars_E1E5`, ts 06:46-07:11; commit of pre-declaration 8365f24)
+
+Determinism: all 68 reruns reproduce the archived rate, Pd and spurious count within the declared tolerance
+(in fact exactly). SQNR reconciliation: the notebook's first Gotcha set (line ~1912: 4.31 / 14.32 / 26.46 dB
+at ~1 / 4 / 8 bps) is RAW-domain JPEG2000 (r32 / r8 / r4) and reproduces exactly; the second set (line ~1995:
+8.76 / 12.17 / 16.78 dB at 1 / 2 / 4 bps) is FOCUSED-domain JPEG2000 (tfocus r32 / r16 / r8) and also
+reproduces exactly. They were never in disagreement; they are different arms. Both stand.
+
+**Sentinel-1 Illinois (focused scoring)** (31 configurations). E1 primary: among the 9 configurations with Pd >= 0.9, Spearman rho(image SQNR, spurious count) = -0.967 (p = 2.2e-05). E1 secondary: 0 discordant pair(s) within 1 dB.
+E5 (R_c = lowest rate at which any configuration sustains the two-sided criterion; sustaining set size in brackets):
+- pfa0.0001_tol1: n_ref 23387, R_c = 7.859 bps (hevc {"qp": 28}) [6]; set differs from the registered setting by: baq {"bits": 3, "block": 128}, hevc {"qp": 36}
+- pfa0.0001_tol2: n_ref 23387, R_c = 4.861 bps (hevc {"qp": 36}) [7]; set differs from the registered setting by: baq {"bits": 3, "block": 128}
+- pfa0.0001_tol3: n_ref 23387, R_c = 4.861 bps (hevc {"qp": 36}) [8]; same sustaining set as registered
+- pfa0.0001_tol5: n_ref 23387, R_c = 4.861 bps (hevc {"qp": 36}) [8]; same sustaining set as registered
+- pfa0.001_tol3: n_ref 70532, R_c = 7.859 bps (hevc {"qp": 28}) [6]; set differs from the registered setting by: baq {"bits": 3, "block": 128}, hevc {"qp": 36}
+- pfa1e-05_tol3: n_ref 10763, R_c = 4.000 bps (tfocus {"base": "jpeg2000", "mode": "dechirp", "ratio": 8}) [9]; set differs from the registered setting by: tfocus {"base": "jpeg2000", "mode": "dechirp", "ratio": 8}
+
+**Gotcha Durango** (20 configurations). E1 primary: among the 4 configurations with Pd >= 0.9, Spearman rho(image SQNR, spurious count) = -0.800 (p = 0.2). E1 secondary: 1 discordant pair(s) within 1 dB:
+- 0.33 dB apart: baq {"bits": 4, "block": 128} (SQNR 20.49 dB, Pd 0.862, 38 spurious) vs tfocus {"base": "jpeg2000", "mode": "focused", "ratio": 4} (SQNR 20.16 dB, Pd 0.943, 26 spurious)
+E5 (R_c = lowest rate at which any configuration sustains the two-sided criterion; sustaining set size in brackets):
+- pfa0.0001_tol1: n_ref 369, R_c = 7.991 bps (tfocus {"base": "jpeg2000", "mode": "focused", "ratio": 4}) [4]; same sustaining set as registered
+- pfa0.0001_tol2: n_ref 369, R_c = 7.991 bps (tfocus {"base": "jpeg2000", "mode": "focused", "ratio": 4}) [4]; same sustaining set as registered
+- pfa0.0001_tol3: n_ref 369, R_c = 7.991 bps (tfocus {"base": "jpeg2000", "mode": "focused", "ratio": 4}) [4]; same sustaining set as registered
+- pfa0.0001_tol5: n_ref 369, R_c = 7.353 bps (hevc {"qp": 20}) [5]; set differs from the registered setting by: hevc {"qp": 20}
+- pfa0.001_tol3: n_ref 1285, NO configuration sustains [0]
+- pfa1e-05_tol3: n_ref 163, R_c = 3.999 bps (jpeg2000 {"ratio": 8}) [8]; set differs from the registered setting by: baq {"bits": 4, "block": 128}, hevc {"qp": 20}, hevc {"qp": 28}, jpeg2000 {"ratio": 8}
+
+**Umbra Vancouver** (17 configurations). E1 primary: among the 6 configurations with Pd >= 0.9, Spearman rho(image SQNR, spurious count) = -0.943 (p = 0.0048). E1 secondary: 5 discordant pair(s) within 1 dB:
+- 0.17 dB apart: baq {"bits": 6, "block": 128} (SQNR 8.78 dB, Pd 0.795, 1148 spurious) vs jpeg2000 {"ratio": 4} (SQNR 8.95 dB, Pd 0.989, 576 spurious)
+- 0.58 dB apart: baq {"bits": 6, "block": 128} (SQNR 8.78 dB, Pd 0.795, 1148 spurious) vs hevc {"qp": 12} (SQNR 8.20 dB, Pd 0.947, 2572 spurious)
+- 0.67 dB apart: baq {"bits": 6, "block": 128} (SQNR 8.78 dB, Pd 0.795, 1148 spurious) vs jpeg2000 {"ratio": 8} (SQNR 8.11 dB, Pd 0.960, 3805 spurious)
+- 0.81 dB apart: baq {"bits": 4, "block": 128} (SQNR 7.30 dB, Pd 0.646, 1257 spurious) vs jpeg2000 {"ratio": 8} (SQNR 8.11 dB, Pd 0.960, 3805 spurious)
+- 0.90 dB apart: baq {"bits": 4, "block": 128} (SQNR 7.30 dB, Pd 0.646, 1257 spurious) vs hevc {"qp": 12} (SQNR 8.20 dB, Pd 0.947, 2572 spurious)
+E5 (R_c = lowest rate at which any configuration sustains the two-sided criterion; sustaining set size in brackets):
+- pfa0.0001_tol1: n_ref 41425, R_c = 3.381 bps (hevc {"qp": 12}) [2]; set differs from the registered setting by: jpeg2000 {"ratio": 8}
+- pfa0.0001_tol2: n_ref 41425, R_c = 3.381 bps (hevc {"qp": 12}) [3]; same sustaining set as registered
+- pfa0.0001_tol3: n_ref 41425, R_c = 3.381 bps (hevc {"qp": 12}) [3]; same sustaining set as registered
+- pfa0.0001_tol5: n_ref 41425, R_c = 3.381 bps (hevc {"qp": 12}) [3]; same sustaining set as registered
+- pfa0.001_tol3: n_ref 77489, R_c = 8.000 bps (jpeg2000 {"ratio": 4}) [1]; set differs from the registered setting by: hevc {"qp": 12}, jpeg2000 {"ratio": 8}
+- pfa1e-05_tol3: n_ref 28042, R_c = 3.381 bps (hevc {"qp": 12}) [3]; same sustaining set as registered
+
+Reading against the pre-declared rules.
+- E1: the interpretation rule is MET (discordant pairs exist on Gotcha and Umbra), so the manuscript may
+  state that image-domain fidelity does not determine the two-sided verdict, but the statement must be
+  scoped: WITHIN the raw-domain classical family on one scene, SQNR orders spurious counts almost perfectly
+  (S1 rho -0.97, Umbra -0.94); the discordance appears ACROSS codec families at equal SQNR (BAQ vs
+  transform codecs on Umbra, 0.17 dB apart with Pd 0.795 vs 0.989; raw-domain BAQ vs focused-domain
+  JPEG2000 on Gotcha, 0.33 dB apart with opposite verdicts). On S1 no discordant pair exists; the
+  near-pairs there (BAQ 2-bit 10.47 dB vs focused JPEG2000 r8 10.39 dB) both fail, but for opposite
+  reasons (retention vs spurious), which is the paper's existing point, not a new one.
+- E5 matching tolerance: S1 R_c = 4.861 (HEVC QP36) unchanged for tol 2, 3, 5 (ROBUST by the rule; tol 1
+  stress case moves it to 7.859). One sensitivity inside that verdict must be stated: at tol 2 the 3-bit
+  BAQ point (Pd 0.905 at tol 3) falls below the retention floor and leaves the sustaining set, so the
+  abstract's "3-bit BAQ sustains utility at 6.12 bps" holds at the registered tolerance of 3 cells and
+  at 5, not at 2. The manuscript states the tolerance with that claim. Gotcha R_c = 7.991 unchanged for tol 1-3; tol 5 admits HEVC QP20 at 7.353, inside the
+  paper's 7.4-8.0 bracket to two figures (ROBUST). Umbra 3.381 unchanged for all tol (ROBUST).
+- E5 CFAR Pfa: this is where the sensitivity is real and must be reported as such. Pfa 1e-3 (stress)
+  raises n_ref 3x and the spurious budget with it, yet R_c RISES on every scene (S1 7.859, Umbra 8.000,
+  Gotcha: nothing sustains) because the retention floor is now applied to a reference set dominated by
+  weak detections. Pfa 1e-5 lowers R_c on S1 to 4.000 (focused-domain JPEG2000 dechirp r8 now sustains)
+  and on Gotcha to 3.999 (n_ref only 163, small-sample); Umbra unchanged. The rule (one grid point between
+  1e-4 and 1e-5) is met on S1 and Umbra and NOT met on Gotcha (two grid points, on 163 reference
+  detections). Manuscript: R_c is a property of the CFAR operating point as much as of the scene;
+  Section V gets a sensitivity table and the Gotcha bracket is stated at Pfa 1e-4 only.
+
+
+### E2 pre-declaration — SNR sensitivity (scripts/eval_snr_jstars.py; rows `study = jstars_E2`; declared 2026-10-29 before any run)
+
+What runs. Seeded complex white Gaussian noise is added to the RAW input (S1 crop; Gotcha phase history)
+at added-noise-to-signal ratios of -9, -6, -3 and 0 dB (noise power = mean|x|^2 x 10^(NSR/10); seed
+1337 + 1000 x level index). The native noise floor is NOT estimated; levels are stated as added noise
+relative to total signal power, nothing more. The uncompressed reference is re-formed from the SAME
+noisy input, so the criterion stays "at matched threshold on the same scene"; n_ref at each level is
+logged as its own `uncompressed` row. Every classical configuration of Tables II and IV (31 S1, 20
+Gotcha) is then run on the noisy input with the registered CFAR (Pfa 1e-4, guard 2, train 8, tol 3).
+Umbra is image-domain and already a delivered product; it is not swept.
+
+Endpoint. R_c(level) per scene = lowest rate at which any configuration sustains the two-sided
+criterion, with the sustaining set, plus n_ref(level). Interpretation rule: the manuscript's "R_c is a
+property of the scene" is restated as "of the scene at its native SNR" if R_c moves by more than one
+grid point between native (E1) and -3 dB added noise; the curve R_c vs added noise is reported as a
+figure or table in Section V regardless. Mechanism is reported descriptively (n_ref falls as noise
+rises; whether retention or the spurious budget is the binding clause at each level). No claim about
+the direction of the effect is made in advance.
+
+### E3 pre-declaration — ringing ablation (scripts/eval_ringing_ablation_jstars.py; rows `study = jstars_E3`)
+
+What runs (S1, focused domain, tfocus mode=full, interior trim 512). Four base codecs: JPEG2000 9/7
+irreversible (the study's wavelet) at ratio 8 and 16; JPEG2000 5/3 reversible at the same ratios and
+byte budget (new `reversible=True` kwarg on `jpeg2000_codec`, default unchanged); HEVC at QP 16, 20,
+24, 28, 32; BAQ (non-transform scalar quantizer) at 1 and 2 bits. Rate matching rule, declared now:
+each wavelet point (about 4.0 and 2.0 bps) is compared with the HEVC and BAQ point whose logged rate
+is nearest in log-rate; the actual rates are printed beside every comparison.
+Geometry: phantoms = reconstruction detections farther than 3 cells from any reference detection;
+strong scatterers = reference detections whose power is in the top decile of reference-detection
+powers; metric = fraction of phantoms within R = 8 cells of a strong scatterer, versus the areal
+baseline (fraction of interior pixels within 8 cells of any strong scatterer); enrichment = ratio.
+Radial histogram 0-30 cells logged per row.
+
+Endpoint and interpretation rule. The manuscript's Section V-C attribution of focused-domain spurious
+detections to transform ringing around strong scatterers is SUPPORTED if, at matched rate, the 9/7
+wavelet's enrichment is >= 2.0 AND the BAQ (non-transform) arm's enrichment is < 1.5. If BAQ in the
+focused domain shows enrichment >= 1.5 as well, the attribution is withdrawn in favour of "focused-domain
+quantization concentrates spurious detections near strong scatterers regardless of transform", and
+V-C is rewritten to say so. If the 9/7 enrichment is < 2.0 the ringing attribution is withdrawn
+outright and V-C reports the measured geometry. The 5/3-vs-9/7 and HEVC comparisons are descriptive
+(secondary); no claim hangs on them.
+
+### E6 pre-declaration — impulse response and Fig. 5 crop marker (same script; outputs reports/e6_impulse_response.json, reports/ringing_crop.json)
+
+A unit point target is synthesised at the crop centre by the invertible transform's inverse (mode=full)
+and focused with the study's RDA focuser; IRW (-3 dB, cells) and PSLR (dB) are measured along range
+and azimuth with `radar_metrics.irw_pslr` (oversample 16). These numbers describe the focuser's
+point-spread function, which is what bounds the spatial extent of ringing; they are reported in
+Section IV with one sentence. The Fig. 5 crop centre and half-window are recomputed by the same
+selection rule as `make_ringing_figure.py` and written to reports/ringing_crop.json so the crop can be
+marked on Fig. 2. No endpoint; descriptive.
+
+
+### E4 pre-declaration — ground-truth anchors (scripts/eval_truth_jstars.py; rows `study = jstars_E4`; declared 2026-10-29 before any run)
+
+Gotcha (R1.1 / R2.3: "detections are detector self-consistency, not truth"). The AFRL package's
+`durangoChallenge_GPStruth.mat` (recovered today from the SDMS download; it had not been copied into
+data/) gives the Durango's position, speed and heading at 1 Hz in the scene coordinate system. AFRL's
+own worked example (`formSimpleRangeDopplerImage.m`, the same pulses 5585:7449 we use) places the
+Durango at Doppler pixel 834, range pixel 180 (1-based). In our identically formed image the local
+peak is at (178, 833) 0-based with 29.3 dB contrast over the scene median (the ingest docstring's
+figure) and the reference CFAR detection at (179, 833). The point at (323, 834) chased in the August
+CCD attempt is a different, stronger scatterer (34.7 dB) and is not the Durango. The GPS record over
+the CPI is logged (reports/e4_durango_truth.json) and is expected to show the vehicle stationary; if
+it shows motion the entry says so and the pixel anchor is re-derived before anything is reported.
+What runs: every classical configuration of Table IV (20); for each, whether a reconstruction
+detection lies within 3 cells of the Durango's reference detection, the offset of the local 7x7 peak,
+the Durango's contrast over scene median in the reconstruction, and peak-power retention (dB).
+Endpoint: the lowest rate per codec family at which the Durango remains a detection, set beside
+R_c = 7.99 bps. Interpretation rule (descriptive, no claim changes): if the Durango is retained at
+operating points that FAIL the two-sided criterion, the manuscript states that a single strong
+truthed target survives well below R_c and that R_c is set by the reference population, which is the
+intended reading of the agreement metric; if the Durango is LOST at any point that PASSES the
+criterion, that is reported as a validity failure of the agreement metric for strong targets.
+
+Sentinel-1 (no surveyed truth). PROXY subset = reference detections whose power is >= 20 dB above
+the CA-CFAR training-ring mean (strong, persistent, likely man-made scatterers); retention on that
+subset is reported for all 31 configurations beside the full-set retention. Labelled a proxy in the
+manuscript; descriptive only.
+
+
+## JSTARS E2 + E3 + E6 + E4(Gotcha) READOUT (2026-10-29; rows `study = jstars_E2` (212), `jstars_E3` (11), `jstars_E4` (20 Gotcha); pre-declarations at commits 2360391 and cf738ce)
+
+### E2 — SNR sensitivity (added complex white noise at -9/-6/-3/0 dB relative to signal power; reference re-formed from the same noisy input)
+
+Sentinel-1 (31 configurations per level). n_ref falls 23,387 (native) -> 20,280 / 18,140 / 14,912 / 11,447.
+R_c: native 4.861 (HEVC QP36, Pd 0.908); at EVERY added-noise level 6.125 (3-bit BAQ, Pd 0.913 / 0.911 /
+0.907 / 0.901). The sustaining set is otherwise unchanged (7 of the native 8 remain: 3-bit BAQ, HEVC QP12/20/
+28, JPEG2000 r4, BAQ 4/6-bit); only HEVC QP36 leaves it, its retention falling to 0.893 at -9 dB and 0.861 at
+0 dB while its rate RISES (4.861 -> 4.667 at -9 dB is lower; 4.612-4.619 at -3/0 dB) because a fixed-QP codec
+spends bits on noise it cannot predict. Pre-declared rule ("more than one grid point between native and -3 dB
+added"): the move is exactly one grid point (HEVC QP36 at 4.86 -> 3-bit BAQ at 6.12), so the rule does not
+force the restatement; the curve is reported regardless, and the manuscript now says plainly that the native
+R_c sits on a configuration whose retention is 0.008 above the floor and does not survive any added noise,
+while the 6.12 bps 3-bit BAQ point (the one the abstract leads with) holds at every level tested, with
+retention within 0.001-0.013 of the floor. Fixed-ratio codecs (JPEG2000) hold rate and lose retention under
+noise; fixed-QP codecs (HEVC) hold quality and lose rate (QP28: 7.859 native -> 7.656 / 7.615 / 7.610 / 7.628).
+
+Gotcha (20 configurations per level). n_ref 369 -> 303 / 264 / 230 / 185. R_c 7.991 native -> 7.997 / 7.996 /
+7.996 / 7.998 (JPEG2000 r4 or focused JPEG2000 r4 at every level). ROBUST. The bracket's upper member (BAQ
+4-bit, 8.125) is marginal: in at -9 and -3 dB, out at -6 dB (32 spurious vs budget 26.4) and 0 dB (Pd 0.897).
+HEVC rates rise sharply with noise here (QP28 4.545 -> 5.742 / 6.059 / 6.350 / 6.689), same mechanism.
+Umbra not swept (image-domain delivered product; declared).
+
+### E3 — ringing ablation (S1, focused domain, mode=full; phantoms = reconstruction detections > 3 cells from any reference detection; strong = top-decile reference detections; R = 8 cells; areal baseline 0.0034)
+
+| arm | rate (bps) | Pd | phantoms | fraction within 8 cells of a strong scatterer | enrichment | median phantom distance (cells) |
+|---|---|---|---|---|---|---|
+| JPEG2000 9/7 r8 | 4.000 | 0.912 | 5,800 | 0.0083 | 2.43 | 202 |
+| JPEG2000 5/3 r8 | 4.000 | 0.907 | 6,145 | 0.0080 | 2.34 | 196 |
+| HEVC QP28 | 3.738 | 0.891 | 3,404 | 0.0141 | 4.14 | 221 |
+| BAQ 2-bit (focused) | 4.125 | 0.021 | 307 | 0.0033 | 0.96 | 1,552 |
+| JPEG2000 9/7 r16 | 2.000 | 0.888 | 17,950 | 0.0029 | 0.85 | 230 |
+| JPEG2000 5/3 r16 | 2.000 | 0.896 | 22,743 | 0.0022 | 0.66 | 233 |
+| HEVC QP32 | 2.224 | 0.818 | 5,323 | 0.0088 | 2.59 | 219 |
+| BAQ 1-bit (focused) | 2.125 | 0.000 | 447 | 0.0000 | 0.00 | 1,464 |
+| HEVC QP24 / 20 / 16 | 5.215 / 6.641 / 8.132 | 0.925 / 0.955 / 0.968 | 2,042 / 1,411 / 834 | 0.0215 / 0.0305 / 0.0528 | 6.3 / 8.9 / 15.5 | 212 / 204 / 219 |
+
+Reading against the pre-declared rule. At the 4 bps point the letter of the rule is met (9/7 enrichment 2.43
+>= 2.0; focused-domain BAQ 0.96 < 1.5), so the attribution "spurious detections concentrate near strong
+scatterers" is SUPPORTED at 4 bps in the statistical sense. Two things the rule did not anticipate must be
+stated beside it, and they change the manuscript's wording:
+1. The non-transform control is degenerate: BAQ in the focused domain retains almost nothing (Pd 0.02 / 0.00),
+   so its low enrichment is not a clean "no-ringing" comparison. The usable comparison is wavelet vs block
+   transform: HEVC's phantoms are FEWER but MORE concentrated near strong scatterers (enrichment 4.1 at 3.7
+   bps, rising to 15.5 at 8.1 bps) than JPEG2000's.
+2. Enrichment measures concentration, not share. Even at 4 bps only 0.8% of the wavelet's 5,800 phantoms lie
+   within 8 cells of a top-decile scatterer; the median phantom is ~200 cells from one. At 2 bps the
+   concentration vanishes (enrichment 0.85) and the phantom count triples. The spurious detections are
+   overwhelmingly DIFFUSE: quantization noise in the focused domain lifting clutter cells over the CA-CFAR
+   threshold across the whole image, with a measurable but minor excess around strong scatterers.
+Consequences for the text: (a) Section V-C's ringing paragraph is rewritten from "transform ringing around
+strong scatterers" to "diffuse focused-domain quantization noise, with a 2.4x concentration near strong
+scatterers at 4 bps that disappears by 2 bps"; (b) the abstract's phrase "converts it into target-adjacent
+false alarms" is NOT supported in degree by this geometry and is replaced at v3 (arXiv) and in the JSTARS
+revision by "converts it into spurious detections that the retention-only rule does not see"; (c) the 5/3 vs
+9/7 comparison shows the wavelet filter choice is immaterial (same enrichment, more phantoms for 5/3 at 2
+bps), so no wavelet-specific language survives. The pre-declared rule was satisfied; the claim it was written
+to test was narrower than the sentence the paper actually printed, and the sentence loses.
+
+### E6 — focuser impulse response and Fig. 5 crop (reports/e6_impulse_response.json, reports/ringing_crop.json)
+
+Unit point target synthesised at the crop centre by the transform inverse and focused by the RDA focuser:
+IRW 1.0 cell in both range and azimuth; PSLR -14.85 dB (range), -13.26 dB (azimuth), i.e. an unweighted
+sinc-class response. Ringing from the focuser itself is therefore confined to a few cells, consistent with
+E3's finding that most phantoms are nowhere near a strong scatterer. Fig. 5 crop centre (interior coords)
+(2160, 3156) = full-image (2672, 3668), half-window 160 cells, 217 phantoms inside the window at the r32
+operating point; to be marked on Fig. 2.
+
+### E4 (Gotcha) — GPS-truthed Durango (reports/e4_durango_truth.json)
+
+GPS record over our CPI (TOD 63592.41-63593.27): samples 16-18, speed 0.0 m/s, position fixed at
+(2.08, -154.01, 8.79) m PCS; the vehicle is stationary, so the AFRL example pixel is the anchor. Result: the
+Durango remains a CFAR detection within 3 cells, with its 7x7 peak in the SAME cell, at 19 of 20 operating
+points, down to 0.638 bps (focused HEVC QP28); it is lost only at focused HEVC QP36 (0.167 bps, retention
+-62 dB). Peak-power retention is within 1 dB at every raw-domain point of >= 4 bps and -4.6 dB at JPEG2000
+r32 (0.99 bps). Pre-declared reading: the Durango is retained at every point that FAILS the two-sided
+criterion except the last, so R_c = 7.99 on this scene is set by the reference population of weaker
+detections, not by strong targets; no validity failure (a passing point losing the truthed target) occurred.
+Side observation: the focused-domain codecs zero the clutter floor at low rate, so the Durango's contrast over
+scene median RISES (29.3 -> 63.3 dB at focused JPEG2000 r32) while full-set retention collapses to 0.805 with
+3,087 spurious detections; a single strong target is the wrong yardstick, which is the paper's point.
+E4 (S1 proxy subset) runs next; its readout follows.
+
+### E4 (S1) CORRECTION (2026-10-29, after the first run) — declared proxy threshold was empty
+
+The pre-declared S1 proxy subset (">= 20 dB over the CA-CFAR training-ring mean") selected 0 of 23,387
+reference detections: the contrast distribution over the ring mean has percentiles 50/90/99/max =
+10.6/12.8/15.3/19.8 dB, because the 2-cell guard ring is inflated by a scatterer's own sidelobes and the
+Illinois crop has no isolated bright point targets. The 31 rows written with n_subset = 0 remain in the log
+(append-only) and are void. Replacement, chosen AFTER seeing the empty result and labelled post hoc:
+subset = top decile of reference-detection power (n = 2,339), the same "strong scatterer" definition E3
+declared before it ran. Rows from the rerun carry strong_subset.mode = "topdecile". Nothing else changes.
+
+### E4 (S1 proxy subset) READOUT (2026-10-29; 31 rows `study = jstars_E4`, `strong_subset.mode = topdecile`, n = 2,339)
+
+Retention on the top-decile-power subset versus the full set. Raw-domain codecs keep the strong subset at
+>= 0.994 at every rate down to 1.95 bps (HEVC QP44: 0.994 strong vs 0.729 full) and >= 0.998 at every point
+of >= 2.1 bps; even 1-bit BAQ (0.660 full) keeps 0.998 of the strong subset. The strong subset falls below
+0.99 only for raw JPEG2000 at <= 2 bps (0.930 / 0.901 / 0.791 / 0.670 at 2 / 1 / 0.5 / 0.25 bps) and for the
+FOCUSED-DOMAIN full-mode arms at every rate: focused JPEG2000 r8 keeps 0.941 of strong scatterers while
+retaining 0.912 of the full set (r16 0.942, r32 0.943, r64 0.939); focused HEVC 0.942-0.950. Dechirp-mode
+arms keep >= 0.973. Reading (descriptive, labelled proxy): the Illinois frontier is set by the weak majority
+of reference detections, as on Gotcha; raw-domain quantization leaves strong scatterers essentially intact
+far below R_c; and full-focus transform coding displaces or suppresses about 6% of the strongest scatterers'
+detections (beyond the 3-cell tolerance) at every rate tested, which is consistent with E3's finding of
+distortion concentrated near strong scatterers in that domain, while the retention-only rule reads the same
+arm as the best performer on the full set.
+
+### CORRECTIONS after the hostile review of the v3 draft (2026-10-29, fresh-context pass; items as numbered there)
+
+1. The E3 ablation's HEVC grid (QP 16/20/24 in the focused domain, 8.13/6.64/5.22 bps) SUSTAINS the two-sided
+   criterion (Pd 0.968/0.955/0.925; 834/1,411/2,042 spurious vs budget 2,338.7). These QPs were outside the
+   registered focused-domain sweep (QP 36/40/44), so no registered row ever showed it. Consequence: the
+   manuscript's categorical "transform coding in the focused domain does not sustain" is narrowed to the
+   registered sweep and to rates below about 5 bps; the abstract, Contribution 2, Sec V-D (compute ablation,
+   "neither arm sustains at any tested rate"), and the Conclusion now say focused HEVC sustains post hoc from
+   5.2 bps, above the raw-domain frontier (R_c unchanged at 4.86).
+2. E4 Durango readout said "peak power within 1 dB at every raw-domain point >= 4 bits"; 2-bit BAQ at 4.125
+   bps is -1.54 dB. Corrected to ">= 4.5 bits (2-bit BAQ at 4.12: -1.5 dB)" in the readout above (by this
+   note), the manuscript, and the ledger line E4-durango.
+3. E4 S1 proxy readout and manuscript said "every raw-domain configuration >= 2 bps retains >= 0.994";
+   raw JPEG2000 r16 (2.00 bps) retains 0.930. Corrected to "every raw-domain BAQ and HEVC configuration
+   down to 1.95 bps".
+4. E2 readout's mechanism sentence ("fixed-QP HEVC holds quality and spends bits on noise") holds for
+   Gotcha raw HEVC and the transform-domain arms only; Illinois raw HEVC rates FALL slightly under noise
+   (QP36 4.861 -> 4.667/4.627/4.612/4.619) while retention falls. Scoped accordingly in the manuscript.
+5. "Quantization noise lifting clutter cells over the CA-CFAR threshold" was not measured (E3 measured only
+   phantom distance to strong scatterers); whether cells rise or the training-ring estimate falls is open.
+   Wording replaced by the measured geometry.
+6. "Consistent with the ablation's distortion near strong scatterers" (S1 proxy) was an unmeasured link and
+   is dropped; the 6% figure stands alone.
+7. The E5 pre-declared rule has TWO clauses (sustaining set at the R_c row unchanged AND <= 1 grid point).
+   The E1+E5 readout above applied only the second when calling S1 "ROBUST" for tol 2 and Pfa 1e-5. Under the
+   full rule S1 FAILS the first clause at tol 2 (3-bit BAQ leaves) and at Pfa 1e-5 (dechirp r8 enters). The
+   manuscript now quotes the rule as declared and names the failing clause at each setting.
+8-9. Gotcha at Pfa 1e-5 moves three grid steps (7.99 -> 7.35 -> 4.55 -> 4.00), not two; reference sets at
+   Pfa 1e-3 grow 3.0x / 3.5x / 1.9x (Illinois / Gotcha / Umbra), "roughly doubles to triples".
+12. E3 "real in the statistical sense": 48 phantoms within 8 cells vs 19.7 expected at the areal rate,
+   Poisson p ~ 5e-8; now stated.
+Letter-review items (same day) applied to the manuscript: "false-alarm" removed from prose (CFAR term kept);
+"within the raw-domain classical family" corrected (Umbra has no raw domain); tolerance rationale restated
+against the measured 1.0-cell IRW; expected CA-CFAR exceedances on the Illinois interior stated (2.2e7 cells x
+1e-4 = ~2,200, 9% of n_ref); image-domain SQNR column added to Tables II, IV, V; Reproducibility row count
+576 + ledger/checklist named.
+
+### REVISION PACKAGE READY (2026-10-29 evening) — house rule 2 recloses at upload
+Manuscript v3 at commit fcc822c (19 pp; patch scripts v3, v3b, v3c, v3d reproduce it from the v2 tex); response
+letter reports/jstars_response_letter.md; two fresh-context hostile reviews + one confirmation pass applied
+(see CORRECTIONS entry). Upload zip latex/jstars-upload_2026-10-29_v3.zip. Outward steps pending Eric: mirror
+sync (scripts/update_public_mirror_v3.py, local commit then push), arXiv v3 (same tex; metadata abstract in
+reports/arxiv_v3_abstract.txt), JSTARS completion in the IEEE Author Portal. The experimental phase recloses
+when the JSTARS upload is made; any further run needs a new pre-declaration.
+
+### E3b pre-declaration — near-scatterer phantom counts with a within-reference null (2026-10-29 evening; declared before the run; rows `study = jstars_E3b`)
+
+Trigger. A fresh-context statistics review of the v3 draft noted that the E3 enrichment ratio is a denominator
+artifact: the ABSOLUTE number of phantoms within 8 cells of a top-decile scatterer is 43-52 for every transform
+arm at every rate (9/7 r8: 48, r16: 52; 5/3: 49, 50; HEVC QP16-32: 44, 43, 44, 48, 47), while total phantoms run
+834-22,743. The ratio therefore measures the diffuse population, not the near population. The areal null is also
+the wrong null (strong scatterers sit in heterogeneous clutter; bins 0-3 are empty by construction).
+
+What runs. The E3 arms are re-executed (same seeds, same codecs) and, for each, phantoms are counted within
+R = 8 cells of three anchor sets of equal size n = 2,339: (a) top-decile reference detections by power
+(E3 "strong"); (b) bottom-decile reference detections by power ("weak"); (c) uniformly random interior
+cells (seed 1337). Counts are absolute; per-anchor rates = count / 2,339.
+
+Endpoint and interpretation rule. Report the three counts per arm. The statement "a measurable concentration of
+spurious detections near strong scatterers" survives in the manuscript ONLY IF, for the 9/7 ratio-8 arm, the
+count near strong anchors is at least 2x the count near weak anchors AND at least 2x the count near random
+anchors; otherwise the near-scatterer excess is withdrawn entirely and V-C/VI/Contribution 2 state only the
+diffuse population. Independently of that test, the manuscript replaces "the concentration disappears at 2
+bits" with the fixed-plus-diffuse decomposition the counts show, and reports absolute counts beside any ratio.
+The Poisson p-value against the areal null is dropped.
+
+## E0 — METRIC BUG FOUND BY ADVERSARIAL REVIEW; FULL RE-SCORE PRE-DECLARED (2026-10-29 evening, before any re-run)
+
+Finding (SAR-processing referee pass on the v3 draft, verified on a synthetic array). `radarcodec/tasks/cfar.py::
+_to_centroids` computes `det & (maximum_filter(det, 3) == det)`, which is TRUE for every exceedance pixel: four
+adjacent exceedances in, four "detections" out. The "3x3 local-maximum reduction" described in Section III-A
+(and repeated in the response letter) was never performed. Consequence: every detection count in the record
+(the 23,387 Illinois reference, 369 Gotcha, 41,425 Umbra, every Pd and every spurious count, all 576 rows) is an
+exceedance-PIXEL count in which clustered mainlobe/streak pixels are counted individually. Directions of
+verdicts may survive; magnitudes will not. This is a bug in the metric's implementation (house rule 2: reopen
+for a bug), not a change of criterion: the criterion as written in the pre-registration says local maxima.
+
+Second finding (same pass, confirmed from ffmpeg's encoder table): libx265 accepts gray up to 12 bits, so
+ffmpeg silently converts the gray16le planes to gray12le (4 LSBs dropped) before coding, and the I and Q planes
+are sent as a two-frame video (second plane inter-predicted from the first). Section IV's "16-bit scaled ...
+independently" does not describe what ran for HEVC.
+
+Fix, declared now. (1) Peaks = exceedance pixels that are local maxima of POWER in a 3x3 window:
+`det & (power == maximum_filter(power, 3))`. (2) HEVC: explicit `-pix_fmt gray12le` on encode input and decode
+output (stated as 12-bit), each plane encoded as its own all-intra stream (`keyint=1:bframes=0`), psycho-visual
+tuning off (`psy-rd=0:psy-rdoq=0`). The legacy behaviours remain reproducible behind an environment flag
+(`RADARCODEC_LEGACY=1`) so that every archived row can still be regenerated.
+
+What re-runs, tagged `scorer = peak-v2` (and `hevc = intra12`) in every new row:
+- all 68 classical configurations of Tables II/IV/V with the E1/E5 metrics (fidelity, tolerance, Pfa);
+- E2 (SNR sweep, S1 + Gotcha), E3 + E3b (ringing with the three anchor sets), E4 (Durango, S1 proxy);
+- learned-codec rows whose checkpoints exist (`experiments/checkpoints/*.pt`: S1 hyperprior lam50/lam300,
+  the Gotcha detaware/stat families) via their existing eval scripts; rows without a checkpoint are reported
+  under the legacy scorer and labelled.
+- ATR rows are unaffected (classifier, no CFAR).
+
+Interpretation rule. Every number in the manuscript is re-derived from the peak-v2 rows: R_c per scene, the
+FDBAQ bracket, the retention-only certification example, the frontier sensitivity tables, the SNR curve, the
+ringing decomposition, the ground-truth anchors. Whatever they are is what the paper says; no threshold,
+tolerance, or grid is adjusted. The legacy rows stay in the log; the manuscript's version note states the bug,
+its effect on the archived counts, and the magnitude of the change in each headline number; the response
+letter corrects R1.3. Pre-registration status: the criterion and thresholds are unchanged; the re-scored
+numbers are labelled "corrected implementation" rather than post hoc, because the declared method is what now
+runs. Expected cost ~3 h CPU. Nothing from this entry onward in this section is read before the runs complete.
+
+### E7 pre-declaration — lossless / entropy rows (declared 2026-10-29 evening, before computation)
+
+Trigger: adversarial-review items 5-6 (the FDBAQ bracket may be near-tautological on re-compressed Level-0; HEVC's
+edge over fixed-rate Lloyd-Max BAQ may be entropy coding). What is computed, no codec involved: for each scene's
+codec input, the number of distinct values per real component, the order-0 empirical entropy per component, and
+their sum as a lossless entropy-coded rate in bits per complex sample (retention 1.0, spurious 0 by identity).
+For S1 this is the FDBAQ-reconstructed Level-0 crop; for Gotcha the float32 phase history (expected: no finite
+alphabet, so no meaningful lossless row; reported as such); for Umbra the SICD pixel type is read from the
+metadata and the row computed only if the pixels are integer. Also reported: the compression ratio convention
+(the paper quotes 64 bits / rate against complex64; the ADC word for Sentinel-1 is 10 bits per component, so the
+ratio against the sensor word is 20 / rate). Interpretation rule: the lossless rate is added as a row to Table II
+(and V if applicable) and the FDBAQ-bracket paragraph states the distance between the lossless rate, the 6.8 bps
+FDBAQ anchor, and the corrected frontier; if the corrected frontier lies within 1 bit of the lossless rate, the
+"brackets the fielded operating point" sentence is withdrawn from the abstract and replaced by the plain statement
+that re-quantizing FDBAQ output near its own rate preserves detections by construction.
+
+### E8 pre-declaration — plane-mapping clip control (declared 2026-10-29 evening, before any run; rows `study = ctrl_E8`, corrected scorer)
+
+Trigger: adversarial-review item 8. The v2 plane mapping clips each I/Q plane at the 99.99th percentile of |value|
+before any codec; in a focused image the clipped 0.01% are the strongest scatterers, roughly the top-decile
+reference population. What runs, with no codec: (a) the mapping round trip (plane_to_u16 -> u16_to_plane) applied in
+the raw domain (S1 raw crop, Gotcha phase history) followed by the usual focusing and scoring; (b) the same round
+trip applied in the focused/transform domain (S1 via the invertible transform forward/inverse, Gotcha image domain,
+Umbra image) and scored; for each: retention, spurious count, image SQNR, the fraction of reference peaks whose I
+or Q magnitude exceeds the clip bound, and the clipped energy fraction. Then (c) focused-domain JPEG2000 ratio 8
+on S1 under three clip settings: 99.99 (registered), 99.999, and no clip (min/max), scored the same way.
+Interpretation rule: if the no-codec round trip in a domain fails the two-sided criterion or loses more than 1% of
+reference peaks, every result in that domain is reported as "under this mapping" and the mapping is named as a
+confound in Limitations and in the abstract's focused-domain sentence; if the clip-free JPEG2000 r8 run changes the
+two-sided verdict or moves spurious by more than 25%, the ringing/diffuse paragraph is rewritten around the
+mapping; otherwise the control is reported in one sentence and the mapping stands as a stated, bounded choice.
+
+### E7 READOUT (2026-10-29 evening; reports/e7_lossless.json; no codec, no log rows)
+
+S1 Illinois raw crop (FDBAQ-reconstructed Level-0): 80 distinct values per real component (the union of the
+block-adaptive reconstruction levels, not the 48 a single-threshold reading would predict); order-0 entropy 5.08
+(I) + 5.09 (Q) = 10.18 bits per complex sample for a memoryless lossless coder; compression ratio against the
+10-bit ADC word 1.97:1, against complex64 6.29:1. A block-adaptive context coder would approach FDBAQ's own
+~6.8 bps, but that requires the block structure the product does not carry; the memoryless lossless row is
+10.18 and is what Table II gets. Reading against the declared rule: the corrected frontier (pending E0) must be
+compared with 10.18; if it lies within 1 bit of it the bracket sentence is withdrawn. On the legacy numbers the
+frontier (4.86) was 5.3 bits below the lossless row, so the "re-quantization near its own rate" objection applies
+to the 6.8 anchor region, not to the frontier. Gotcha: float32 phase history, 76,762 distinct values in a 200-pulse
+sample, no finite alphabet, no lossless row. Umbra: SICD pixel type RE32F_IM32F (float32), no lossless row; the
+paper's ratio for Umbra is against complex64 and is stated as such.
+
+## E0 READOUT, PART 1 — corrected classical rows (2026-10-29 evening; 68 rows `study = rescore_E0`, scorer peak-v2, HEVC intra12; E2/E3/E4 re-scores pending)
+
+Reference sets (peaks, not pixels): Illinois 13,964 (was 23,387), Gotcha 259 (was 369), Umbra 22,860 (was 41,425);
+about 40% of every legacy "detection" was a second pixel of the same peak. Retention falls for every row because a
+reference peak now needs a reconstruction PEAK within 3 cells.
+
+Illinois. Frontier 7.62 bps (raw HEVC QP28; its rate moved 7.86 -> 7.62 under the per-plane intra 12-bit pipeline),
+sustaining set = {HEVC 28/20/12, JPEG2000 r4, BAQ 4/6-bit}. 3-bit BAQ FAILS (0.842, was 0.905); HEVC QP36 FAILS
+(0.839, was 0.908). FDBAQ bracket moves to 3-bit/4-bit (6.1-8.1 bps). The retention-only certification example is
+GONE on this scene: focused JPEG2000 r8 retains 0.858 (was 0.912) with 5,219 spurious (budget 1,396), so both
+rules reject it; no Illinois row passes the floor while exceeding the budget. Fidelity: rho(SQNR, spurious) =
+-0.94 among the 6 passing (no discordant pair). Sensitivity: the frontier and the full sustaining set are
+IDENTICAL at tolerance 1/2/3/5 and at Pfa 1e-3/1e-4/1e-5 (n_ref 47,771 / 13,964 / 5,662): the tolerance and
+Pfa sensitivity reported in the legacy E5 readout was a pixel-counting artifact.
+Gotcha. Frontier 10.93 (raw HEVC QP12), sustaining = {HEVC 12, BAQ 6-bit}; bracket 8.0-10.9. Focused JPEG2000
+r4 retains 0.919 with 26 spurious against a budget of 25.9: certified by retention, rejected by the budget by one
+detection (report as marginal). Tolerance 1-5: unchanged. Pfa 1e-3: BAQ 6-bit drops; 1e-5 (n_ref 99): 7.95 with
+three entrants.
+Umbra. Frontier 3.87 (HEVC QP12 under intra12; rate was 3.38), sustaining = {HEVC 12, JPEG2000 r4}; JPEG2000 r8
+drops (0.927 but 3,815 spurious > 2,286). The retention-only certification failure SURVIVES here: JPEG2000 r16
+retains 0.910 with 34,916 spurious (15x budget); r32/r64 now fail the floor too (0.888/0.829). Discordant
+fidelity pairs: 4 (all across codec families). Tolerance 1-5 unchanged; Pfa 1e-3 -> 8.00; 1e-5 unchanged.
+Lossless row (E7): Illinois 10.18 bps is 2.6 bits above the corrected frontier, so the bracket sentence stands
+with the distance stated.
+
+## E0 READOUT, PART 2 — corrected E2 / E3+E3b / E4 (2026-10-29 afternoon; studies rescore_E2 (212 rows), rescore_E3 (11), rescore_E4 (51))
+
+E2 SNR, Illinois: frontier 7.62 native -> 7.51 / 7.46 / 7.42 / 7.38 at -9/-6/-3/0 dB added noise, SAME six-member
+sustaining set at every level (HEVC 28/20/12, JPEG2000 r4, BAQ 4/6-bit); the small decrease is HEVC QP28's rate
+falling with noise. n_ref 13,964 -> 12,319 / 11,209 / 9,334 / 7,322. ROBUST; the legacy "4.86 -> 6.12 under any
+noise" story was the pixel-count artifact. Gotcha: 10.93 native -> 8.00 / 8.00 / 7.94 / 10.36; the noisy reference
+drops the weak detections that set the native floor, so the frontier FALLS under noise at -9..-3 dB (JPEG2000 r4 and
+focused HEVC QP12 enter at retention 0.903-0.904, margins of one detection on 166-217 references) and returns to
+10.36 at 0 dB. Report as: the Gotcha frontier is set by threshold-marginal references and is not stable to the
+reference's composition; state the bracket at native only and say so.
+E3 + E3b (corrected scorer; near counts are absolute, anchors n = 2,339 each). JPEG2000 9/7 r8 (4.00 bps, Pd 0.858,
+5,219 phantoms): near strong 143, near weak 72, near random 62 -> 1.99x weak, 2.31x random. The declared rule
+(>= 2.0x BOTH) is NOT met (1.99 < 2.0); per the rule the near-scatterer excess is WITHDRAWN for the wavelet arms,
+and at 2 bps it is reversed (r16: 171 near strong vs 255 near weak, 223 random). 5/3: 138/72/63, same verdict.
+HEVC is different in kind: 117/9/10 at QP16 (13x), 122/10/12 at QP20, 142/43/45 at QP28; block-transform phantoms
+are few and strongly concentrated near strong scatterers. Manuscript: the wavelet's spurious detections are
+diffuse with no reliable excess near strong scatterers; HEVC's are concentrated there; the two-codec contrast
+replaces the single-mechanism paragraph. Focused HEVC sustains at QP16 (8.05) and QP20 (6.56) under the corrected
+scorer; QP24 (5.13) now fails (0.884). Legacy-scorer E3b (study jstars_E3b, 11 rows) is superseded.
+E4 Gotcha: Durango retained in the same cell at 19 of 20 points down to 0.85 bps; lost only at focused HEVC QP36
+(0.24 bps). E4 S1 proxy (top decile, n = 1,396 of 13,964): raw BAQ/HEVC keep >= 0.985 of the strong subset down
+to 2.1 bps (1-bit BAQ 0.970 vs 0.488 full); raw JPEG2000 r16 0.797; focused JPEG2000 r8 0.956 vs 0.858 full.
+Legacy E2/E3/E4 readouts above are superseded by this entry; the legacy rows remain in the log.
+
+## E8 + LATTICE + LEARNED READOUTS (2026-10-29 afternoon; studies ctrl_E8 (8 rows), rescore_lattice (8), rescore_learned (30); corrected scorer)
+
+E8 plane-mapping control. No-codec round trip through the registered mapping: Illinois raw domain Pd 0.9994, 1
+spurious, 3e-5 of samples clipped, image SQNR 65 dB; Illinois transform (full) domain Pd 0.995, 184 spurious, 0.68%
+of energy clipped, SQNR 21.0 dB; Gotcha raw 0.992, 0 spurious; Gotcha image domain 0.985, 0 spurious, 5.4% of
+reference peaks clipped (FAILS the declared 1% line -> Gotcha focused-domain rows reported "under this mapping");
+Umbra image 0.999, 153 spurious, 14.4% of energy clipped, 4.3% of peaks clipped, SQNR 9.0 dB (the ceiling under
+which every Umbra fidelity number sits; stated in the manuscript). Focused JPEG2000 r8 on Illinois at clip 99.99 /
+99.999 / none: Pd 0.858 / 0.858 / 0.864, spurious 5,219 / 4,984 / 4,944, SQNR 10.4 / 10.6 / 10.9 dB -> verdict
+unchanged, spurious within 5%: the mapping stands on the primary scene as a stated, bounded choice.
+Lattice adaptation (corrected scorer): max |dPd| 0.007 (3-bit 0.842 -> 0.849, 4-bit 0.937 -> 0.940); spurious
++1.8% / 0.0% / +4.4% / +11.7% at 2/3/4/6 bits; monotone; adapted reference 13,914 peaks. No 3-beats-4 inversion.
+Learned rows re-scored from checkpoints (30/30): best Illinois 0.251 at 0.89 bps (was 0.397), best Gotcha 0.417
+at 1.08 bps (was 0.593); none near the criterion. Negative result unchanged in kind, stronger in degree.
+v4 manuscript: tables generated by scripts/make_v4_tables.py from the corrected rows (latex/tables_v4), figures
+regenerated by plot_curves.py from rescore_E0/rescore_learned rows only; prose by patch_preprint_v4 / v4b / v4c.
+
+### CORRECTIONS after the hostile review of the v4 draft (2026-10-29 afternoon)
+- The E3b anchor sets under the corrected scorer have n = 1,397 each (top decile of 13,964 reference peaks), not 2,339
+  (the legacy top decile); the "E0 READOUT, PART 2" entry above and the first v4 draft said 2,339. Ratios unaffected.
+- Umbra has TWO corrected rows that pass the retention floor while exceeding the budget: JPEG2000 r16 (0.910, 15.3x)
+  and r8 (0.927, 1.7x). Part 1 above named only r16.
+- Of the four Umbra discordant fidelity pairs, two are cross-family (BAQ6/J4, BAQ6/H12) and two within transform
+  coding (J4/J8, J8/H12); "all across codec families" was wrong.
+- E8 rule now applied as written: Gotcha image-domain clip of 5.4% of peaks (> 1%) names the mapping as a confound in
+  the abstract, Limitations, Sec V-H text and Table IV caption; Umbra likewise (9.0 dB SQNR ceiling).
+- Legacy pixel-count numbers found and replaced in Sec II (lattice), III-A (counterfactual), III-B, V-D (compute
+  ablation: gaps 0.10/0.24/0.35/0.45, outside the 10% band at every rate), V-G (comparator), V-H post-draft learned
+  paragraph (best 0.36-0.42 at 14-24x budget), VI learned multiples (7x, 15x), proxy thresholds (HEVC QP44 0.940),
+  version-note HEVC rate deltas (0.24 / 0.5 / 0.6), row counts (342 corrected incl. 8 noisy-reference; 8 lattice; 8 ctrl).

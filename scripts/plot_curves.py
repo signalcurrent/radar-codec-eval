@@ -14,8 +14,13 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 runs = {}
+# 2026-10-29 (E0): figures are drawn from the corrected-scorer rows only (study rescore_E0 / rescore_learned),
+# plus the MSTAR ATR rows (no CFAR; unaffected). Legacy pixel-count rows and the post hoc sweeps are excluded.
+ALLOWED_STUDIES = {"rescore_E0", "rescore_learned"}
 for line in open("experiments/runs.jsonl"):
     r = json.loads(line)
+    if r.get("domain") != "mstar" and r.get("study") not in ALLOWED_STUDIES:
+        continue
     # an operating point IS (domain, codec, rate); last row wins so re-runs supersede.
     # BUG FIX (2026-08-08): every tfocus row shares the literal codec string
     # "tfocus" regardless of (mode, base) -- the full and dechirp JPEG2000 arms
@@ -30,7 +35,7 @@ Path("reports").mkdir(exist_ok=True)
 PLOTS = [
     # (metric, required domain, label, filename, r_c_bps, fdbaq_line)
     ("cfar_pd", "s1_focused", "Post-focus CFAR detection agreement (Pd)",
-     "rate_vs_pd.png", 4.86, 6.8),
+     "rate_vs_pd.png", 7.62, 6.8),
     ("cfar_false", "s1_focused", "Spurious detections (count, log scale)",
      "rate_vs_spurious.png", None, 6.8),
     ("mse", "s1", "MSE (raw I/Q)", "rate_vs_mse.png", None, 6.8),
@@ -40,7 +45,7 @@ PLOTS = [
     # Gotcha GMTI (unencoded, airborne, government-provided): its own R_c,
     # no FDBAQ line (spaceborne-specific, not meaningful here).
     ("cfar_pd", "gotcha_gmti", "Post-focus CFAR detection agreement (Pd)",
-     "rate_vs_pd_gotcha.png", 7.99, None),
+     "rate_vs_pd_gotcha.png", 10.93, None),
     ("cfar_false", "gotcha_gmti", "Spurious detections (count, log scale)",
      "rate_vs_spurious_gotcha.png", None, None),
 ]

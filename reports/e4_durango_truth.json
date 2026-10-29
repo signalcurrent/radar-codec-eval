@@ -1,0 +1,45 @@
+{
+ "cpi_gps_tod": [
+  63592.41,
+  63593.268
+ ],
+ "gps_samples_in_or_adjacent": [
+  16,
+  17,
+  18
+ ],
+ "gps_speed_mps": [
+  0.0,
+  0.0,
+  0.0
+ ],
+ "gps_pos_pcs_m": [
+  [
+   2.08,
+   -154.01,
+   8.79
+  ],
+  [
+   2.08,
+   -154.01,
+   8.79
+  ],
+  [
+   1.94,
+   -154.01,
+   8.79
+  ]
+ ],
+ "afrl_example_pixel_1based": {
+  "doppler": 834,
+  "range": 180
+ },
+ "peak_0based": [
+  178,
+  833
+ ],
+ "ref_detection_0based": [
+  179,
+  833
+ ]
+}

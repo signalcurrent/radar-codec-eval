@@ -1,0 +1,32 @@
+\begin{table}[tb]
+\centering
+\caption{Sentinel-1 (Illinois): selected classical operating points under the corrected scorer (peak reduction) and the corrected HEVC pipeline; the full set of 31 rows is in the results log. Rate in bits per complex sample; SQNR is image-domain, dB; the spurious budget is 1396.4 (10\% of 13{,}964 reference detections). ``Sust.'' = both clauses of \eqref{eq:crit} hold.}
+\label{tab:illinois}
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{2pt}
+\footnotesize
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}llrrrrc@{}}
+\toprule
+Codec & Domain & Rate & SQNR & $P_d$ & Spur. & Sust. \\
+\midrule
+Lossless (memoryless entropy) & raw & 10.18 & $\infty$ & 1.000 & 0 & yes \\
+HEVC (QP12) & raw & 14.13 & 39.2 & 0.991 & 118 & yes \\
+BAQ (6-bit) & raw & 12.12 & 30.7 & 0.977 & 282 & yes \\
+HEVC (QP20) & raw & 10.85 & 31.1 & 0.979 & 294 & yes \\
+BAQ (4-bit) & raw & 8.12 & 21.6 & 0.937 & 799 & yes \\
+JPEG2000 (r4) & raw & 8.00 & 21.8 & 0.938 & 759 & yes \\
+HEVC (QP28) & raw & 7.62 & 22.6 & 0.945 & 739 & yes \\
+BAQ (3-bit) & raw & 6.12 & 14.1 & 0.842 & 1{,}635 & no \\
+HEVC (QP36) & raw & 4.75 & 13.9 & 0.839 & 1{,}701 & no \\
+JPEG2000 (r8) & dechirp & 4.00 & 10.3 & 0.761 & 2{,}671 & no \\
+JPEG2000 (r8) & focused & 4.00 & 10.4 & 0.858 & 5{,}219 & no \\
+JPEG2000 (r16) & focused & 2.00 & 5.4 & 0.820 & 16{,}546 & no \\
+HEVC (QP36) & focused & 1.00 & 3.5 & 0.629 & 11{,}510 & no \\
+JPEG2000 (r32) & focused & 1.00 & 3.2 & 0.775 & 31{,}142 & no \\
+JPEG2000 (r64) & focused & 0.50 & 1.8 & 0.768 & 74{,}611 & no \\
+JPEG2000 (r64) & raw & 0.50 & 1.4 & 0.252 & 3{,}795 & no \\
+Learned (best) & focused & 0.89 & -- & 0.251 & 9{,}825 & no \\
+\bottomrule
+\end{tabular}}
+\end{table}

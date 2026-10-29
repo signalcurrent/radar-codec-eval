@@ -1,0 +1,26 @@
+\begin{table}[tb]
+\centering
+\caption{Focused-domain ablation on Illinois, corrected scorer. Phantoms: reconstruction peaks more than 3 cells from any reference peak. Near: number of phantoms within 8 cells of the 1{,}397 strongest reference peaks, of the 1{,}397 weakest, and of 1{,}397 random interior cells.}
+\label{tab:ringing}
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{2pt}
+\footnotesize
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lrrrrrrc@{}}
+\toprule
+Base codec & Rate & $P_d$ & Phantoms & Near strong & Near weak & Near random & Sust. \\
+\midrule
+JPEG2000 9/7 r8 & 4.00 & 0.858 & 5{,}219 & 143 & 72 & 62 & no \\
+JPEG2000 9/7 r16 & 2.00 & 0.820 & 16{,}546 & 171 & 255 & 223 & no \\
+JPEG2000 5/3 r8 & 4.00 & 0.852 & 5{,}398 & 138 & 72 & 63 & no \\
+JPEG2000 5/3 r16 & 2.00 & 0.834 & 21{,}054 & 176 & 325 & 267 & no \\
+HEVC QP16 & 8.05 & 0.946 & 804 & 117 & 9 & 10 & yes \\
+HEVC QP20 & 6.56 & 0.914 & 1{,}219 & 122 & 10 & 12 & yes \\
+HEVC QP24 & 5.13 & 0.884 & 2{,}108 & 118 & 32 & 35 & no \\
+HEVC QP28 & 3.66 & 0.822 & 3{,}624 & 142 & 43 & 45 & no \\
+HEVC QP32 & 2.17 & 0.720 & 5{,}769 & 166 & 77 & 67 & no \\
+BAQ 1-bit & 2.12 & 0.000 & 245 & 0 & 10 & 2 & no \\
+BAQ 2-bit & 4.12 & 0.011 & 206 & 2 & 6 & 3 & no \\
+\bottomrule
+\end{tabular}}
+\end{table}

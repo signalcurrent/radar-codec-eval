@@ -1,0 +1,11 @@
+{
+ "peak_rc": [
+  2048,
+  4096
+ ],
+ "irw_range_cells": 1.0,
+ "pslr_range_db": -14.85,
+ "irw_azimuth_cells": 1.0,
+ "pslr_azimuth_db": -13.26,
+ "method": "unit target via transform_codec.inverse(mode=full) at crop centre, focus_stripmap, irw_pslr oversample 16"
+}

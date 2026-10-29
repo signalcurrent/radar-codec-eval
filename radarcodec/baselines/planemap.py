@@ -14,8 +14,10 @@ MAPPING_VERSION = "v2-pctclip99.99"
 _Q = 99.99
 
 
-def plane_to_u16(plane):
-    c = float(np.percentile(np.abs(plane), _Q))
+def plane_to_u16(plane, q=_Q):
+    """q: clip percentile of |value|; the registered mapping is 99.99. q=100 is min/max (no clip).
+    The optional argument exists for the E8 clip control (2026-10-29); every registered call uses the default."""
+    c = float(np.percentile(np.abs(plane), q))
     c = max(c, 1e-12)
     x = np.clip(plane, -c, c)
     u16 = np.round((x + c) / (2 * c) * 65535).astype(np.uint16)

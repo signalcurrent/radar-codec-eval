@@ -1,0 +1,19 @@
+\begin{table}[tb]
+\centering
+\caption{Configurations that take part in a within-scene pair with image-domain SQNR within 1~dB and opposite two-sided verdicts (corrected scorer). Four pairs, all on Umbra: two are scalar quantization against transform coding and two are within transform coding; the scene's SQNR scale is capped at 9.0~dB by the plane mapping (Section~\ref{sec:posthoc}).}
+\label{tab:fidelity}
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{2pt}
+\footnotesize
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}llrrrrc@{}}
+\toprule
+Scene & Codec & Rate & SQNR & $P_d$ & Spur. & Sust. \\
+\midrule
+Umbra Port of Vancouver & BAQ (6-bit), raw & 12.12 & 8.8 & 0.679 & 1{,}222 & no \\
+Umbra Port of Vancouver & JPEG2000 (r4), raw & 8.00 & 8.9 & 0.979 & 591 & yes \\
+Umbra Port of Vancouver & HEVC (QP12), raw & 3.87 & 8.6 & 0.930 & 1{,}492 & yes \\
+Umbra Port of Vancouver & JPEG2000 (r8), raw & 4.00 & 8.1 & 0.927 & 3{,}815 & no \\
+\bottomrule
+\end{tabular}}
+\end{table}

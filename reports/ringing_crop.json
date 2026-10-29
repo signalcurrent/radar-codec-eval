@@ -1,0 +1,13 @@
+{
+ "center_interior_rc": [
+  2160,
+  3156
+ ],
+ "center_full_rc": [
+  2672,
+  3668
+ ],
+ "half_window": 160,
+ "nearby_phantoms": 217,
+ "interior_trim": 512
+}

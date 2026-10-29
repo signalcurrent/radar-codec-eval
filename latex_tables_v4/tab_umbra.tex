@@ -1,0 +1,21 @@
+\begin{table}[tb]
+\centering
+\caption{Umbra Port of Vancouver (image domain): selected classical operating points under the corrected scorer (peak reduction) and the corrected HEVC pipeline; the full set of 17 rows is in the results log. Rate in bits per complex sample; SQNR is image-domain, dB; the spurious budget is 2286.0 (10\% of 22{,}860 reference detections). ``Sust.'' = both clauses of \eqref{eq:crit} hold. All rows are results under the study's plane mapping, whose no-codec round trip caps image SQNR at 9.0~dB on this scene (Section~\ref{sec:posthoc}).}
+\label{tab:umbra}
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{2pt}
+\footnotesize
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}llrrrrc@{}}
+\toprule
+Codec & Domain & Rate & SQNR & $P_d$ & Spur. & Sust. \\
+\midrule
+JPEG2000 (r4) & raw & 8.00 & 8.9 & 0.979 & 591 & yes \\
+JPEG2000 (r8) & raw & 4.00 & 8.1 & 0.927 & 3{,}815 & no \\
+HEVC (QP12) & raw & 3.87 & 8.6 & 0.930 & 1{,}492 & yes \\
+BAQ (1-bit) & raw & 2.12 & 0.9 & 0.018 & 6{,}505 & no \\
+JPEG2000 (r16) & raw & 2.00 & 6.8 & 0.910 & 34{,}916 & no \\
+JPEG2000 (r64) & raw & 0.50 & 4.8 & 0.829 & 25{,}849 & no \\
+\bottomrule
+\end{tabular}}
+\end{table}
