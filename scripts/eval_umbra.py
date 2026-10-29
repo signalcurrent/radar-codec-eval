@@ -1,7 +1,7 @@
 """Image-domain rate-vs-utility eval on an Umbra open-data SICD scene.
 
-Commercial-traction artifact (see FINDINGS/Phase III notes): same two-sided
-criterion and codecs as the SBIR study, applied to a commercial operator's
+Commercial-traction artifact (see FINDINGS): same two-sided
+criterion and codecs as the [redacted: programmatic note] study, applied to a commercial operator's
 focused complex imagery. No focusing step — SICD is already an image; codecs
 compress the complex pixels, CFAR scores detection agreement against the
 uncompressed reference.

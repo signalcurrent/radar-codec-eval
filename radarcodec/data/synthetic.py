@@ -1,8 +1,7 @@
 """Synthetic SAR-like scenes: speckled clutter + point targets.
 
 Serves two purposes: (1) the harness runs end-to-end before any real data is
-downloaded, (2) "synthetic data" is itself a named Phase I deliverable of the
-topic. Complex circular-Gaussian clutter gives Rayleigh magnitude / exponential
+downloaded, (2) "synthetic data" is itself a named output of the study scope. Complex circular-Gaussian clutter gives Rayleigh magnitude / exponential
 power — the standard homogeneous-clutter model CA-CFAR assumes — and point
 targets are sinc-shaped impulse responses so IRW/PSLR are measurable.
 """

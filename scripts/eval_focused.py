@@ -78,7 +78,7 @@ def main():
         for name, params in operating_points(codec_cfg):
             # wall time for encode+decode combined — crude (Python vs native
             # varies by orders of magnitude) but answers "why not just HEVC?"
-            # with the onboard-compute argument Phase II will demand properly
+            # with the onboard-compute argument follow-on will demand properly
             extra = {"meta": meta} if name in ("tfocus",) else {}  # chirp/timing side info, not a swept param
             t0 = time.perf_counter()
             raw_hat, rate = CODECS[name](raw, **params, **extra)

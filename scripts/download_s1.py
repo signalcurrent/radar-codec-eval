@@ -25,7 +25,7 @@ def main():
                           "StripMap, only tasked for specific sites -- most AOIs have NO "
                           "StripMap coverage. This pipeline's focuser (focus_rda.py) needs "
                           "StripMap; IW's TOPS burst geometry is a different, unimplemented "
-                          "focusing problem (see TOPIC.md Known Alignment Gaps).")
+                          "focusing problem (see the study's scope notes).")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 

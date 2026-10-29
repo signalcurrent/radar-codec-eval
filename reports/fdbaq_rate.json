@@ -10,18 +10,18 @@
   "max": 10036
  },
  "user_bytes_per_echo": {
-  "min": 13129,
-  "mean": 13239.8427734375,
-  "max": 13889
+  "min": 13128,
+  "mean": 13238.8427734375,
+  "max": 13888
  },
  "fdbaq_bits_per_complex_sample": {
-  "mean": 5.2769,
-  "min": 5.2328,
-  "max": 5.5357
+  "mean": 5.2765,
+  "min": 5.2324,
+  "max": 5.5353
  },
  "baq_columns": {
   "BAQ Mode": "FDBAQ MODE 0",
   "BAQ Block Length": "31"
  },
- "note": "user data = Packet Data Length + 1 - 62 (secondary header); 2 real samples per quad pair -> rate per complex sample = 8*bytes/(2*quads); includes FDBAQ block side information."
+ "note": "user data = raw Packet Data Length + 1 - 62 (secondary header); each quad holds two complex samples -> rate per complex sample = 8*bytes/(2*quads); includes FDBAQ block side information."
 }

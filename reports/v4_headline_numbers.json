@@ -754,15 +754,15 @@
  ],
  "learned_rescored": 30,
  "learned_best": {
-  "s1_focused": [
-   0.89,
-   0.251,
-   9825
-  ],
   "gotcha_gmti": [
    1.08,
    0.417,
    395
+  ],
+  "s1_focused": [
+   0.89,
+   0.251,
+   9825
   ]
  }
 }

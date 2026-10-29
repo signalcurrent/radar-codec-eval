@@ -11,7 +11,7 @@ with 29.3 dB contrast over scene median, and the image renders correctly at
 AFRL's stated display range of [-60, -10] dB.
 
 Why this dataset matters here: it is public PHASE-HISTORY data (our claimed
-domain) with MOVING TARGETS and GPS GROUND TRUTH — addressing the topic's
+domain) with MOVING TARGETS and GPS GROUND TRUTH — addressing the study's
 MTI language and our standing "detections are detector self-consistency"
 limitation. See reports/afrl_data_opportunities.md.
 

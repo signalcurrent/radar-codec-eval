@@ -34,7 +34,9 @@ def main():
     nq = next(c for c in sel.columns if "Number of Quads" in c)
     baq = [c for c in sel.columns if "BAQ" in c]
     # Packet Data Length is (bytes - 1) per CCSDS; the secondary header is 62 bytes; user data = PDL + 1 - 62
-    user_bytes = sel[pdl].astype(np.int64) + 1 - 62
+    # the decoder's 'Packet Data Length' column is already raw PDL + 1; user bytes = column - 62 (fixed 2026-10-29; the
+    # earlier +1 overstated the rate by 0.0004 bps)
+    user_bytes = sel[pdl].astype(np.int64) - 62
     quads = sel[nq].astype(np.int64)
     bits_per_complex = 8.0 * user_bytes / (2.0 * quads)
     out = {"chunk": int(chunk), "n_echoes_in_chunk": int(n), "rows_used": [int(r0), int(r0 + AZ)],
@@ -44,7 +46,7 @@ def main():
                                              "min": round(float(bits_per_complex.min()), 4),
                                              "max": round(float(bits_per_complex.max()), 4)},
            "baq_columns": {c: str(sel[c].iloc[0]) for c in baq},
-           "note": "user data = Packet Data Length + 1 - 62 (secondary header); 2 real samples per quad pair -> rate per complex sample = 8*bytes/(2*quads); includes FDBAQ block side information."}
+           "note": "user data = raw Packet Data Length + 1 - 62 (secondary header); each quad holds two complex samples -> rate per complex sample = 8*bytes/(2*quads); includes FDBAQ block side information."}
     (ROOT / "reports" / "fdbaq_rate.json").write_text(json.dumps(out, indent=1))
     print(json.dumps(out, indent=1))
 

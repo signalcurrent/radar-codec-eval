@@ -1,7 +1,7 @@
 """E7c: crop-exact FDBAQ bitstream rate. Re-parses the user data of the 4,096 crop echoes bit by bit (FDBAQ Huffman
 trees per the S-1 space-packet spec; same trees as sentinel1decoder v1.0.0 _fdbaq_decoder.py) and attributes
-sample-code bits to range samples, so the rate of the study crop (central 8,192 of 20,072 samples) is measured
-rather than the line average (E7b). Self-check: parsed bytes == PDL + 1 - 62 for every packet.
+sample-code bits to 128-quad blocks (the two blocks straddling the crop edge by block fraction), so the rate of the study crop (central 8,192 of 20,072 samples) is measured
+rather than the line average (E7b). Self-check: parsed bytes == decoder user-data bounds == header user bytes for every packet.
 
     python scripts/measure_fdbaq_rate_crop.py [--stride N]
 """
@@ -136,11 +136,12 @@ def main():
         gp = gps[i]
         off, ln = bounds[gp]
         data = raw[off:off + ln]
-        exp_bytes = int(sel[pdl].iloc[i]) + 1 - 62
+        # sentinel1decoder's 'Packet Data Length' column is already the raw CCSDS field + 1 (verified against the raw
+        # primary header, 2026-10-29), so user bytes = column - 62 (= raw PDL + 1 - 62).
+        exp_bytes = int(sel[pdl].iloc[i]) - 62
         brc, thidx, cb, nbytes, have = parse_packet(data, nq)
-        # header arithmetic (PDL + 1 - 62) and the decoder's user-data bounds differ by one byte; the parse must land
-        # exactly on the bounds length and within one byte of the header figure, else the Huffman walk desynchronised.
-        if nbytes != have or abs(nbytes - exp_bytes) > 1:
+        # the parse must land exactly on the decoder's user-data bounds AND on the header figure, else the Huffman walk desynchronised.
+        if nbytes != have or nbytes != exp_bytes:
             sys.exit(f"SELF-CHECK FAILED packet {gp}: parsed {nbytes} bytes, header says {exp_bytes}, user data len {have}")
         mism.append(exp_bytes - nbytes)
         cb = np.asarray(cb, dtype=np.float64)  # 4 x nblk sample-code bits
@@ -163,7 +164,7 @@ def main():
         "chunk": int(chunk), "rows_used": [int(r0), int(r0 + AZ)], "stride": a.stride, "echoes_parsed": used,
         "quads_per_echo": nq, "samples_per_echo": ns, "crop_cols": [c0, c0 + RG], "blocks_per_echo": nblk,
         "blocks_touching_crop": [int(np.flatnonzero(frac)[0]), int(np.flatnonzero(frac)[-1])],
-        "self_check": "parsed bytes (32-bit padded) == decoder user-data bounds for every parsed packet (PASS); header PDL+1-62 minus parsed bytes",
+        "self_check": "parsed bytes (32-bit padded) == decoder user-data bounds == header user bytes for every parsed packet (PASS)",
         "header_minus_parsed_bytes": {"min": int(min(mism)), "max": int(max(mism))},
         "crop_bits_per_complex_sample": {"mean": round(float(crop_rates.mean()), 4), "min": round(float(crop_rates.min()), 4),
                                          "max": round(float(crop_rates.max()), 4)},

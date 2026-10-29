@@ -427,7 +427,7 @@ else in this file; the scene's frame extends east to within a few km of
 Chicago's western suburbs but the evaluated crop is agricultural terrain,
 confirmed against the SAFE manifest footprint) — a clean held-out set
 that measures WITHIN-SCENE generalization only. Cross-scene/cross-clutter
-generalization (the topic's "regions not explicitly represented in
+generalization (the study's "regions not explicitly represented in
 training") is untested here and is proposed follow-on work, alongside the
 second-scene limitation already on record.
 
@@ -600,7 +600,7 @@ statement about the range-compressed domain.
 **Interpretation.** The behavior splits by task and domain, consistent with
 the coding-gain argument. In the raw-echo domain, where onboard compression
 actually operates, classical codecs lose most detections at operational
-rates; that is the neural codec's primary target and the topic's stated
+rates; that is the neural codec's primary target and the study's stated
 follow-on focus. In the focused domain the picture is task-dependent:
 classification (ATR) stays near ceiling down to ~2 bps, but transform coding
 still rings under detection (the tfocus result), so "focused domain is easy"
@@ -641,7 +641,7 @@ training set is Chicago, Houston, and São Paulo (verbatim from their paper,
 `reports/refs/asiyabi_text.txt` line 198: "three Sentinel-1 scenes acquired
 over Chicago and Houston in the United States, and São Paulo in Brazil").
 Checked ASF for genuine StripMap coverage (this pipeline needs StripMap,
-not IW — see `TOPIC.md` Known Alignment Gaps) over all three via
+not IW — see the study's scope notes) over all three via
 `scripts/download_s1.py --beam-mode S1..S6`:
 
 - **Chicago: no StripMap coverage found** (S1 through S6, zero results).
@@ -1313,7 +1313,7 @@ Theory grounding, term by term:
 - Eban's LEARNED Lagrange multiplier (auto-balancing beta_md/beta_fa): betas hand-set here
   so the run is a clean objective test, not a min-max tuning.
 - Wagner common-randomness STOCHASTIC decoder (arXiv:2202.04147; near-free rate cost for
-  distribution matching): an ARCHITECTURE change -> confounds objective isolation; GPU/Phase-I.
+  distribution matching): an ARCHITECTURE change -> confounds objective isolation; GPU/follow-on.
 - Smooth-AP ranking surrogate (arXiv:2007.12163): alternative to the hinge; try if hinge
   underperforms.
 - Detector-in-the-loop (Chamain, DCC 2020): backprop the actual CFAR/detector -> the endgame,
@@ -1788,7 +1788,7 @@ reconstruct -> CFAR at fixed Pfa, on a near-white circular-Gaussian source:
 (d) any realism/detection-aware objective provably injects synthetic structure that breaks Pfa
     control [Blau-Michaeli 2019; Theis-Wagner 2021; Zhang 2021] -> explains our 976 false alarms.
 This is the citable version of the negative result. Two escape routes: (A) the residual is NOT
-white (exploitable structure survives), (B) reframe deliverable to detection-product transport.
+white (exploitable structure survives), (B) reframe the output to detection-product transport.
 
 **Whiteness diagnostic (`scripts/whiteness_diagnostic.py`, our own scenes) settles route A:**
 | | Gotcha | S1 SM |
