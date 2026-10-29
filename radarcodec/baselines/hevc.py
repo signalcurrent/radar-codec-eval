@@ -25,13 +25,13 @@ def _find_ffmpeg():
 FFMPEG = _find_ffmpeg()
 
 
-def hevc_codec(iq, qp=20, **_):
-    """Returns (iq_hat, rate_bits_per_complex_sample)."""
+def hevc_codec(iq, qp=20, clip_q=99.99, **_):
+    """Returns (iq_hat, rate_bits_per_complex_sample). clip_q: plane-mapping clip percentile (E10 control; 100 = min/max)."""
     from radarcodec.baselines.planemap import plane_to_u16, u16_to_plane
 
     h, w = iq.shape
-    u16_i, c_i = plane_to_u16(iq.real.astype(np.float64))
-    u16_q, c_q = plane_to_u16(iq.imag.astype(np.float64))
+    u16_i, c_i = plane_to_u16(iq.real.astype(np.float64), clip_q)
+    u16_q, c_q = plane_to_u16(iq.imag.astype(np.float64), clip_q)
     u16 = np.ascontiguousarray(np.stack([u16_i, u16_q]).astype("<u2"))
 
     # 2026-10-29 (E0): libx265 accepts gray up to 12 bits, so the original call let ffmpeg convert the

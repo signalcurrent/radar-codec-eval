@@ -96,8 +96,19 @@ for dom, short, title in SCENES:
         body.append(f"Learned (best) & focused & {b['rate_bps']:.2f} & -- & {b['cfar_pd']:.3f} & {fmt(b['cfar_false'])} & no")
     if dom == "s1_focused":
         e7 = json.load(open(ROOT / "reports" / "e7_lossless.json"))
+        fd = json.load(open(ROOT / "reports" / "fdbaq_rate.json"))["fdbaq_bits_per_complex_sample"]["mean"]
+        e9 = json.load(open(ROOT / "reports" / "e9_entropy_baq.json"))["s1_raw"]
         body.insert(0, f"Lossless (memoryless entropy) & raw & {e7['s1_lossless_bps_complex']:.2f} & $\\infty$ & 1.000 & 0 & yes")
+        body.insert(0, f"FDBAQ bitstream (as delivered) & raw & {fd:.2f} & $\\infty$ & 1.000 & 0 & yes")
+        # entropy-coded BAQ rows: identical reconstruction to the fixed-rate rows
+        for bits in (6, 4, 3):
+            r = E[("baq", json.dumps({"bits": bits, "block": 128}, sort_keys=True))]
+            body.append(f"BAQ ({bits}-bit) + entropy coding & raw & {e9[f'baq{bits}']['entropy_coded_rate_bps']:.2f} & "
+                        f"{r['fidelity_img']['sqnr_db']:.1f} & {r['cfar_pd']:.3f} & {fmt(r['cfar_false'])} & {'yes' if ok(r) else 'no'}")
         H["s1_lossless_bps"] = round(e7["s1_lossless_bps_complex"], 2)
+        H["s1_fdbaq_bitstream_bps"] = round(fd, 2)
+        H["s1_ecbaq4_bps"] = round(e9["baq4"]["entropy_coded_rate_bps"], 2)
+        H["s1_ecbaq3_bps"] = round(e9["baq3"]["entropy_coded_rate_bps"], 2)
     extra = (" Focused-domain rows are results under the study's plane mapping, whose no-codec round trip clips 5.4\\% of this "
              "scene's reference peaks in that domain (Section~\\ref{sec:posthoc})." if dom == "gotcha_gmti" else
              " All rows are results under the study's plane mapping, whose no-codec round trip caps image SQNR at 9.0~dB on "

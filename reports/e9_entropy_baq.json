@@ -1,0 +1,62 @@
+{
+ "s1_raw": {
+  "baq2": {
+   "fixed_rate_bps": 4.125,
+   "entropy_I": 1.9808,
+   "entropy_Q": 1.9812,
+   "entropy_coded_rate_bps": 4.087,
+   "side_info_bps": 0.125
+  },
+  "baq3": {
+   "fixed_rate_bps": 6.125,
+   "entropy_I": 2.5965,
+   "entropy_Q": 2.6176,
+   "entropy_coded_rate_bps": 5.3391,
+   "side_info_bps": 0.125
+  },
+  "baq4": {
+   "fixed_rate_bps": 8.125,
+   "entropy_I": 2.8909,
+   "entropy_Q": 2.9082,
+   "entropy_coded_rate_bps": 5.9241,
+   "side_info_bps": 0.125
+  },
+  "baq6": {
+   "fixed_rate_bps": 12.125,
+   "entropy_I": 4.0114,
+   "entropy_Q": 4.0088,
+   "entropy_coded_rate_bps": 8.1452,
+   "side_info_bps": 0.125
+  }
+ },
+ "gotcha_ph": {
+  "baq2": {
+   "fixed_rate_bps": 4.125,
+   "entropy_I": 1.9306,
+   "entropy_Q": 1.9295,
+   "entropy_coded_rate_bps": 3.9851,
+   "side_info_bps": 0.125
+  },
+  "baq3": {
+   "fixed_rate_bps": 6.125,
+   "entropy_I": 2.8489,
+   "entropy_Q": 2.8485,
+   "entropy_coded_rate_bps": 5.8224,
+   "side_info_bps": 0.125
+  },
+  "baq4": {
+   "fixed_rate_bps": 8.125,
+   "entropy_I": 3.7988,
+   "entropy_Q": 3.7989,
+   "entropy_coded_rate_bps": 7.7227,
+   "side_info_bps": 0.125
+  },
+  "baq6": {
+   "fixed_rate_bps": 12.125,
+   "entropy_I": 5.9244,
+   "entropy_Q": 5.9247,
+   "entropy_coded_rate_bps": 11.9742,
+   "side_info_bps": 0.125
+  }
+ }
+}

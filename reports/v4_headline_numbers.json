@@ -36,6 +36,9 @@
   ]
  ],
  "s1_lossless_bps": 10.18,
+ "s1_fdbaq_bitstream_bps": 5.28,
+ "s1_ecbaq4_bps": 5.92,
+ "s1_ecbaq3_bps": 5.34,
  "gotcha_n_ref": 259,
  "gotcha_budget": 25.9,
  "gotcha_R_c": 10.93,

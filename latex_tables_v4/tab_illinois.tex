@@ -10,6 +10,7 @@
 \toprule
 Codec & Domain & Rate & SQNR & $P_d$ & Spur. & Sust. \\
 \midrule
+FDBAQ bitstream (as delivered) & raw & 5.28 & $\infty$ & 1.000 & 0 & yes \\
 Lossless (memoryless entropy) & raw & 10.18 & $\infty$ & 1.000 & 0 & yes \\
 HEVC (QP12) & raw & 14.13 & 39.2 & 0.991 & 118 & yes \\
 BAQ (6-bit) & raw & 12.12 & 30.7 & 0.977 & 282 & yes \\
@@ -27,6 +28,9 @@ JPEG2000 (r32) & focused & 1.00 & 3.2 & 0.775 & 31{,}142 & no \\
 JPEG2000 (r64) & focused & 0.50 & 1.8 & 0.768 & 74{,}611 & no \\
 JPEG2000 (r64) & raw & 0.50 & 1.4 & 0.252 & 3{,}795 & no \\
 Learned (best) & focused & 0.89 & -- & 0.251 & 9{,}825 & no \\
+BAQ (6-bit) + entropy coding & raw & 8.15 & 30.7 & 0.977 & 282 & yes \\
+BAQ (4-bit) + entropy coding & raw & 5.92 & 21.6 & 0.937 & 799 & yes \\
+BAQ (3-bit) + entropy coding & raw & 5.34 & 14.1 & 0.842 & 1{,}635 & no \\
 \bottomrule
 \end{tabular}}
 \end{table}

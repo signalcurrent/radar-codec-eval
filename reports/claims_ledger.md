@@ -64,6 +64,9 @@ Add lines for every remaining number in the manuscript before the JSTARS resubmi
 ## v2 corrections applied 2026-10-22 (scripts/patch_preprint_v2.py, 40 edits)
 See the Version note in latex/preprint.tex. BLOCKERS A1-A3 fixed; MAJORS A4-A14 addressed as text/scoping changes; new experiments deferred to the JSTARS revision (v3).
 
+
+## Legacy-scorer post hoc lines (E1/E5/E2/E3/E4/E6 entries below, written 2026-10-29 before the E0 scorer correction) — SUPERSEDED by the v4 block at the end of this file; retained for the record
+
 | E1-s1_focused | Spearman rho(image SQNR, spurious) among Pd>=0.9 configs = -0.967, n = 9 (revision Sec V, fidelity) | study=jstars_E1E5 rows, domain=s1_focused | scipy.stats.spearmanr on fidelity_img.sqnr_db vs cfar_false | POST-HOC |
 | E1-s1_focused-disc | 0 configuration pair(s) within 1 dB image SQNR with opposite two-sided verdicts (revision Sec V, fidelity) | same rows | pairwise |SQNR_a - SQNR_b| <= 1.0 and verdict_a != verdict_b | POST-HOC |
 | E5-s1_focused-pfa0.0001_tol1 | R_c = 7.859 bps, 6 sustaining (revision Sec V, sensitivity table) | sensitivity[pfa0.0001_tol1] on study=jstars_E1E5 rows | min rate over rows with pd>=0.9 and n_false<=0.1*n_ref at that setting | POST-HOC |
